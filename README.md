@@ -65,6 +65,6 @@
 
 ### מבנה הDB
 
-![DB ERD](./db_erd.png)
+![DB ERD](./Screenshot%202023-06-04%20at%2020.16.39.png)
 
 
