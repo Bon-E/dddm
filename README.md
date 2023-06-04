@@ -9,6 +9,16 @@
 - דניאל פרץ</br>
 </div>
 
+### טכנולוגיות
+<div dir="rtl">
+- HTML</br>
+- CSS</br>
+- BOOTSTRAP</br>
+- NODEJS</br>
+- EXPRESS</br>
+- JQUERY</br>
+</div>
+
 ### פונקציונאליות האתר
 
 
