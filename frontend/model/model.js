@@ -1,47 +1,87 @@
 const Model = (function () {
-    let instance; // make the model a singleton
 
-    let header = undefined;
-    let cityArray = [];
-    let platforms = [];
-    let categories = [];
-    let vendors = [];
+    let instance;
 
-    function init() { // functions to control the model
+    let data = {
+        header: undefined,
+        isLogged: false,
+        cityArray: [],
+        platforms: [],
+        categories: [],
+        vendors: []
+    };
+
+    function init_localStorage() {
+        save_localStorage(); // initialize localStorage with initialized data variable
+    }
+
+    function load_localStorage() {
+        let model = JSON.parse(localStorage.getItem('Model'));
+        if (Object.keys(model).length === 0) {
+            init_localStorage();
+        }
+
+        data = model;
+    }
+
+    function save_localStorage() {
+        localStorage.setItem('Model', JSON.stringify(data));
+    }
+
+    function init() {
+        load_localStorage();
+
         return {
+
             getCities: function () {
-                return cityArray;
+                return data.cityArray;
             },
-            setCities: function (cities) {
-                cityArray = cities;
+            setCities: function (c) {
+                data.cityArray = c;
             },
-            getHeader: function () {
-                return header;
-            },
-            setHeader: function (h) {
-                header = h;
-            },
-            getPlatforms: function () {
-                return platforms;
-            },
-            setPlatforms: function (p) {
-                platforms = p;
-            },
+
             getCategories: function () {
-                return categories;
+                return data.categories;
             },
             setCategories: function (c) {
-                categories = c;
+                data.categories = c;
             },
+
             getVendors: function () {
-                return vendors;
+                return data.vendors;
             },
             setVendors: function (v) {
-                vendors = v;
+                data.vendors = v;
+            },
+
+            getPlatforms: function () {
+                return data.platforms;
+            },
+            setPlatforms: function (p) {
+                data.platforms = p;
+            },
+
+            getHeader: function () {
+                return data.header;
+            },
+            setHeader: function (h) {
+                data.header = h;
+            },
+
+            getIsLogged: function () {
+                return data.isLogged;
+            },
+            setIsLogged: function (l) {
+                data.isLogged = l;
+            },
+
+            saveData: function () {
+                save_localStorage();
             }
         }
     }
-    return { // return instance of the singleton model
+
+    return {
         getInstance: function () {
             if (! instance) {
                 instance = init();

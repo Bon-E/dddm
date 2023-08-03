@@ -1,8 +1,8 @@
 $(document).ready(function () {
     initPage().then(() => {
         routePages();
-        console.log(Model.getInstance().getPlatforms());
-        console.log(Model.getInstance().getCategories());
+        // console.log(Model.getInstance().getPlatforms());
+        // console.log(Model.getInstance().getCategories());
 
         populatePlatformsSelection();
         populateCategoriesSelection();

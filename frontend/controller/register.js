@@ -1,3 +1,4 @@
+import {Model} from '/model/model';
 $(document).ready(() => {
 
     loadHeader().then(() => {

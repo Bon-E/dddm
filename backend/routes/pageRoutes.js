@@ -25,6 +25,6 @@ router.get("/header", (req, res) => {
 
 router.get("/products_maint", (req, res) => {
     res.sendFile(views_dir + "maintain_products.html");
-})
+});
 
 module.exports = router;

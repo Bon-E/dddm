@@ -5,6 +5,7 @@ async function initPage() {
 
 async function checkAndInitModel() {
     let model = Model.getInstance();
+
     if (!Array.isArray(model.getPlatforms()) || ! model.getPlatforms().length) {
         await initPlatforms();
     }
@@ -15,6 +16,7 @@ async function checkAndInitModel() {
         await initVendors();
     }
 }
+
 async function initPlatforms() {
     let model = Model.getInstance();
     $.get('/get_platforms').done(platforms => {
