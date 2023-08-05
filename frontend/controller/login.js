@@ -19,11 +19,14 @@ function login(event) {
             },
             success: function (res) {
                 if (res) {
-                    $.get()
-                    model.setIsLogged(true);
-                    model.saveData(); // save model data to local storage before redirecting
-                    alert("Successfully logged in");
-                    window.location.href = "/"; // redirect back to main screen
+                    $.get('/isAdmin').done(res => {
+                        model.setIsAdmin(res);
+                        model.setIsLogged(true);
+                        // save model data to local storage before redirecting
+                        model.saveData();
+                        alert("Successfully logged in");
+                        window.location.href = "/";
+                    });
                 }
             },
             error: function (err) {

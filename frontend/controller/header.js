@@ -43,8 +43,10 @@ const hide_show_elements = () => {
         $("#loginBtn").hide();
         $("#registerBtn").hide();
         $("#disconnectBtn").show();
-        if (true) { // check if admin here from model
+        if (model.getIsAdmin()) {
             $("#maintainProductsBtn").show();
+        } else {
+            $("#maintainProductsBtn").hide();
         }
     } else {
         $("#maintainProductsBtn").hide();

@@ -45,10 +45,10 @@ router.get('/authenticate', (req, res) => {
 });
 
 router.get('/isAdmin', (req, res) => {
-    utils.isAdmin(req.session.user).then(res => {
-        return res;
+    utils.isAdmin(req.session.user).then(admin => {
+        res.send(admin);
     }).catch(() => {
-        return false;
+        res.send(false);
     });
 });
 

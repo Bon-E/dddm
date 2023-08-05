@@ -13,11 +13,19 @@ router.get("/", (req, res) => {
 });
 
 router.get("/register", (req, res) => {
-    res.sendFile(views_dir + "register.html");
+    if (req.session.user != null || req.session.user != undefined) {
+        res.sendFile(views_dir + "register.html");
+    } else {
+        res.sendFile(views_dir + "index.html");
+    }
 });
 
 router.get("/login", (req, res) => {
-    res.sendFile(views_dir + "login.html");
+    if (req.session.user != null || req.session.user != undefined) {
+        res.sendFile(views_dir + "login.html");
+    } else {
+        res.sendFile(views_dir + "index.html");
+    }
 });
 
 router.get("/header", (req, res) => {
