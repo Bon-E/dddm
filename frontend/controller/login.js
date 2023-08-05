@@ -1,8 +1,6 @@
 $(document).ready(() => {
     initPage().then(() => {
         routePages();
-        // console.log(Model.getInstance().getPlatforms());
-        // console.log(Model.getInstance().getCategories());
     });
 });
 
@@ -22,8 +20,7 @@ function login(event) {
             success: function (res) {
                 if (res) {
                     model.setIsLogged(true);
-                    model.saveData();
-                    console.log('COOL!!! ', model.getIsLogged());
+                    model.saveData(); // save model data to local storage before redirecting
                     alert("Successfully logged in");
                     window.location.href = "/"; // redirect back to main screen
                 }

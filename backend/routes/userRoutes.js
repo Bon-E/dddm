@@ -25,7 +25,7 @@ router.post("/create_user", async (req, res) => {
     } = req.body;
 
     try {
-        const savedUser = await db_user.addUser(username, password, fname, lname, email, phone, birthday, address);
+        await db_user.addUser(username, password, fname, lname, email, phone, birthday, address);
         res.status(200).send();
     } catch (error) {
         res.status(500).send('Error registering user.');
