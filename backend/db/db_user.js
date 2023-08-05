@@ -1,4 +1,4 @@
-const {User} = require('./schemas');
+const {User, UserType} = require('./schemas');
 
 async function _getAllUsers() {
     const query = await User.find({});

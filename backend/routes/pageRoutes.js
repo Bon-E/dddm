@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const utils = require('../util');
 
 const router = express.Router();
 
@@ -12,11 +13,19 @@ router.get("/", (req, res) => {
 });
 
 router.get("/register", (req, res) => {
-    res.sendFile(views_dir + "register.html");
+    if (req.session.user == null || req.session.user == undefined) {
+        res.sendFile(views_dir + "register.html");
+    } else {
+        res.redirect('/');
+    }
 });
 
 router.get("/login", (req, res) => {
-    res.sendFile(views_dir + "login.html");
+    if (req.session.user == null || req.session.user == undefined) {
+        res.sendFile(views_dir + "login.html");
+    } else {
+        res.redirect('/');
+    }
 });
 
 router.get("/header", (req, res) => {
@@ -24,7 +33,13 @@ router.get("/header", (req, res) => {
 });
 
 router.get("/products_maint", (req, res) => {
-    res.sendFile(views_dir + "maintain_products.html");
-})
+    utils.isAdmin(req.session.user).then(r => {
+        if (r) {
+            res.sendFile(views_dir + "maintain_products.html");
+        } else {
+            res.redirect('/');
+        }
+    });
+});
 
 module.exports = router;

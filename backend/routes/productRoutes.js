@@ -1,9 +1,7 @@
 const express = require('express');
 const db_product = require('../db/db_product');
 
-
 const router = express.Router();
-
 
 router.post('/create_product', (req, res) => {
 
