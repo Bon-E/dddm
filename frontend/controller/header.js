@@ -23,6 +23,14 @@ const routePages = () => {
     $("#registerBtn").on('click', () => {
         window.location.href = '/register';
     });
+
+    $("#disconnectBtn").on('click', () => {
+        $.get('/disconnect').done((res) => {
+            let model = Model.getInstance();
+            model.initData();
+            window.location.href = '/';
+        });
+    });
 }
 
 const hide_show_elements = () => {
@@ -30,7 +38,9 @@ const hide_show_elements = () => {
     if (model.getIsLogged() == true) {
         $("#loginBtn").hide();
         $("#registerBtn").hide();
+        $("#disconnectBtn").show();
     } else {
+        $("#disconnectBtn").hide();
         $("#loginBtn").show();
         $("#registerBtn").show();
     }

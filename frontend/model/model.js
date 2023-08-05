@@ -2,16 +2,17 @@ const Model = (function () {
 
     let instance;
 
-    let data = {
-        header: undefined,
-        isLogged: false,
-        cityArray: [],
-        platforms: [],
-        categories: [],
-        vendors: []
-    };
+    let data;
 
     function init_localStorage() {
+        data = {
+            header: undefined,
+            isLogged: false,
+            cityArray: [],
+            platforms: [],
+            categories: [],
+            vendors: []
+        };
         save_localStorage(); // initialize localStorage with initialized data variable
     }
 
@@ -77,6 +78,9 @@ const Model = (function () {
 
             saveData: function () {
                 save_localStorage();
+            },
+            initData: function () {
+                init_localStorage();
             }
         }
     }
