@@ -16,8 +16,8 @@ const Model = (function () {
     }
 
     function load_localStorage() {
-        let model = JSON.parse(localStorage.getItem('Model'));
-        if (Object.keys(model).length === 0) {
+        let model = JSON.parse(sessionStorage.getItem('Model'));
+        if (model === null || model === undefined || Object.keys(model).length === 0) {
             init_localStorage();
         }
 
@@ -25,7 +25,7 @@ const Model = (function () {
     }
 
     function save_localStorage() {
-        localStorage.setItem('Model', JSON.stringify(data));
+        sessionStorage.setItem('Model', JSON.stringify(data));
     }
 
     function init() {
