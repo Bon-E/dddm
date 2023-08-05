@@ -26,11 +26,10 @@ router.get("/header", (req, res) => {
 
 router.get("/products_maint", (req, res) => {
     utils.isAdmin(req.session.user).then(r => {
-        console.log('ok, ', r)
         if (r) {
             res.sendFile(views_dir + "maintain_products.html");
         } else {
-            res.status(500).send();
+            res.sendFile(views_dir + "index.html");
         }
     });
 });
