@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const utils = require('../util');
 
 const router = express.Router();
 
@@ -24,7 +25,14 @@ router.get("/header", (req, res) => {
 });
 
 router.get("/products_maint", (req, res) => {
-    res.sendFile(views_dir + "maintain_products.html");
+    utils.isAdmin(req.session.user).then(r => {
+        console.log('ok, ', r)
+        if (r) {
+            res.sendFile(views_dir + "maintain_products.html");
+        } else {
+            res.status(500).send();
+        }
+    });
 });
 
 module.exports = router;

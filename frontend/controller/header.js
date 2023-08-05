@@ -24,6 +24,10 @@ const routePages = () => {
         window.location.href = '/register';
     });
 
+    $("#maintainProductsBtn").on('click', () => {
+        window.location.href = '/products_maint';
+    });
+
     $("#disconnectBtn").on('click', () => {
         $.get('/disconnect').done((res) => {
             let model = Model.getInstance();
@@ -39,7 +43,11 @@ const hide_show_elements = () => {
         $("#loginBtn").hide();
         $("#registerBtn").hide();
         $("#disconnectBtn").show();
+        if (true) { // check if admin here from model
+            $("#maintainProductsBtn").show();
+        }
     } else {
+        $("#maintainProductsBtn").hide();
         $("#disconnectBtn").hide();
         $("#loginBtn").show();
         $("#registerBtn").show();
