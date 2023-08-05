@@ -2,11 +2,9 @@ const loadHeader = async () => {
     let model = Model.getInstance();
     if (model.getHeader() == undefined) {
         await $.get('/header').done((res_data) => {
-            console.log('loaded!');
             model.setHeader(res_data);
         });
     }
-    console.warn(model.getIsLogged());
     $('#_header').html(model.getHeader());
     hide_show_elements();
 }

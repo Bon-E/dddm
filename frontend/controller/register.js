@@ -1,11 +1,8 @@
-import {Model} from '/model/model';
 $(document).ready(() => {
-
     loadHeader().then(() => {
         routePages();
+        fetchCities();
     });
-
-    fetchCities();
 
     $('#phoneNumber').on('input', function () {
         var inputValue = $(this).val();
@@ -16,8 +13,9 @@ $(document).ready(() => {
 
     $("#city").autocomplete({
         minLength: 2,
-        source: function (request, resolve) { // fetch new values with request.term
+        source: function (request, resolve) {
             let model = Model.getInstance();
+            // fetch new values with request.term
             const filteredCities = model.getCities().filter(function (city) {
                 return city.toLowerCase().indexOf(request.term.toLowerCase()) === 0;
             });
@@ -26,6 +24,7 @@ $(document).ready(() => {
     });
 
 });
+
 $(function () {
     $('#firstName').on('input', function () {
         var inputValue = $(this).val();
@@ -34,16 +33,16 @@ $(function () {
     });
 });
 
-function sanitizeInput(input) { // Remove any non-letter characters using regular expression
+// Remove any non-letter characters using regular expression
+function sanitizeInput(input) {
     var sanitized = input.replace(/[^a-zA-Z]/g, '');
     return sanitized;
 }
 
 const handle_register = (event) => {
     event.preventDefault();
-    if (comparePasswords(event)) { // continue
-        alert("chupapi");
-        $.post("/new_user", {fname: "chupapi"});
+    if (comparePasswords()) {
+        addNewUser(createUserData());
     }
 };
 
@@ -71,7 +70,7 @@ const createUserData = () => {
         fname,
         lname,
         email,
-        phone: phone,
+        phone,
         birthday,
         address
     };
@@ -81,13 +80,14 @@ const createUserData = () => {
 
 const addNewUser = (userData) => {
     $.post('/create_user', userData).done(savedUser => { // TODO: redirect to login page
-        console.log('User registered successfully:', savedUser);
+        alert('Successfully registered !');
+        window.location.href = "/login";
     }).fail(error => { // TODO: show error message in page, not in the console
         console.error('Error registering user:', error);
     });
 };
 
-function comparePasswords(event) {
+function comparePasswords() {
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
 

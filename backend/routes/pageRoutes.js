@@ -13,18 +13,18 @@ router.get("/", (req, res) => {
 });
 
 router.get("/register", (req, res) => {
-    if (req.session.user != null || req.session.user != undefined) {
+    if (req.session.user == null || req.session.user == undefined) {
         res.sendFile(views_dir + "register.html");
     } else {
-        res.sendFile(views_dir + "index.html");
+        res.redirect('/');
     }
 });
 
 router.get("/login", (req, res) => {
-    if (req.session.user != null || req.session.user != undefined) {
+    if (req.session.user == null || req.session.user == undefined) {
         res.sendFile(views_dir + "login.html");
     } else {
-        res.sendFile(views_dir + "index.html");
+        res.redirect('/');
     }
 });
 
@@ -37,7 +37,7 @@ router.get("/products_maint", (req, res) => {
         if (r) {
             res.sendFile(views_dir + "maintain_products.html");
         } else {
-            res.sendFile(views_dir + "index.html");
+            res.redirect('/');
         }
     });
 });
