@@ -18,7 +18,7 @@ async function _addProduct(name, description, category_id, platform_id, vendor_i
                 }
             ]
         });
-        console.log(newProduct);
+        // console.log(newProduct);
         const savedProduct = await newProduct.save();
         return savedProduct;
 
