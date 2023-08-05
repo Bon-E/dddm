@@ -1,17 +1,18 @@
 const Model = (function () {
 
     let instance;
-
     let data;
+
+    let cityArray = [];
+    let platforms = [];
+    let categories = [];
+    let vendors = [];
+    let header = undefined;
 
     function init_localStorage() {
         data = {
-            header: undefined,
             isLogged: false,
-            cityArray: [],
-            platforms: [],
-            categories: [],
-            vendors: []
+            isAdmin: false
         };
         save_localStorage(); // initialize localStorage with initialized data variable
     }
@@ -35,38 +36,38 @@ const Model = (function () {
         return {
 
             getCities: function () {
-                return data.cityArray;
+                return cityArray;
             },
             setCities: function (c) {
-                data.cityArray = c;
+                cityArray = c;
             },
 
             getCategories: function () {
-                return data.categories;
+                return categories;
             },
             setCategories: function (c) {
-                data.categories = c;
+                categories = c;
             },
 
             getVendors: function () {
-                return data.vendors;
+                return vendors;
             },
             setVendors: function (v) {
-                data.vendors = v;
+                vendors = v;
             },
 
             getPlatforms: function () {
-                return data.platforms;
+                return platforms;
             },
             setPlatforms: function (p) {
-                data.platforms = p;
+                platforms = p;
             },
 
             getHeader: function () {
-                return data.header;
+                return header;
             },
             setHeader: function (h) {
-                data.header = h;
+                header = h;
             },
 
             getIsLogged: function () {
@@ -74,6 +75,13 @@ const Model = (function () {
             },
             setIsLogged: function (l) {
                 data.isLogged = l;
+            },
+
+            getIsAdmin: function () {
+                return data.isAdmin;
+            },
+            setIsAdmin: function (a) {
+                data.isAdmin = a;
             },
 
             saveData: function () {

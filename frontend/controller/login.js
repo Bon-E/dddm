@@ -19,6 +19,7 @@ function login(event) {
             },
             success: function (res) {
                 if (res) {
+                    $.get()
                     model.setIsLogged(true);
                     model.saveData(); // save model data to local storage before redirecting
                     alert("Successfully logged in");

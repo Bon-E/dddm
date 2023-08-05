@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const db_user = require('../db/db_user');
+const utils = require('../util');
+const util = require('../util');
 
 const router = express.Router();
 
@@ -42,9 +44,19 @@ router.get('/authenticate', (req, res) => {
     });
 });
 
+router.get('/isAdmin', (req, res) => {
+    utils.isAdmin(req.session.user).then(res => {
+        return res;
+    }).catch(() => {
+        return false;
+    });
+});
+
+
 router.get('/disconnect', (req, res) => {
     req.session.destroy();
     res.status(200).send();
 });
+1
 
 module.exports = router;
