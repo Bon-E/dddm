@@ -1,0 +1,38 @@
+input[type="text"],
+input[type="email"] {
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+.address-section {
+    margin-bottom: 20px;
+  }
+
+  .address-section h1 {
+    margin-bottom: 10px;
+  }
+
+  .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .form-group label {
+    flex: 0 0 100px; /* Adjust the width as needed */
+    margin-right: 10px;
+  }
+  .form-select-arrow::after {
+    content: '';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 6px solid rgba(0, 0, 0, 0.3);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+  }
+  #register{
+    margin-top: 30px;
+}

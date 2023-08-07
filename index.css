@@ -1,0 +1,12 @@
+.btn-spacing {
+    margin-right: 10px;
+}
+#cards {
+    margin-top: 100px;
+    margin-left: 10px;
+}
+
+.card {
+    width: 25rem;
+    height: 100%;
+}

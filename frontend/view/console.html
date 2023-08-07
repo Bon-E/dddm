@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game store</title>
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"  />
+    <link rel="stylesheet"  href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="./../css/index.css" />
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="./../controller/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+  <body>
+    <header id="header" class="fixed-top">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand" href="#">Game Store</a>
+          <button id="loginBtn" class="btn btn-primary">Login</button>
+          <button id="registerBtn" class="btn btn-primary btn-spacing">
+            Register
+          </button>
+          <form class="d-flex ms-auto">
+            <input
+              id="search"
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-primary" type="submit">
+              Search
+            </button>
+          </form>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a id="homebtn" class="nav-link" href="#" onclick="refreshPage()"
+                ><i class="fas fa-home"></i
+              ></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"
+                ><i class="fas fa-shopping-cart"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div id="cards" class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <div class="card text-bg-secondary mb-3">
+            <img
+              src="https://th.bing.com/th/id/R.264af32b7e86534b364fb0a0143b8341?rik=gP3qGTXV25LK5A&pid=ImgRaw&r=0"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">קונסולות</h5>
+              <p class="card-text">הקונסולות האהובות על כולנו</p>
+              <a id="playStation" href="#" class="btn btn-primary">לרכישה</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3">
+          <div class="card text-bg-secondary mb-3">
+            <img src="" class="card-img-top" alt="image/61691379c.webp" />
+            <div class="card-body">
+              <h5 class="card-title">nintendo</h5>
+              <p class="card-text">
+                המשחקים האהובים על כל ילד במדינה לכל הפלטפורמות
+              </p>
+              <a id="nintendoBtn" href="#" class="btn btn-primary">לרכישה</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3">
+          <div class="card text-bg-secondary mb-3">
+            <img
+              src=""
+              class="card-img-top"
+              alt="image/c3ec2eb8-5e51-4d82-a601-41d00a5e735b.jpg"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Xbox</h5>
+              <p class="card-text">
+                המשחקים האהובים על כל ילד במדינה לכל הפלטפורמות
+              </p>
+              <a id="xboxBtn" href="#" class="btn btn-primary">לרכישה</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+
+
+  </body>
+</html>
