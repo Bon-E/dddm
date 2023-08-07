@@ -3,11 +3,11 @@ const Model = (function () {
     let instance;
     let data;
 
+    let header = undefined;
     let cityArray = [];
     let platforms = [];
     let categories = [];
     let vendors = [];
-    let header = undefined;
 
     function init_localStorage() {
         data = {

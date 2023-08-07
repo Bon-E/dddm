@@ -52,6 +52,11 @@ router.get('/isAdmin', (req, res) => {
     });
 });
 
+router.get('/isLogged', (req, res) => {
+    utils.isLogged(req.session.user).then(logged => {
+        res.send(logged);
+    });
+});
 
 router.get('/disconnect', (req, res) => {
     req.session.destroy();

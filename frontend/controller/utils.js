@@ -1,6 +1,17 @@
 async function initPage() {
+    await checkIsLogged();
     await checkAndInitModel();
     await loadHeader();
+}
+
+async function checkIsLogged() {
+    let model = Model.getInstance();
+
+    await $.get('/isLogged', logged => {
+        if (!logged) {
+            model.initData();
+        }
+    });
 }
 
 async function checkAndInitModel() {

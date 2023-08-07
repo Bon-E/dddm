@@ -8,6 +8,11 @@ async function _isAdmin(user) {
     return user.type == userType[0]._id;
 }
 
+async function _isLogged(user) {
+    return user != undefined && user != null;
+}
+
 module.exports = {
-    isAdmin: _isAdmin
+    isAdmin: _isAdmin,
+    isLogged: _isLogged
 }
