@@ -8,6 +8,7 @@ const Model = (function () {
     let platforms = [];
     let categories = [];
     let vendors = [];
+    let products = [];
 
     function init_localStorage() {
         data = {
@@ -68,6 +69,13 @@ const Model = (function () {
             },
             setHeader: function (h) {
                 header = h;
+            },
+
+            getProducts: function () {
+                return products;
+            },
+            setProducts: function (p) {
+                products = p;
             },
 
             getIsLogged: function () {

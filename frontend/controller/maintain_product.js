@@ -2,11 +2,18 @@ $(document).ready(function () {
     initPage().then(() => {
         routePages();
 
+        $.get('/get_products').done((products) => {
+            console.log(products);
+            let model = Model.getInstance();
+            model.setProducts(products);
+            populateProductTable();
+        });
+
+
         populatePlatformsSelection();
         populateCategoriesSelection();
         populateVendorsSelection();
 
-        // populateProductTable();
     });
 });
 
@@ -81,30 +88,14 @@ function populateVendorsSelection() {
 
 // Function to populate the product table
 function populateProductTable() { // Sample data for demonstration
-    const products = [
-        {
-            name: "Product 1",
-            description: "Description 1",
-            price: 19.99,
-            stock: 10,
-            category: "Game",
-            platform: "PC"
-        }, {
-            name: "Product 2",
-            description: "Description 2",
-            price: 29.99,
-            stock: 5,
-            category: "Console",
-            platform: "Sony Playstation"
-        },
-        // Add more product objects as needed
-    ];
+
+    let model = Model.getInstance();
 
     // Clear the existing table rows
     $("#productTableBody").empty();
 
     // Iterate over the products array and create table rows dynamically
-    for (const product of products) { // Create a new table row
+    for (const product of model.getProducts()) { // Create a new table row
         const row = $("<tr></tr>");
 
         // Add table cells for each product property
@@ -121,10 +112,10 @@ function populateProductTable() { // Sample data for demonstration
             product.stock
         }</td>`);
         row.append(`<td>${
-            product.category
+            product.category_id
         }</td>`);
         row.append(`<td>${
-            product.platform
+            product.platform_id
         }</td>`);
 
         // Create an "Edit" button and add an event listener

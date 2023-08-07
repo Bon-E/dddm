@@ -35,8 +35,10 @@ router.get("/header", (req, res) => {
 router.get("/products_maint", (req, res) => {
     utils.isAdmin(req.session.user).then(r => {
         if (r) {
+            console.log('ok !');
             res.sendFile(views_dir + "maintain_products.html");
         } else {
+            console.log('why though :(');
             res.redirect('/');
         }
     });

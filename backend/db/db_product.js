@@ -28,6 +28,13 @@ async function _addProduct(name, description, category_id, platform_id, vendor_i
     }
 }
 
+async function _getProducts(q = {}, opt = {}) {
+    const query = await Product.find(q, opt);
+    return query;
+}
+
+
 module.exports = {
+    getProducts: _getProducts,
     addProduct: _addProduct
 }

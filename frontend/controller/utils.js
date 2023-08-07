@@ -7,11 +7,10 @@ async function initPage() {
 async function checkIsLogged() {
     let model = Model.getInstance();
 
-    await $.get('/isLogged', logged => {
-        if (!logged) {
-            model.initData();
-        }
-    });
+    const logged = await $.get('/isLogged');
+    if (! logged) {
+        model.initData();
+    }
 }
 
 async function checkAndInitModel() {

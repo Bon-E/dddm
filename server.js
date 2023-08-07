@@ -52,6 +52,7 @@ function server() {
 
     // serve static files
     app.use(express.static(path.join(__dirname, '/frontend')));
+    app.use(express.static(path.join(__dirname, '/backend/upload')));
 
     // routes
     process.stdout.write('Setting up routes... ');
