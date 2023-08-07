@@ -1,0 +1,105 @@
+body {
+    background-color: rgb(230, 230, 221);
+
+}
+
+h1 {
+    text-decoration: underline;
+}
+
+.addVendor {
+    border: 5px sienna;
+}
+
+.input-group-text {
+    margin-bottom: 10px;
+}
+
+button {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 300px;
+}
+
+tr {
+    text-align: center;
+}
+
+table th {
+    background-color: antiquewhite;
+    border: 2px solid gray;
+    padding: 3px;
+    width: 300px;
+}
+
+table td {
+    border: 2px solid gray;
+}
+
+.deleteButton {
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left: 15px;
+    background-color: lightcoral;
+    border: 2px solid black;
+}
+
+.deleteButton:hover {
+    transform: scale(1.1);
+}
+
+.editButton {
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left: 15px;
+    background-color: lightskyblue;
+    border: 2px solid black;
+}
+
+.editButton:hover {
+    transform: scale(1.1);
+}
+
+
+.content,
+input,
+table,
+tbody {
+    text-align: center;
+    margin-inline: auto;
+}
+
+
+.add-vendor-wrapper {
+    margin: auto;
+    text-align: left;
+    width: fit-content;
+    border: 2px solid grey;
+    box-shadow: 0px 0px 5px 0px grey;
+    padding: 40px;
+    border-radius: 30px;
+    margin-block: 20px;
+}
+
+.add-vendor-wrapper button {
+    display: block;
+    margin: 20px auto 0px;
+    text-align: center;
+}
+
+.buttons-wrapper {
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: auto;
+    width: fit-content;
+    padding-inline: 10px;
+}
+
+td{
+    white-space: nowrap;
+    padding-inline: 10px;
+}

@@ -33,6 +33,11 @@ const routePages = () => {
             window.location.href = '/';
         });
     });
+
+    $("#vendorsbtn").on('click', () => {
+        window.location.href = '/vendors';
+    });
+
 }
 
 const hide_show_elements = () => {
