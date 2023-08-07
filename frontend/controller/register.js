@@ -1,19 +1,8 @@
 $(document).ready(() => {
-    // document.getElementById('loginBtn').addEventListener('click', function () {
-    //     window.location.href = '/login';
-    // });
-    document.getElementById('homeBtn').addEventListener('click', function () {
-        window.location.href = '/';
+    loadHeader().then(() => {
+        routePages();
+        fetchCities();
     });
-    document.getElementById('registerBtn').addEventListener('click', function () {
-        window.location.href = '/register';
-    });
-    // document.getElementById('console').addEventListener('click', function() {
-    // window.location.href = '/consoles';
-    // );
-    // document.getElementById('allGames').addEventListener('click', function() {
-    // window.location.href = '/games';
-    // });
 
     $('#phoneNumber').on('input', function () {
         var inputValue = $(this).val();
@@ -22,46 +11,38 @@ $(document).ready(() => {
         }
     });
 
-    fetchCities();
-
     $("#city").autocomplete({
         minLength: 2,
-        source: function (request, resolve) { // fetch new values with request.term
-            const filteredCities = getCities().filter(function (city) {
+        source: function (request, resolve) {
+            let model = Model.getInstance();
+            // fetch new values with request.term
+            const filteredCities = model.getCities().filter(function (city) {
                 return city.toLowerCase().indexOf(request.term.toLowerCase()) === 0;
             });
             resolve(filteredCities);
         }
     });
 
-    function sanitizeInput(input) { // Remove any non-letter characters using regular expression
-        var sanitized = input.replace(/[^a-zA-Z]/g, '');
-        return sanitized;
-    };
-
-    $(function () {
-        $('#lastName').on('input', function () {
-            var inputValue = $(this).val();
-            var sanitizedValue = sanitizeInput(inputValue);
-            $(this).val(sanitizedValue);
-        });
-    });
-
-    $(function () {
-        $('#firstName').on('input', function () {
-            var inputValue = $(this).val();
-            var sanitizedValue = sanitizeInput(inputValue);
-            $(this).val(sanitizedValue);
-        });
-    });
-
 });
+
+$(function () {
+    $('#firstName').on('input', function () {
+        var inputValue = $(this).val();
+        var sanitizedValue = sanitizeInput(inputValue);
+        $(this).val(sanitizedValue);
+    });
+});
+
+// Remove any non-letter characters using regular expression
+function sanitizeInput(input) {
+    var sanitized = input.replace(/[^a-zA-Z]/g, '');
+    return sanitized;
+}
 
 const handle_register = (event) => {
     event.preventDefault();
-    if (comparePasswords(event)) {
-        const userData = createUserData();
-        addNewUser(userData);
+    if (comparePasswords()) {
+        addNewUser(createUserData());
     }
 };
 
@@ -89,7 +70,7 @@ const createUserData = () => {
         fname,
         lname,
         email,
-        phone: phone,
+        phone,
         birthday,
         address
     };
@@ -99,14 +80,15 @@ const createUserData = () => {
 };
 
 const addNewUser = (userData) => {
-    $.post('/create_user', userData).done(savedUser => {
-        console.log('User registered successfully:', savedUser);
-    }).fail(error => {
+    $.post('/create_user', userData).done(savedUser => { // TODO: redirect to login page
+        alert('Successfully registered !');
+        window.location.href = "/login";
+    }).fail(error => { // TODO: show error message in page, not in the console
         console.error('Error registering user:', error);
     });
 };
 
-function comparePasswords(event) {
+function comparePasswords() {
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
 

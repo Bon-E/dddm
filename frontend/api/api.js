@@ -1,4 +1,5 @@
 const fetchCities = async function () {
+    let model = Model.getInstance();
     try {
         const data = await $.ajax({
             url: "https://data.gov.il/api/3/action/datastore_search",
@@ -7,10 +8,9 @@ const fetchCities = async function () {
                 limit: 10000
             }
         });
-
         const records = data.result.records;
         const cityNames = records.map((record) => record["שם_ישוב_לועזי"]);
-        cityArray = cityNames;
+        model.setCities(cityNames);
 
     } catch (error) {
         console.error("Error:", error);

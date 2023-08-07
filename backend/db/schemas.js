@@ -1,6 +1,5 @@
-const {ObjectId} = require('mongodb');
+const {ObjectId, Decimal128} = require('mongodb');
 const mongoose = require('mongoose');
-
 const {Schema} = mongoose;
 
 const user_Schema = new Schema({
@@ -74,6 +73,7 @@ const products_Schema = new Schema({
     image: String,
     pricing: [
         {
+            _id: false,
             price: Number,
             changed_on: Date,
             changed_by: ObjectId
@@ -95,7 +95,7 @@ const Status = mongoose.model('Status', statuses_Schema, 'statuses');
 const Category = mongoose.model('Category', categories_Schema, 'categories');
 const Vendor = mongoose.model('Vendor', vendors_Schema, 'vendors');
 const UserType = mongoose.model('UserType', user_types_Schema, 'user_types');
-const User = mongoose.model('User', user_Schema, 'users');
+const User = mongoose.model('users', user_Schema);
 
 module.exports.User = User;
 module.exports.Product = Product;

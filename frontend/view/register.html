@@ -1,196 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game store</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="hַttps://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
-    />
-    <link rel="stylesheet" href="./../css/index.css" />
-        <link rel="stylesheet" href="./../css/register.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
-    />
-    <script src="../model/model.js"></script>
-    <script src="./../api/Api.js"></script>
-    <script src="../controller/register.js"></script>
-  </head>
-  <header id="header"  class="fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">Game Store</a>
-            <button id="loginBtn" class="btn btn-primary">Login</button>
-            <button id="registerBtn" class="btn btn-primary btn-spacing">Register</button>
-            <form class="d-flex ms-auto">
-                <input id="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-primary" type="submit">Search</button>
-            </form>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a id="homeBtn" class="nav-link" href="#" onclick="refreshPage()"><i class="fas fa-home"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a id="cartBtn" class="nav-link" href="#"><i class="fas fa-shopping-cart"></i></a>
-                </li>
-            </ul>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Game store</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="hַttps://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+        <link rel="stylesheet" href="./../css/index.css" />
+        <link rel="stylesheet" href="./../css/register.css" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+
+        <link rel="stylesheet" href="../css/chupapi.css" />
+
+        <script src="./../model/model.js"></script>
+
+        <script src="./../api/Api.js"></script>
+        <script src="./../controller/header.js"></script>
+
+        <script src="../controller/register.js"></script>
+    </head>
+    <body>
+        <div id="_header"></div>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <h1 id="register" class="mb-4">Register</h1>
+                    <form onsubmit="handle_register(event)">
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" placeholder="Enter your username" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Enter your password" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Repeat the password</label>
+                            <input type="password" class="form-control" id="confirmPassword" placeholder="Enter your password" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email" />
+                        </div>
+                        <div class="mb-3 flex-container">
+                            <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" id="dateOfBirth" placeholder="Enter your date of birth" required />
+                        </div>
+                        <div class="address-section">
+                            <h3 class="form-label">Add your Address:</h3>
+                            <div class="form-group flex-container">
+                                <label for="city">City:</label>
+                                <input type="text" id="city" name="city" class="form-control" placeholder="Enter city name" required />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <label for="street">Street:</label>
+                                    <input type="text" id="street" name="street" class="form-control" placeholder="Enter street name" required />
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="homenumber">Home Number:</label>
+                                    <input type="number" id="homenumber" name="homenumber" class="form-control" placeholder="Enter home number" pattern="[0-9]+" title="Please enter only numbers" required />
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                </div>
+            </div>
         </div>
-    </nav>
-    </header>
-  <body>
-    <div class="container mt-5">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <h1 id="register" class="mb-4">Register</h1>
-          <form onsubmit="handle_register(event)">
-            <div class="mb-3">
-              <label for="firstName" class="form-label">First Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="firstName"
-                placeholder="Enter your first name"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="lastName" class="form-label">Last Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="lastName"
-                placeholder="Enter your last name"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="username" class="form-label">Username</label>
-              <input
-                type="text"
-                class="form-control"
-                id="username"
-                placeholder="Enter your username"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                placeholder="Enter your password"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="confirmPassword" class="form-label"
-                >Repeat the password</label
-              >
-              <input
-                type="password"
-                class="form-control"
-                id="confirmPassword"
-                placeholder="Enter your password"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="email">Email:</label>
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                placeholder="Enter your email"
-              />
-              <div class="row">
-                <div class="col-md-3">
-                  <div class="mb-6">
-                    <label for="phoneNumber">Phone:</label>
-                    <div class="dropdown">
-                      <select class="form-select" id="phone_start" name="phone" required>">
-                      <option selected disabled>Phone start</option>
-                      <option value="050">050</option>
-                      <option value="052">052</option>
-                      <option value="054">054</option>
-                      <option value="055">055</option>
-                      <option value="057">057</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-9">
-                  <div class="mb-3">
-                    <label for="phoneNumber"></label>
-                    <input type="number" class="form-control" id="phoneNumber" placeholder="Enter your phone number">
-                  </div>
-                </div>
-              </div>
-            <div class="mb-3 flex-container">
-              <label for="dateOfBirth" class="form-label">Date of Birth</label>
-              <input
-                type="date"
-                class="form-control"
-                id="dateOfBirth"
-                placeholder="Enter your date of birth"
-                required
-              />
-            </div>
-            <div class="address-section">
-              <h3 class="form-label">Add your Address:</h3>
-              <div class="form-group flex-container">
-                <label for="city">City:</label>
-                <input
-                  type="text"
-                  id="city"
-                  name="city"
-                  class="form-control"
-                  placeholder="Enter city name"
-                  required
-                />
-              </div>
-              <div class="row">
-                <div class="col-md-8">
-                  <label for="street">Street:</label>
-                  <input
-                    type="text"
-                    id="street"
-                    name="street"
-                    class="form-control"
-                    placeholder="Enter street name"
-                    required
-                  />
-                </div>
-                <div class="col-md-4">
-                  <label for="homenumber">Home Number:</label>
-                  <input
-                    type="number"
-                    id="homenumber"
-                    name="homenumber"
-                    class="form-control"
-                    placeholder="Enter home number"
-                    pattern="[0-9]+"
-                    title="Please enter only numbers"
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Register</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </body>
+    </body>
 </html>
