@@ -44,4 +44,8 @@ router.get("/products_maint", (req, res) => {
     });
 });
 
+router.get("/vendors", (req, res) => {
+    res.sendFile(views_dir + "vendors.html");
+});
+
 module.exports = router;

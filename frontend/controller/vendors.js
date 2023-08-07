@@ -1,8 +1,8 @@
-$(document).ready(function() {
+$(document).ready(function () {
     $("#addButton").on("click", function () {
         var name = $("#name").val();
         var site = $("#site").val();
-    
+
         var newRow = $("<tr>");
         newRow.append("<td class='name'>" + name + "</td>");
         newRow.append("<td class='site'>" + site + "</td>");
@@ -13,9 +13,9 @@ $(document).ready(function() {
                 </td>
             `;
         newRow.append(buttonsHtml);
-    
+
         $("#vendorTable").append(newRow);
-    
+
         $("#name").val("");
         $("#site").val("");
 
@@ -27,7 +27,7 @@ $(document).ready(function() {
         addNewVendor(vendorData);
     });
 
-    $('#vendorTable').on('click', '.deleteButton', function() {
+    $('#vendorTable').on('click', '.deleteButton', function () {
         var row = $(this).closest('tr');
         var name = row.find('.name').text();
         var site = row.find('.site').text();
@@ -46,7 +46,7 @@ $(document).ready(function() {
         }
     });
 
-    $('#vendorTable').on('click', '.editButton', function() {
+    $('#vendorTable').on('click', '.editButton', function () {
         var row = $(this).closest('tr');
         var name = row.find('.name').text();
         var site = row.find('.site').text();
@@ -57,39 +57,35 @@ $(document).ready(function() {
         if (newName && newSite) {
             row.find('.name').text(newName);
             row.find('.site').text(newSite);
-        
+
             var vendorData = {
-              name: newName,
-              site: newSite,
+                name: newName,
+                site: newSite
             };
-        
+
             updateVendor(vendorData); // Call the updateVendor function
-          }
+        }
 
     });
 
     const addNewVendor = (vendorData) => {
-        $.post('/create_vendor', vendorData)
-            .done(savedVendor => {
-                console.log('Vendor registered successfully:', savedVendor);
-            })
-            .fail(error => {
-                console.error('Error registering vendor', error);
-            });
+        $.post('/create_vendor', vendorData).done(savedVendor => {
+            console.log('Vendor registered successfully:', savedVendor);
+        }).fail(error => {
+            console.error('Error registering vendor', error);
+        });
     };
     const deleteVendor = (vendorData) => {
         $.ajax({
             url: '/delete_vendor',
             type: 'DELETE',
             data: vendorData,
-            success: function(response) {
+            success: function (response) {
                 console.log('Vendor deleted successfully:', response);
             },
-            error: function(error) {
+            error: function (error) {
                 console.error('Error deleting vendor:', error);
             }
         });
     };
 });
-
-
