@@ -29,20 +29,17 @@ async function checkAndInitModel() {
 
 async function initPlatforms() {
     let model = Model.getInstance();
-    $.get('/get_platforms').done(platforms => {
-        model.setPlatforms(platforms);
-    });
+    const platforms = await $.get('/get_platforms');
+    model.setPlatforms(platforms);
 }
 async function initCategories() {
     let model = Model.getInstance();
-    $.get('/get_categories').done(categories => {
-        model.setCategories(categories);
-    });
+    const categories = await $.get('/get_categories');
+    model.setCategories(categories);
 }
 
 async function initVendors() {
     let model = Model.getInstance();
-    $.get('/get_vendors').done(vendors => {
-        model.setVendors(vendors);
-    });
+    const vendors = await $.get('/get_vendors');
+    model.setVendors(vendors);
 }
