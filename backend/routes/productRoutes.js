@@ -34,4 +34,10 @@ router.post('/create_product', (req, res) => {
 
 });
 
+router.get('/get_products', (req, res) => {
+    db_product.getProducts().then(q => {
+        res.send(q);
+    });
+});
+
 module.exports = router;

@@ -3,11 +3,12 @@ const Model = (function () {
     let instance;
     let data;
 
+    let header = undefined;
     let cityArray = [];
     let platforms = [];
     let categories = [];
     let vendors = [];
-    let header = undefined;
+    let products = [];
 
     function init_localStorage() {
         data = {
@@ -68,6 +69,13 @@ const Model = (function () {
             },
             setHeader: function (h) {
                 header = h;
+            },
+
+            getProducts: function () {
+                return products;
+            },
+            setProducts: function (p) {
+                products = p;
             },
 
             getIsLogged: function () {
