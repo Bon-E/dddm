@@ -60,10 +60,12 @@ function server() {
     const userRoutes = require(routes_path + 'userRoutes');
     const productRoutes = require(routes_path + 'productRoutes');
     const utilRoutes = require(routes_path + 'utilRoutes');
+    const vendorRoutes = require(routes_path + 'vendorRoutes');
     app.use('/', pageRoutes);
     app.use('/', userRoutes);
     app.use('/', productRoutes);
     app.use('/', utilRoutes);
+    app.use('/', vendorRoutes);
     process.stdout.write('Done\n\n');
 
     console.log('App listens on port:', port);
