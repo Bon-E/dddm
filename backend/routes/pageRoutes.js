@@ -48,4 +48,10 @@ router.get("/vendors", (req, res) => {
     res.sendFile(views_dir + "vendors.html");
 });
 
+
+router.get("/product", (req, res) => {
+    res.sendFile(views_dir + "product.html");
+});
+
+
 module.exports = router;
