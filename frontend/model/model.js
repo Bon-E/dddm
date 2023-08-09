@@ -10,29 +10,29 @@ const Model = (function () {
     let vendors = [];
     let products = [];
 
-    function init_localStorage() {
+    function init_sessionStorage() {
         data = {
             isLogged: false,
             isAdmin: false
         };
-        save_localStorage(); // initialize localStorage with initialized data variable
+        save_sessionStorage(); // initialize sessionStorage with initialized data variable
     }
 
-    function load_localStorage() {
+    function load_sessionStorage() {
         let model = JSON.parse(sessionStorage.getItem('Model'));
         if (model === null || model === undefined || Object.keys(model).length === 0) {
-            init_localStorage();
+            init_sessionStorage();
         }
 
         data = model;
     }
 
-    function save_localStorage() {
+    function save_sessionStorage() {
         sessionStorage.setItem('Model', JSON.stringify(data));
     }
 
     function init() {
-        load_localStorage();
+        load_sessionStorage();
 
         return {
 
@@ -93,10 +93,10 @@ const Model = (function () {
             },
 
             saveData: function () {
-                save_localStorage();
+                save_sessionStorage();
             },
             initData: function () {
-                init_localStorage();
+                init_sessionStorage();
             }
         }
     }
