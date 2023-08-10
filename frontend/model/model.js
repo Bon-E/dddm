@@ -1,10 +1,10 @@
 const Model = (function () {
-
     let instance;
     let data;
 
     let header = undefined;
     let cityArray = [];
+    let streetArray = [];
     let platforms = [];
     let categories = [];
     let vendors = [];
@@ -19,7 +19,7 @@ const Model = (function () {
     }
 
     function load_localStorage() {
-        let model = JSON.parse(sessionStorage.getItem('Model'));
+        let model = JSON.parse(sessionStorage.getItem("Model"));
         if (model === null || model === undefined || Object.keys(model).length === 0) {
             init_localStorage();
         }
@@ -28,18 +28,24 @@ const Model = (function () {
     }
 
     function save_localStorage() {
-        sessionStorage.setItem('Model', JSON.stringify(data));
+        sessionStorage.setItem("Model", JSON.stringify(data));
     }
 
     function init() {
         load_localStorage();
 
         return {
-
             getCities: function () {
                 return cityArray;
             },
             setCities: function (c) {
+                streetArray = c;
+            },
+
+            getStreets: function () {
+                return streetArray;
+            },
+            setStreets: function (c) {
                 cityArray = c;
             },
 
@@ -98,15 +104,15 @@ const Model = (function () {
             initData: function () {
                 init_localStorage();
             }
-        }
+        };
     }
 
     return {
         getInstance: function () {
-            if (! instance) {
+            if (!instance) {
                 instance = init();
             }
             return instance;
         }
-    }
+    };
 })();
