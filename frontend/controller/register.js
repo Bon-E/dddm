@@ -2,7 +2,7 @@ $(document).ready(() => {
     loadHeader().then(() => {
         routePages();
         fetchCities();
-        fetchStreets();
+        fetchAddresses();
     });
 
     $("#phoneNumber").on("input", function () {
@@ -16,27 +16,34 @@ $(document).ready(() => {
         minLength: 2,
         source: function (request, resolve) {
             let model = Model.getInstance();
-            // fetch new values with request.term
+
             const filteredCities = model.getCities().filter(function (city) {
                 return city.toLowerCase().indexOf(request.term.toLowerCase()) === 0;
             });
+
             resolve(filteredCities);
         }
     });
 
-    //if ($("#city").val() !== "") {
     $("#street").autocomplete({
         minLength: 2,
         source: function (request, resolve) {
             let model = Model.getInstance();
-            // fetch new values with request.term
-            const filteredStreets = model.getStreets().filter(function (street) {
-                return street.toLowerCase().indexOf(request.term.toLowerCase()) === 0;
-            });
-            resolve(filteredStreets);
+            const filteredAddresses = model.getAddresses();
+            const filteredStreets = [];
+
+            for (let i = 0; i < filteredAddresses.length; i++) {
+                if ($("#city").val() === filteredAddresses[i][1]) {
+                    filteredStreets.push(filteredAddresses[i][0]);
+                }
+            }
+
+            const filteredStreetsLowerCase = filteredStreets.map((street) => street.toLowerCase());
+            const filteredResults = filteredStreetsLowerCase.filter((street) => street.indexOf(request.term.toLowerCase()) === 0);
+
+            resolve(filteredResults);
         }
     });
-    //}
 });
 
 $(function () {

@@ -4,7 +4,7 @@ const Model = (function () {
 
     let header = undefined;
     let cityArray = [];
-    let streetArray = [];
+    let addressesArray = [,];
     let platforms = [];
     let categories = [];
     let vendors = [];
@@ -42,11 +42,11 @@ const Model = (function () {
                 cityArray = c;
             },
 
-            getStreets: function () {
-                return streetArray;
+            getAddresses: function () {
+                return addressesArray;
             },
-            setStreets: function (c) {
-                streetArray = c;
+            setAddresses: function (c) {
+                addressesArray = c;
             },
 
             getCategories: function () {

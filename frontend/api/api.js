@@ -10,13 +10,19 @@ const fetchCities = async function () {
         });
         const records = data.result.records;
         const cityNames = records.map((record) => record["שם_ישוב"]);
+        for (let i = 0; i < cityNames.length; i++) {
+            cityNames[i] = cityNames[i]
+                .split(/\s+/)
+                .map((word) => word.replace(/\s/g, ""))
+                .join(" ");
+        }
         model.setCities(cityNames);
     } catch (error) {
         console.error("Error:", error);
     }
 };
 
-const fetchStreets = async function () {
+const fetchAddresses = async function () {
     let model = Model.getInstance();
     try {
         const data = await $.ajax({
@@ -28,13 +34,17 @@ const fetchStreets = async function () {
         });
         const records = data.result.records;
         const addressNames = records.map((record) => [record["שם_רחוב"], record["שם_ישוב"]]);
-        const streetNames = [];
         for (let i = 0; i < addressNames.length; i++) {
-            //if ($("#city").val() === addressNames[i][1])
-            streetNames.push(addressNames[i][0]);
+            addressNames[i][0] = addressNames[i][0]
+                .split(/\s+/)
+                .map((word) => word.replace(/\s/g, ""))
+                .join(" ");
+            addressNames[i][1] = addressNames[i][1]
+                .split(/\s+/)
+                .map((word) => word.replace(/\s/g, ""))
+                .join(" ");
         }
-
-        model.setStreets(streetNames);
+        model.setAddresses(addressNames);
     } catch (error) {
         console.error("Error:", error);
     }
