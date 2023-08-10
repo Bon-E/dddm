@@ -2,9 +2,10 @@ $(document).ready(() => {
     loadHeader().then(() => {
         routePages();
         fetchCities();
+        fetchStreets();
     });
 
-    $('#phoneNumber').on('input', function () {
+    $("#phoneNumber").on("input", function () {
         var inputValue = $(this).val();
         if (inputValue.length > 7) {
             $(this).val(inputValue.slice(0, 7));
@@ -23,10 +24,23 @@ $(document).ready(() => {
         }
     });
 
+    //if ($("#city").val() !== "") {
+    $("#street").autocomplete({
+        minLength: 2,
+        source: function (request, resolve) {
+            let model = Model.getInstance();
+            // fetch new values with request.term
+            const filteredStreets = model.getStreets().filter(function (street) {
+                return street.toLowerCase().indexOf(request.term.toLowerCase()) === 0;
+            });
+            resolve(filteredStreets);
+        }
+    });
+    //}
 });
 
 $(function () {
-    $('#firstName').on('input', function () {
+    $("#firstName").on("input", function () {
         var inputValue = $(this).val();
         var sanitizedValue = sanitizeInput(inputValue);
         $(this).val(sanitizedValue);
@@ -35,7 +49,7 @@ $(function () {
 
 // Remove any non-letter characters using regular expression
 function sanitizeInput(input) {
-    var sanitized = input.replace(/[^a-zA-Z]/g, '');
+    var sanitized = input.replace(/[^a-zA-Z]/g, "");
     return sanitized;
 }
 
@@ -47,16 +61,16 @@ const handle_register = (event) => {
 };
 
 const createUserData = () => {
-    const username = $('#username').val();
-    const password = $('#password').val();
-    const email = $('#email').val();
-    const fname = $('#firstName').val();
-    const lname = $('#lastName').val();
-    const phone = $('#phone_start').val() + '-' + $('#phoneNumber').val();
-    const birthday = $('#dateOfBirth').val();
-    const city = $('#city').val();
-    const street = $('#street').val();
-    const house_number = $('#homenumber').val();
+    const username = $("#username").val();
+    const password = $("#password").val();
+    const email = $("#email").val();
+    const fname = $("#firstName").val();
+    const lname = $("#lastName").val();
+    const phone = $("#phone_start").val() + "-" + $("#phoneNumber").val();
+    const birthday = $("#dateOfBirth").val();
+    const city = $("#city").val();
+    const street = $("#street").val();
+    const house_number = $("#homenumber").val();
 
     const address = {
         city,
@@ -75,17 +89,20 @@ const createUserData = () => {
         address
     };
 
-
     return userData;
 };
 
 const addNewUser = (userData) => {
-    $.post('/create_user', userData).done(savedUser => { // TODO: redirect to login page
-        alert('Successfully registered !');
-        window.location.href = "/login";
-    }).fail(error => { // TODO: show error message in page, not in the console
-        console.error('Error registering user:', error);
-    });
+    $.post("/create_user", userData)
+        .done((savedUser) => {
+            // TODO: redirect to login page
+            alert("Successfully registered !");
+            window.location.href = "/login";
+        })
+        .fail((error) => {
+            // TODO: show error message in page, not in the console
+            console.error("Error registering user:", error);
+        });
 };
 
 function comparePasswords() {

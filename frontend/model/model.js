@@ -39,14 +39,14 @@ const Model = (function () {
                 return cityArray;
             },
             setCities: function (c) {
-                streetArray = c;
+                cityArray = c;
             },
 
             getStreets: function () {
                 return streetArray;
             },
             setStreets: function (c) {
-                cityArray = c;
+                streetArray = c;
             },
 
             getCategories: function () {
