@@ -7,11 +7,6 @@ const cookieParser = require('cookie-parser');
 const sessions = require('express-session');
 const fileUpload = require('express-fileupload');
 
-<<<<<<< HEAD
-var session;
-=======
-
->>>>>>> 6460203ba4222a80ead4a968656a3f113a382474
 dotenv.config();
 main();
 
@@ -29,12 +24,7 @@ async function main() {
 function server() {
     process.stdout.write('Initializing app... ');
     const app = express();
-<<<<<<< HEAD
-    process.stdout.write('Done\n');
-
-=======
     app.use(bodyParser.urlencoded({ extended: true }));
->>>>>>> 6460203ba4222a80ead4a968656a3f113a382474
     const port = process.env.PORT || 8080;
     const routes_path = path.join(__dirname, '/backend/routes/');
     app.use(bodyParser.urlencoded({extended: true}));

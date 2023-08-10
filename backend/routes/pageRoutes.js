@@ -49,8 +49,12 @@ router.get("/vendors", (req, res) => {
 });
 
 
-router.get("/product", (req, res) => {
-    res.sendFile(views_dir + "product.html");
+router.get("/products", (req, res) => {
+    res.sendFile(views_dir + "products.html");
+});
+
+router.get("/cart", (req, res) => {
+    res.sendFile(views_dir + "cart.html");
 });
 
 
