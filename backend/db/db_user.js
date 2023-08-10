@@ -5,8 +5,13 @@ async function _getAllUsers() {
     return query;
 }
 
-async function _getUserTypes(q = {}, opt = {}) {
-    const query = await UserType.find(q, opt);
+async function _getUsers(q = {}, pr = {}, opt = {}) {
+    const query = await User.find(q, pr, opt);
+    return query;
+}
+
+async function _getUserTypes(q = {}, pr = {}, opt = {}) {
+    const query = await UserType.find(q, pr, opt);
     return query;
 }
 
@@ -44,6 +49,7 @@ async function _authenticateUser(username, password) {
 }
 
 module.exports = {
+    getUsers: _getUsers,
     getAllUsers: _getAllUsers,
     addUser: _addUser,
     getUserTypes: _getUserTypes,

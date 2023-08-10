@@ -1,7 +1,7 @@
 const {Platform} = require('./schemas');
 
-async function _getPlatforms(q = {}, opt = {}) {
-    const query = await Platform.find(q, opt);
+async function _getPlatforms(q = {}, pr = {}, opt = {}) {
+    const query = await Platform.find(q, pr, opt);
     return query;
 }
 

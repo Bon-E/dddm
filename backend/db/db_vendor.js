@@ -1,7 +1,7 @@
 const {Vendor} = require('./schemas');
 
-async function _getVendors(q = {}, opt = {}) {
-    const query = Vendor.find(q, opt);
+async function _getVendors(q = {}, pr = {}, opt = {}) {
+    const query = Vendor.find(q, pr, opt);
     return query;
 }
 module.exports = {

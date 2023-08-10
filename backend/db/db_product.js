@@ -28,8 +28,8 @@ async function _addProduct(name, description, category_id, platform_id, vendor_i
     }
 }
 
-async function _getProducts(q = {}, opt = {}) {
-    const query = await Product.find(q, opt);
+async function _getProducts(q = {}, pr = {}, opt = {}) {
+    const query = await Product.find(q, pr, opt);
     return query;
 }
 

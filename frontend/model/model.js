@@ -9,6 +9,7 @@ const Model = (function () {
     let categories = [];
     let vendors = [];
     let products = [];
+    let users = [];
 
     function init_sessionStorage() {
         data = {
@@ -90,6 +91,13 @@ const Model = (function () {
             },
             setIsAdmin: function (a) {
                 data.isAdmin = a;
+            },
+
+            getUsers: function () {
+                return users;
+            },
+            setUsers: function (u) {
+                users = u;
             },
 
             saveData: function () {

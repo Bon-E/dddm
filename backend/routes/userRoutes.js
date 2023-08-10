@@ -9,7 +9,7 @@ const router = express.Router();
 router.use(express.json());
 
 router.get("/get_users", (req, res) => {
-    db_user.getAllUsers().then(query => {
+    db_user.getUsers().then(query => {
         res.send(query);
     });
 });
