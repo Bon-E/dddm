@@ -57,16 +57,30 @@ function populateTable() {
 }
 
 function initModal() {
-
-    var editModal = $("#editModal");
     var editForm = $("#editUserForm");
-    var saveChangesBtn = $("#saveChangesBtn");
 
-    saveChangesBtn.click(function () {
+    $("#saveChangesBtn").click(function () {
         var formData = editForm.serialize();
+        console.log(formData);
         // You can send the formData using an AJAX request to the backend
         // alert("Sending request to update user with ID: " + editUserIdField.val());
-        editModal.modal("hide");
+        $.ajax({
+            url: '/update_user',
+            type: 'PUT',
+            data: formData,
+            success: function (res) {
+                console.log('ok');
+            }
+        });
+        $("#editModal").modal("hide");
+    });
+
+    $("#closeModalBtn1").click(() => {
+        $("#editModal").modal("hide");
+    });
+
+    $("#closeModalBtn2").click(() => {
+        $("#editModal").modal("hide");
     });
 
 }
@@ -76,32 +90,29 @@ function handleEditButtonClick(userId) {
 
     let model = Model.getInstance();
 
-    var editModal = $("#editModal");
-
-    var editUserId = $("#editUserId");
-    var editUserName = $("#editUserName");
-    var editPassword = $("#editPassword");
-    var editFirstName = $("#editFirstName");
-    var editLastName = $("#editLastName");
-    var editEmail = $("#editEmail");
-    var editPhone = $("#editPhone");
-
-    var editBirthday = $("#editBirthday");
-
     var user = model.getUsers().find(function (user) {
         return user._id === userId;
     });
 
-    editUserId.val(user._id);
-    editUserName.val(user.username);
-    editFirstName.val(user.fname);
-    editLastName.val(user.lname);
-    editEmail.val(user.email);
-    editPhone.val(user.phone);
+    $("#editUserId").val(user._id);
+    $("#editUserName").val(user.username);
+    $("#editFirstName").val(user.fname);
+    $("#editLastName").val(user.lname);
+    $("#editEmail").val(user.email);
+    $("#editPhone").val(user.phone);
 
-    var dateTime = new Date(user.birthday);
-    var formattedDate = dateTime.toISOString().split("T")[0]; // Extract date portion
-    editBirthday.val(formattedDate);
+    $("#editPassword").val("");
+    $("#editBirthday").val("");
 
-    editModal.modal("show");
+    if (user.birthday) {
+        var dateTime = new Date(user.birthday);
+        var formattedDate = dateTime.toISOString().split("T")[0]; // Extract date portion
+        $("#editBirthday").val(formattedDate);
+    }
+
+    $("#editCity").val(user.address.city);
+    $("#editStreet").val(user.address.street);
+    $("#editHouseNumber").val(user.address.house_number);
+
+    $("#editModal").modal("show");
 }

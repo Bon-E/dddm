@@ -62,6 +62,9 @@ router.get('/disconnect', (req, res) => {
     req.session.destroy();
     res.status(200).send();
 });
-1
+
+router.put('/update_user', (req, res) => {
+    console.log('OK GOT IT!: ', req.body);
+});
 
 module.exports = router;
