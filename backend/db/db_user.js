@@ -54,11 +54,17 @@ async function _findAndUpdateById(id, updateObj, opt = {}) {
     return query;
 }
 
+async function _findAndDeleteById(id, opt = {}) {
+    const query = await User.findByIdAndDelete(id, opt);
+    return query;
+}
+
 module.exports = {
     getUsers: _getUsers,
     getAllUsers: _getAllUsers,
     addUser: _addUser,
     getUserTypes: _getUserTypes,
     authenticateUser: _authenticateUser,
-    findAndUpdateById: _findAndUpdateById
+    findAndUpdateById: _findAndUpdateById,
+    findAndDeleteById: _findAndDeleteById
 };

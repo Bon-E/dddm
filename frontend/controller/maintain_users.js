@@ -1,13 +1,17 @@
 $(document).ready(() => {
     initPage().then(() => {
         routePages();
-        getUsers().then(() => {
-            initModal();
-            populateUserTypesSelection();
-            populateTable();
-        });
+        initModal();
+        populateUserTypesSelection();
+        populateTable();
     });
 });
+
+async function refreshTable() {
+    $("#userTableBody").empty();
+    await getUsers();
+    populateTable();
+}
 
 async function getUsers() {
     let model = Model.getInstance();
@@ -17,7 +21,6 @@ async function getUsers() {
 
 function populateUserTypesSelection() {
     let model = Model.getInstance();
-    console.log(model.getUserTypes());
     $.each(model.getUserTypes(), (index, item) => {
         let option = $('<option>', {
             value: item._id,
@@ -55,7 +58,18 @@ function populateTable() {
         var deleteButton = $("<button>").addClass("btn btn-danger").text("Delete").click(function () {
             // Handle delete button click
             // You can implement delete functionality here
-
+            var userId = $(this).closest("tr").data("user-id");
+            $.ajax({
+                url: '/delete_user',
+                type: 'DELETE',
+                data: {
+                    userId: userId
+                },
+                success: function (res) {
+                    console.log('deleted');
+                    refreshTable();
+                }
+            })
 
             alert("Delete button clicked for user with ID: " + userId);
         });
@@ -81,6 +95,7 @@ function initModal() {
             data: formData,
             success: function (res) {
                 console.log('ok');
+                refreshTable();
             }
         });
         $("#editModal").modal("hide");
