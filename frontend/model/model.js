@@ -10,6 +10,7 @@ const Model = (function () {
     let vendors = [];
     let products = [];
     let users = [];
+    let userTypes = [];
 
     function init_sessionStorage() {
         data = {
@@ -98,6 +99,13 @@ const Model = (function () {
             },
             setUsers: function (u) {
                 users = u;
+            },
+
+            getUserTypes: function () {
+                return userTypes;
+            },
+            setUserTypes: function (u) {
+                userTypes = u;
             },
 
             saveData: function () {

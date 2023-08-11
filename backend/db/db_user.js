@@ -15,6 +15,7 @@ async function _getUserTypes(q = {}, pr = {}, opt = {}) {
     return query;
 }
 
+
 async function _addUser(username, password, fname, lname, email, phone, birthday, address) {
 
     const userType = await _getUserTypes({type: 'User'});
@@ -48,10 +49,16 @@ async function _authenticateUser(username, password) {
     return query;
 }
 
+async function _findAndUpdateById(id, updateObj, opt = {}) {
+    const query = await User.findByIdAndUpdate(id, updateObj, opt);
+    return query;
+}
+
 module.exports = {
     getUsers: _getUsers,
     getAllUsers: _getAllUsers,
     addUser: _addUser,
     getUserTypes: _getUserTypes,
-    authenticateUser: _authenticateUser
+    authenticateUser: _authenticateUser,
+    findAndUpdateById: _findAndUpdateById
 };

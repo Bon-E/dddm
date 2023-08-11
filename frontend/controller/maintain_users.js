@@ -2,10 +2,9 @@ $(document).ready(() => {
     initPage().then(() => {
         routePages();
         getUsers().then(() => {
-
             initModal();
+            populateUserTypesSelection();
             populateTable();
-
         });
     });
 });
@@ -14,6 +13,18 @@ async function getUsers() {
     let model = Model.getInstance();
     const users = await $.get('/get_users');
     model.setUsers(users);
+}
+
+function populateUserTypesSelection() {
+    let model = Model.getInstance();
+    console.log(model.getUserTypes());
+    $.each(model.getUserTypes(), (index, item) => {
+        let option = $('<option>', {
+            value: item._id,
+            text: item.type
+        });
+        $('#userType').append(option);
+    });
 }
 
 function populateTable() {
@@ -113,6 +124,8 @@ function handleEditButtonClick(userId) {
     $("#editCity").val(user.address.city);
     $("#editStreet").val(user.address.street);
     $("#editHouseNumber").val(user.address.house_number);
+
+    $("#userType").val(user.type);
 
     $("#editModal").modal("show");
 }
