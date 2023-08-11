@@ -1,10 +1,10 @@
 const Model = (function () {
-
     let instance;
     let data;
 
     let header = undefined;
     let cityArray = [];
+    let addressesArray = [,];
     let platforms = [];
     let categories = [];
     let vendors = [];
@@ -37,12 +37,18 @@ const Model = (function () {
         load_sessionStorage();
 
         return {
-
             getCities: function () {
                 return cityArray;
             },
             setCities: function (c) {
                 cityArray = c;
+            },
+
+            getAddresses: function () {
+                return addressesArray;
+            },
+            setAddresses: function (c) {
+                addressesArray = c;
             },
 
             getCategories: function () {
@@ -114,15 +120,15 @@ const Model = (function () {
             initData: function () {
                 init_sessionStorage();
             }
-        }
+        };
     }
 
     return {
         getInstance: function () {
-            if (! instance) {
+            if (!instance) {
                 instance = init();
             }
             return instance;
         }
-    }
+    };
 })();
