@@ -5,10 +5,16 @@ async function _getAllUsers() {
     return query;
 }
 
-async function _getUserTypes(q = {}, opt = {}) {
-    const query = await UserType.find(q, opt);
+async function _getUsers(q = {}, pr = {}, opt = {}) {
+    const query = await User.find(q, pr, opt);
     return query;
 }
+
+async function _getUserTypes(q = {}, pr = {}, opt = {}) {
+    const query = await UserType.find(q, pr, opt);
+    return query;
+}
+
 
 async function _addUser(username, password, fname, lname, email, phone, birthday, address) {
 
@@ -43,9 +49,22 @@ async function _authenticateUser(username, password) {
     return query;
 }
 
+async function _findAndUpdateById(id, updateObj, opt = {}) {
+    const query = await User.findByIdAndUpdate(id, updateObj, opt);
+    return query;
+}
+
+async function _findAndDeleteById(id, opt = {}) {
+    const query = await User.findByIdAndDelete(id, opt);
+    return query;
+}
+
 module.exports = {
+    getUsers: _getUsers,
     getAllUsers: _getAllUsers,
     addUser: _addUser,
     getUserTypes: _getUserTypes,
-    authenticateUser: _authenticateUser
+    authenticateUser: _authenticateUser,
+    findAndUpdateById: _findAndUpdateById,
+    findAndDeleteById: _findAndDeleteById
 };

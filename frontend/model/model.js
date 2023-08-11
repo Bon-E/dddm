@@ -9,30 +9,32 @@ const Model = (function () {
     let categories = [];
     let vendors = [];
     let products = [];
+    let users = [];
+    let userTypes = [];
 
-    function init_localStorage() {
+    function init_sessionStorage() {
         data = {
             isLogged: false,
             isAdmin: false
         };
-        save_localStorage(); // initialize localStorage with initialized data variable
+        save_sessionStorage(); // initialize sessionStorage with initialized data variable
     }
 
-    function load_localStorage() {
-        let model = JSON.parse(sessionStorage.getItem("Model"));
+    function load_sessionStorage() {
+        let model = JSON.parse(sessionStorage.getItem('Model'));
         if (model === null || model === undefined || Object.keys(model).length === 0) {
-            init_localStorage();
+            init_sessionStorage();
         }
 
         data = model;
     }
 
-    function save_localStorage() {
-        sessionStorage.setItem("Model", JSON.stringify(data));
+    function save_sessionStorage() {
+        sessionStorage.setItem('Model', JSON.stringify(data));
     }
 
     function init() {
-        load_localStorage();
+        load_sessionStorage();
 
         return {
             getCities: function () {
@@ -98,11 +100,25 @@ const Model = (function () {
                 data.isAdmin = a;
             },
 
+            getUsers: function () {
+                return users;
+            },
+            setUsers: function (u) {
+                users = u;
+            },
+
+            getUserTypes: function () {
+                return userTypes;
+            },
+            setUserTypes: function (u) {
+                userTypes = u;
+            },
+
             saveData: function () {
-                save_localStorage();
+                save_sessionStorage();
             },
             initData: function () {
-                init_localStorage();
+                init_sessionStorage();
             }
         };
     }

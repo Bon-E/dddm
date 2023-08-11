@@ -38,6 +38,10 @@ const routePages = () => {
         window.location.href = '/vendors';
     });
 
+    $("#maintainUsersBtn").on('click', () => {
+        window.location.href = '/maintain_users';
+    });
+
 }
 
 const hide_show_elements = () => {
@@ -48,11 +52,14 @@ const hide_show_elements = () => {
         $("#disconnectBtn").show();
         if (model.getIsAdmin()) {
             $("#maintainProductsBtn").show();
+            $("#maintainUsersBtn").show();
         } else {
             $("#maintainProductsBtn").hide();
+            $("#maintainUsersBtn").hide();
         }
     } else {
         $("#maintainProductsBtn").hide();
+        $("#maintainUsersBtn").hide();
         $("#disconnectBtn").hide();
         $("#loginBtn").show();
         $("#registerBtn").show();

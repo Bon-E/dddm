@@ -25,6 +25,30 @@ async function checkAndInitModel() {
     if (!Array.isArray(model.getVendors()) || ! model.getVendors().length) {
         await initVendors();
     }
+
+    const isAdmin = $.get('/isAdmin');
+
+    if (isAdmin) {
+        if (!Array.isArray(model.getUserTypes()) || ! model.getUserTypes().length) {
+            await initUserTypes();
+        }
+        if (!Array.isArray(model.getUsers()) || ! model.getUsers().length) {
+            await initUsers();
+        }
+    }
+
+}
+
+async function initUsers() {
+    let model = Model.getInstance();
+    const users = await $.get('/get_users');
+    model.setUsers(users);
+}
+
+async function initUserTypes() {
+    let model = Model.getInstance();
+    const userTypes = await $.get('/get_user_types');
+    model.setUserTypes(userTypes);
 }
 
 async function initPlatforms() {

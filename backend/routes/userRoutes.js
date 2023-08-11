@@ -1,15 +1,13 @@
 const express = require('express');
-const path = require('path');
 const db_user = require('../db/db_user');
 const utils = require('../util');
-const util = require('../util');
 
 const router = express.Router();
 
 router.use(express.json());
 
 router.get("/get_users", (req, res) => {
-    db_user.getAllUsers().then(query => {
+    db_user.getUsers().then(query => {
         res.send(query);
     });
 });
@@ -62,6 +60,50 @@ router.get('/disconnect', (req, res) => {
     req.session.destroy();
     res.status(200).send();
 });
-1
 
+router.put('/update_user', (req, res) => {
+    console.log('OK GOT IT!: ', req.body);
+
+    let reqObj = {
+        username: req.body.userName,
+        password: req.body.password,
+        fname: req.body.fname,
+        lname: req.body.lname,
+        type: req.body.userType,
+        email: req.body.email,
+        phone: req.body.phone,
+        birthday: req.body.birthday,
+        address: {
+            city: req.body.city,
+            street: req.body.street,
+            house_number: req.body.housenum
+        }
+    };
+
+    let updateObj = {};
+    for (const key of Object.keys(reqObj)) {
+        if (reqObj[key] != null && reqObj[key] != undefined && reqObj[key] != '') {
+            updateObj[key] = reqObj[key];
+        }
+    }
+
+    db_user.findAndUpdateById(req.body.userId, {$set: updateObj}).then(q => {
+        res.status(200).send();
+    });
+});
+
+router.delete('/delete_user', (req, res) => {
+    console.log(req.body);
+    db_user.findAndDeleteById(req.body.userId).then(d => {
+        console.log('deleting user: ', req.body.userId);
+        res.status(200).send();
+    });
+});
+
+
+router.get('/get_user_types', (req, res) => {
+    db_user.getUserTypes().then(types => {
+        res.send(types);
+    });
+});
 module.exports = router;
