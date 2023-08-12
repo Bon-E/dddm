@@ -53,14 +53,17 @@ const hide_show_elements = () => {
         if (model.getIsAdmin()) {
             $("#maintainProductsBtn").show();
             $("#maintainUsersBtn").show();
+            $("#vendorsbtn").show();
         } else {
             $("#maintainProductsBtn").hide();
             $("#maintainUsersBtn").hide();
+            $("#vendorsbtn").hide();
         }
     } else {
         $("#maintainProductsBtn").hide();
         $("#maintainUsersBtn").hide();
         $("#disconnectBtn").hide();
+        $("#vendorsbtn").hide();
         $("#loginBtn").show();
         $("#registerBtn").show();
     }
