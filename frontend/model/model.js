@@ -15,7 +15,8 @@ const Model = (function () {
     function init_sessionStorage() {
         data = {
             isLogged: false,
-            isAdmin: false
+            isAdmin: false,
+            cart:[]
         };
         save_sessionStorage(); // initialize sessionStorage with initialized data variable
     }
@@ -113,7 +114,12 @@ const Model = (function () {
             setUserTypes: function (u) {
                 userTypes = u;
             },
-
+            AddToCart: function (a){
+                data.cart.push(a);
+            },
+            GetCart: function(){
+                return data.cart;
+            },
             saveData: function () {
                 save_sessionStorage();
             },
