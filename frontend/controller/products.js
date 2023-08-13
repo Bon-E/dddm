@@ -3,22 +3,40 @@ $(document).ready(function () {
     routePages();
   });
 
-  // Attach click event handler for "Add to Cart" buttons
+  
   $(document).on('click', '.add-to-cart-btn', function() {
-    const productData = $(this).attr('id');
-    addToCart(productData);
-    alert('Product added to cart!');
-    updateCartCount();
-  });
+    let model = Model.getInstance();
+    const found = model.getProducts().find((element) => element._id == $(this).attr('id'));
+    console.log("adin is the best",found);
+    const Product ={
+      id:$(this).attr('id'),
+      quantity:1,
+      name:found.name,
+      price:findMyPrice(found)
 
-  // Fetch product data from your backend API
+    }
+    addToCart(Product);
+    alert('Product added to cart!');
+    //updateCartCount();
+  });
   $.get('/get_products').done((products) => {
+    let model = Model.getInstance();
+    model.setProducts(products)
     populateProductCards(products);
   }).fail((error) => {
     console.error('Error fetching product data:', error);
   });
 });
-
+function findMyPrice(product) {
+  let prices = product.pricing;
+  let lastDate = prices[0];
+  for(let i =1; i < prices.length; i++ ){
+   if(new Date(prices[i].changed_on)> new Date(lastDate.changed_on)){
+    lastDate=prices[i];
+   }
+  }
+  return lastDate.price;
+}
 function populateProductCards(products) {
   const imagesContainer = $('#images');
 
@@ -40,33 +58,9 @@ function populateProductCards(products) {
     imagesContainer.append(card);
   });
 }
-
 function addToCart(product) {
-  console.log("add product",product);
   let model =Model.getInstance();
   model.AddToCart(product);
   console.log(model.GetCart());
   model.saveData();
-}
-
-function updateCartCount() {
-  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-  const cartCount = cartItems.length;
-  $('#cart-count').text(cartCount);
-}
-function addToCartClicked(event) {
-  var button = event.target;
-  var shopItem = button.parentElement;
-  var title = shopItem.getElementsByClassName('shop-item-title')[0].innerText;
-  var price = shopItem.getElementsByClassName('shop-item-price')[0].innerText;
-  var imageSrc = shopItem.getElementsByClassName('cart-item-image')[0].src;
-  
-  const productData = {
-    title: title,
-    price: price,
-    imageSrc: imageSrc
-  };
-  
-  addToCart(productData);
-  updateCartTotal();
 }

@@ -1,7 +1,11 @@
-$(document).ready(() => {
+$(document).ready(function () {
   initPage().then(() => {
-      routePages();
-      let model =Model.getInstance();
-      console.log("help",model.GetCart());
-  });
+    routePages();
+    printcart();
+  });
 });
+function printcart(){
+  let model = Model.getInstance();
+  console.log(model.GetCart());
+  
+}
