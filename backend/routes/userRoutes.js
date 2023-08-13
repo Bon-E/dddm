@@ -95,7 +95,6 @@ router.put('/update_user', (req, res) => {
 router.delete('/delete_user', (req, res) => {
     console.log(req.body);
     db_user.findAndDeleteById(req.body.userId).then(d => {
-        console.log('deleting user: ', req.body.userId);
         res.status(200).send();
     });
 });

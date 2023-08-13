@@ -55,6 +55,30 @@
                             <label for="email">Email:</label>
                             <input type="email" class="form-control" id="email" placeholder="Enter your email" />
                         </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="mb-6">
+                                    <label for="phone_start">Phone:</label>
+                                    <div class="dropdown">
+                                        <select class="form-select" id="phone_start" name="phone" required>
+                                            <option selected disabled>Phone start</option>
+                                            <option value="050">050</option>
+                                            <option value="052">052</option>
+                                            <option value="054">053</option>
+                                            <option value="054">054</option>
+                                            <option value="055">055</option>
+                                            <option value="057">057</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="mb-3">
+                                    <label for="phoneNumber"></label>
+                                    <input type="number" class="form-control" id="phoneNumber" placeholder="Enter your phone number" />
+                                </div>
+                            </div>
+                        </div>
                         <div class="mb-3 flex-container">
                             <label for="dateOfBirth" class="form-label">Date of Birth</label>
                             <input type="date" class="form-control" id="dateOfBirth" placeholder="Enter your date of birth" required />

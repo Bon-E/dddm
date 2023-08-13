@@ -51,19 +51,13 @@ const hide_show_elements = () => {
         $("#registerBtn").hide();
         $("#disconnectBtn").show();
         if (model.getIsAdmin()) {
-            $("#maintainProductsBtn").show();
-            $("#maintainUsersBtn").show();
-            $("#vendorsbtn").show();
+            $('#maintenance').show();
         } else {
-            $("#maintainProductsBtn").hide();
-            $("#maintainUsersBtn").hide();
-            $("#vendorsbtn").hide();
+            $('#maintenance').hide();
         }
     } else {
-        $("#maintainProductsBtn").hide();
-        $("#maintainUsersBtn").hide();
+        $('#maintenance').hide();
         $("#disconnectBtn").hide();
-        $("#vendorsbtn").hide();
         $("#loginBtn").show();
         $("#registerBtn").show();
     }

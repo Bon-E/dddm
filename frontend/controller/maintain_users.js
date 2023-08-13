@@ -35,9 +35,6 @@ function populateTable() {
 
     var tableBody = $("#userTableBody");
 
-
-    console.log(model.getUsers());
-
     model.getUsers().forEach(function (user) {
         var row = $("<tr>");
 
@@ -92,7 +89,6 @@ function initModal() {
 
     $("#saveChangesBtn").click(function () {
         var formData = editForm.serialize();
-        console.log(formData);
         // You can send the formData using an AJAX request to the backend
         // alert("Sending request to update user with ID: " + editUserIdField.val());
         $.ajax({
@@ -100,7 +96,6 @@ function initModal() {
             type: 'PUT',
             data: formData,
             success: function (res) {
-                console.log('ok');
                 refreshTable();
             }
         });
