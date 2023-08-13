@@ -63,8 +63,6 @@ router.get('/disconnect', (req, res) => {
 });
 
 router.put('/update_user', (req, res) => {
-    console.log('OK GOT IT!: ', req.body);
-
     let reqObj = {
         username: req.body.userName,
         password: req.body.password,
@@ -95,8 +93,6 @@ router.put('/update_user', (req, res) => {
 
 
 router.put('/update_self', (req, res) => {
-    console.log('yoOHOOD: \n', req.body, "\n-----\n");
-
     let reqObj = {
         password: req.body.password,
         fname: req.body.fname,
@@ -125,7 +121,6 @@ router.put('/update_self', (req, res) => {
         db_user.getUsers({
             _id: req.session.user._id
         }, null, {limit: 1}).then(new_user => {
-            console.log('k: ', new_user);
             req.session.user = new_user[0];
             res.status(200).send();
         }).catch(err => {
@@ -135,7 +130,6 @@ router.put('/update_self', (req, res) => {
 });
 
 router.delete('/delete_user', (req, res) => {
-    console.log(req.body);
     db_user.findAndDeleteById(req.body.userId).then(d => {
         res.status(200).send();
     });
@@ -150,7 +144,6 @@ router.get('/get_user_types', (req, res) => {
 
 router.get('/get_self_details', (req, res) => {
     if (utils.isLogged(req.session.user)) {
-        console.log('CMONNN', req.session.user)
         res.send(req.session.user);
     } else {
         res.status(500).send();
