@@ -42,6 +42,10 @@ const routePages = () => {
         window.location.href = '/maintain_users';
     });
 
+    $("#editAccount").on('click', () => {
+        window.location.href = 'edit_details';
+    });
+
 }
 
 const hide_show_elements = () => {
@@ -50,15 +54,17 @@ const hide_show_elements = () => {
         $("#loginBtn").hide();
         $("#registerBtn").hide();
         $("#disconnectBtn").show();
-        if (model.getIsAdmin()) {
+        $('#editAccount').show();
+        $('#maintenance').hide();
+        if (model.getIsAdmin()) { // user is admin
+            $('#editAccount').hide();
             $('#maintenance').show();
-        } else {
-            $('#maintenance').hide();
         }
-    } else {
+    } else { // user isn't logged in
         $('#maintenance').hide();
         $("#disconnectBtn").hide();
         $("#loginBtn").show();
         $("#registerBtn").show();
+        $('#editAccount').hide();
     }
 }

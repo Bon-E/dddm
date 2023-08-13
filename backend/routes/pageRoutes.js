@@ -50,4 +50,8 @@ router.get("/maintain_users", (req, res) => {
     res.sendFile(views_dir + "maintain_users.html");
 });
 
+router.get("/edit_details", (req, res) => {
+    res.sendFile(views_dir + "edit_self_details.html");
+});
+
 module.exports = router;
