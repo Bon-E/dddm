@@ -54,7 +54,8 @@ const orders_Schema = new Schema({
     order_items: [
         {
             product_id: ObjectId,
-            price_for_order: Number
+            quantity: Number,
+            price_for_order: Number         
         }
     ]
 }, {versionKey: false});
