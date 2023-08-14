@@ -94,7 +94,8 @@
                                     <th scope="col">Stock</th>
                                     <th scope="col">Category</th>
                                     <th scope="col">Platform</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">Vendor</th>
+                                    <th scope="col">Edit</th>
                                 </tr>
                             </thead>
                             <tbody id="productTableBody">
@@ -109,6 +110,67 @@
                                 </theader>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+            <!--Edit Product Modal-->
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Edit Product</h5>
+                            <button type="button" class="close" id="closeModalBtn1" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editProductForm">
+                                <input type="hidden" id="productId" name="productId" />
+                                <img id="productImg" src="" class="img-fluid" alt="image" />
+                                <div class="mb-3">
+                                    <label for="editImage" class="form-label">Image:</label>
+                                    <input type="file" id="editImage" name="editImage" class="form-control" accept="image/*" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="editProductName">Product Name</label>
+                                    <input type="text" class="form-control" id="editProductName" name="name" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="editDescription">Product Description</label>
+                                    <input type="text" class="form-control" id="editDescription" name="description" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="editStock">Stock</label>
+                                    <input type="text" class="form-control" id="editStock" name="stock" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editCategory" class="form-label">Category</label>
+                                    <select class="form-select" id="editCategory" name="category" required>
+                                        <option selected disabled>Select Category</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editVendor" class="form-label">Vendor</label>
+                                    <select class="form-select" id="editVendor" name="vendor" required>
+                                        <option selected disabled>Select Vendor</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editPlatform" class="form-label">Platform</label>
+                                    <select class="form-select" id="editPlatform" name="platform" required>
+                                        <option selected disabled>Select Platform</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editPrice">Price</label>
+                                    <input type="text" class="form-control" id="editPrice" name="price" required />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="closeModalBtn2" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="saveChangesBtn">Save changes</button>
+                        </div>
                     </div>
                 </div>
             </div>
