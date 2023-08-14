@@ -37,7 +37,7 @@ router.post("/create_vendor", async (req,res) => {
 
   router.post("/edit_vendor", async (req, res) => {
     console.log(req.body);
-    const { name,website,vendorID} = req.body;
+    const {name,website,vendorID} = req.body;
     try {
         const editedVendor = await db_vendor.editVendor(name,website,vendorID);
         console.log('Vendor edited successfully:', editedVendor);
