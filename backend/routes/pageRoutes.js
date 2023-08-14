@@ -51,6 +51,12 @@ router.get("/vendors", (req, res) => {
 router.get("/maintain_users", (req, res) => {
     res.sendFile(views_dir + "maintain_users.html");
 });
+router.get("/products", (req, res) => {
+    res.sendFile(views_dir + "products.html");
+});
+router.get("/cart", (req, res) => {
+    res.sendFile(views_dir + "cart.html");
+});
 
 router.get("/products", (req, res) => {
     res.sendFile(views_dir + "products.html");
