@@ -15,9 +15,10 @@ const Model = (function () {
     function init_sessionStorage() {
         data = {
             isLogged: false,
-            isAdmin: false
+            isAdmin: false,
+            cart:[]
         };
-        save_sessionStorage(); // initialize sessionStorage with initialized data variable
+        save_sessionStorage(); 
     }
 
     function load_sessionStorage() {
@@ -25,17 +26,13 @@ const Model = (function () {
         if (model === null || model === undefined || Object.keys(model).length === 0) {
             init_sessionStorage();
         }
-
         data = model;
     }
-
     function save_sessionStorage() {
         sessionStorage.setItem('Model', JSON.stringify(data));
     }
-
     function init() {
         load_sessionStorage();
-
         return {
             getCities: function () {
                 return cityArray;
@@ -43,14 +40,12 @@ const Model = (function () {
             setCities: function (c) {
                 cityArray = c;
             },
-
             getAddresses: function () {
                 return addressesArray;
             },
             setAddresses: function (c) {
                 addressesArray = c;
             },
-
             getCategories: function () {
                 return categories;
             },
@@ -64,56 +59,54 @@ const Model = (function () {
             setVendors: function (v) {
                 vendors = v;
             },
-
             getPlatforms: function () {
                 return platforms;
             },
             setPlatforms: function (p) {
                 platforms = p;
             },
-
             getHeader: function () {
                 return header;
             },
             setHeader: function (h) {
                 header = h;
             },
-
             getProducts: function () {
                 return products;
             },
             setProducts: function (p) {
                 products = p;
             },
-
             getIsLogged: function () {
                 return data.isLogged;
             },
             setIsLogged: function (l) {
                 data.isLogged = l;
             },
-
             getIsAdmin: function () {
                 return data.isAdmin;
             },
             setIsAdmin: function (a) {
                 data.isAdmin = a;
             },
-
             getUsers: function () {
                 return users;
             },
             setUsers: function (u) {
                 users = u;
             },
-
             getUserTypes: function () {
                 return userTypes;
             },
             setUserTypes: function (u) {
                 userTypes = u;
             },
-
+            AddToCart: function (a){
+                data.cart.push(a);
+            },
+            GetCart: function(){
+                return data.cart;
+            },
             saveData: function () {
                 save_sessionStorage();
             },
@@ -131,4 +124,4 @@ const Model = (function () {
             return instance;
         }
     };
-})();
+});
