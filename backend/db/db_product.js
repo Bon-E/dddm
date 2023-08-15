@@ -1,4 +1,4 @@
-const {Product} = require('./schemas');
+const { Product } = require("./schemas");
 
 async function _addProduct(name, description, category_id, platform_id, vendor_id, stock, image, price, changed_by) {
     try {
@@ -21,9 +21,8 @@ async function _addProduct(name, description, category_id, platform_id, vendor_i
         // console.log(newProduct);
         const savedProduct = await newProduct.save();
         return savedProduct;
-
     } catch (error) {
-        console.log('Couldn\'t add product: ', error);
+        console.log("Couldn't add product: ", error);
         throw error;
     }
 }
@@ -33,8 +32,13 @@ async function _getProducts(q = {}, pr = {}, opt = {}) {
     return query;
 }
 
+async function _getProduct(id) {
+    const query = await Product.findOne({ _id: id });
+    return query;
+}
 
 module.exports = {
+    getProduct: _getProduct,
     getProducts: _getProducts,
     addProduct: _addProduct
-}
+};
