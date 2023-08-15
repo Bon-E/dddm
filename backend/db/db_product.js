@@ -37,8 +37,14 @@ async function _getProduct(id) {
     return query;
 }
 
+async function _findAndDeleteById(id) {
+    const query = await Product.findByIdAndDelete(id);
+    return query;
+}
+
 module.exports = {
     getProduct: _getProduct,
     getProducts: _getProducts,
-    addProduct: _addProduct
+    addProduct: _addProduct,
+    findAndDeleteById: _findAndDeleteById
 };

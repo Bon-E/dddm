@@ -44,8 +44,6 @@ function check_input() {
     return true;
 }
 
-function upload_image() {}
-
 function populatePlatformsSelection() {
     let model = Model.getInstance();
     $.each(model.getPlatforms(), (index, item) => {
@@ -103,14 +101,40 @@ function populateProductTable() {
         row.append($("<td>").text(vendor ? vendor.name : null));
 
         const editButton = $("<button>")
-            .text("Edit")
-            .addClass("btn btn-primary btn-sm")
+            .addClass("btn btn-primary mr-2")
             .click(function () {
                 var productId = $(this).closest("tr").data("product-id");
                 handleEditButtonClick(productId);
             });
 
-        row.append($("<td></td>").append(editButton));
+        const pencilIcon = $("<i>").addClass("bi bi-pencil");
+        editButton.append(pencilIcon);
+
+        var deleteButton = $("<button>")
+            .addClass("btn btn-danger")
+            .click(function () {
+                var productId = $(this).closest("tr").data("product-id");
+                $.ajax({
+                    url: "/delete_product",
+                    type: "DELETE",
+                    data: { productId: productId }
+                })
+                    .then(() => {
+                        $.get("/get_products").done((products) => {
+                            let model = Model.getInstance();
+                            model.setProducts(products);
+                            populateProductTable();
+                        });
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                    });
+            });
+
+        const trashIcon = $("<i>").addClass("bi bi-trash");
+        deleteButton.append(trashIcon);
+
+        row.append($("<td>").append(editButton, deleteButton));
 
         $("#productTableBody").append(row);
     }

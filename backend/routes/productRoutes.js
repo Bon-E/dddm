@@ -72,4 +72,15 @@ router.put("/update_product", (req, res) => {
     });
 });
 
+router.delete("/delete_product", (req, res) => {
+    db_product
+        .findAndDeleteById(req.body.productId)
+        .then(() => {
+            res.status(200).send();
+        })
+        .catch((err) => {
+            res.status(400).send(err);
+        });
+});
+
 module.exports = router;
