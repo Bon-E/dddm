@@ -12,9 +12,22 @@ const categories_Schema = new Schema({ name: String }, { versionKey: false });
 
 const statuses_Schema = new Schema({ status: String }, { versionKey: false });
 
-const orders_Schema = new Schema({ user_id: ObjectId, date: Date, total_price: Number, status_id: ObjectId, order_items: [{ product_id: ObjectId, price_for_order: Number }] }, { versionKey: false });
-
-const platforms_Schema = new Schema({ name: String }, { versionKey: false });
+const orders_Schema = new Schema(
+    {
+        user_id: ObjectId,
+        date: Date,
+        total_price: Number,
+        status_id: ObjectId,
+        order_items: [
+            {
+                product_id: ObjectId,
+                quantity: Number,
+                price_for_order: Number
+            }
+        ]
+    },
+    { versionKey: false }
+);
 
 const products_Schema = new Schema({ name: String, description: String, category_id: ObjectId, platform_id: ObjectId, vendor_id: ObjectId, stock: Number, image: String, pricing: [{ _id: false, price: Number, changed_on: Date, changed_by: ObjectId }] }, { versionKey: false });
 
