@@ -72,23 +72,33 @@ $(document).ready(function () {
                 var row = $(this).closest('tr');
                 var name = row.find('.name').text();
                 var site = row.find('.site').text();
+                var modal = new bootstrap.Modal(document.getElementById('editModal'));
+                var vendorID = $(this).data('vendorid');
         
-                var newName = prompt('Enter new name:', name);
-                var newSite = prompt('Enter new site:', site);
+                $('#editName').val(name);
+                $('#editSite').val(site);
         
-                if (newName && newSite) {
-                    row.find('.name').text(newName);
-                    row.find('.site').text(newSite);
+                modal.show();
         
-                    var vendorData = {
-                        name: newName,
-                        website: newSite,
-                        vendorID: $(this).data().vendorid
-                    };
+                $('#modalSaveButton').on('click', function () {
+                    var newName = $('#editName').val();
+                    var newSite = $('#editSite').val();
         
-                    updateVendor(vendorData); // Call the updateVendor function
-                }
+                    if (newName && newSite) {
+                        row.find('.name').text(newName);
+                        row.find('.site').text(newSite);
         
+                        var vendorData = {
+                            name: newName,
+                            website: newSite,
+                            vendorID: vendorID
+                        };
+        
+                        updateVendor(vendorData);
+                    }
+        
+                    modal.hide(); 
+                });
             });
         
             const addNewVendor = async (vendorData) => {
