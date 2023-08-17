@@ -28,92 +28,20 @@
 
     <body>
         <div id="_header"></div>
-        <!--Users Table-->
-        <div class="container mt-4">.</div>
-        <div class="container mt-4">
-            <table class="table table-bordered">
+        <div class="container mt-5">
+            <h1>Order Management</h1>
+            <table class="table">
                 <thead>
                     <tr>
-                        <th>User Name</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Edit</th>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Total Amount</th>
                     </tr>
                 </thead>
-                <tbody id="userTableBody">
-                    <!-- User data will be inserted here dynamically -->
+                <tbody id="ordersTableBody">
+                    <!-- Orders will be dynamically added here -->
                 </tbody>
             </table>
-            <!--Edit User Modal-->
-            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editModalLabel">Edit User</h5>
-                            <button type="button" class="close" id="closeModalBtn1" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="editUserForm">
-                                <input type="hidden" id="editUserId" name="userId" />
-                                <div class="form-group">
-                                    <label for="editUserName">User Name</label>
-                                    <input type="text" class="form-control" id="editUserName" name="userName" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="editPassword">Password</label>
-                                    <input type="password" class="form-control" id="editPassword" name="password" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="editFirstName">First Name</label>
-                                    <input type="text" class="form-control" id="editFirstName" name="fname" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="editLastName">Last Name</label>
-                                    <input type="text" class="form-control" id="editLastName" name="lname" />
-                                </div>
-                                <div class="mb-3">
-                                    <label for="userType" class="form-label">User Type</label>
-                                    <select class="form-select" id="userType" name="userType" required>
-                                        <option selected disabled>Select user type</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="editEmail">Email</label>
-                                    <input type="email" class="form-control" id="editEmail" name="email" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="editPhone">Phone</label>
-                                    <input type="text" class="form-control" id="editPhone" name="phone" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="editBirthday">Birthday</label>
-                                    <input type="date" class="form-control" id="editBirthday" name="birthday" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="editCity">City</label>
-                                    <input type="text" class="form-control" id="editCity" name="city" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="editStreet">Street</label>
-                                    <input type="text" class="form-control" id="editStreet" name="street" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="editHouseNumber">House Number</label>
-                                    <input type="text" class="form-control" id="editHouseNumber" name="housenum" />
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" id="closeModalBtn2" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="saveChangesBtn">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </body>
 </html>
