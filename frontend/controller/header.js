@@ -18,6 +18,10 @@ const routePages = () => {
         window.location.href = '/';
     });
 
+    $("#cart").on('click', () => {
+        window.location.href = '/cart';
+    });
+
     $("#registerBtn").on('click', () => {
         window.location.href = '/register';
     });
