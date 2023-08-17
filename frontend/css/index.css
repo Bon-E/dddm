@@ -1,20 +1,12 @@
 .btn-spacing {
   margin-left: 10px;
 }
-#cards {
-  margin-top: 100px;
-  margin-left: 10px;
-  margin-bottom: 10px;
-}
-.card.mb-3 {
-  margin-top: 20px;
-}
-.card {
-  width: 25rem;
-  height: 100%;
-}
 body {
   background-color: rgb(230, 230, 221);
+  font-family: Arial, sans-serif;
+  margin-top: 100px;
+  padding: 0;
+  background-color: #f4f4f4;
 }
 header {
   position: fixed;
@@ -66,4 +58,26 @@ input[type="email"] {
 }
 #vendorsbtn{
   background-color: red;
+}
+#products{
+  margin-top: 20px;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.content {
+  padding: 20px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+  background-color: #35424a;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
 }
