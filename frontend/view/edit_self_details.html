@@ -4,25 +4,26 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Game store</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="hַttps://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
-        <link rel="stylesheet" href="./../css/index.css" />
-        <link rel="stylesheet" href="./../css/register.css" />
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 
+        <title>Game store</title>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        <link rel="stylesheet" href="./../css/index.css" />
         <link rel="stylesheet" href="../css/chupapi.css" />
 
         <script src="./../model/model.js"></script>
 
-        <script src="./../api/Api.js"></script>
+        <script src="./../controller/utils.js"></script>
         <script src="./../controller/header.js"></script>
 
-        <script src="../controller/register.js"></script>
+        <script src="./../controller/edit_self_details.js"></script>
     </head>
     <body>
         <div id="_header"></div>
@@ -30,37 +31,37 @@
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <h1 id="register" class="mb-4">Register</h1>
-                    <form onsubmit="handle_register(event)">
+                    <form id="editAccountForm" onsubmit="handle_register(event)">
                         <div class="mb-3">
-                            <label for="firstName" class="form-label">First Name</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" required />
+                            <label for="fname">First Name</label>
+                            <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter your first name" required />
                         </div>
                         <div class="mb-3">
-                            <label for="lastName" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" required />
+                            <label for="lname" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter your last name" required />
                         </div>
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" placeholder="Enter your username" required />
+                            <input type="text" class="form-control" id="username" name="username" disabled placeholder="Enter your username" required />
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Enter your password" required />
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" />
                         </div>
                         <div class="mb-3">
                             <label for="confirmPassword" class="form-label">Repeat the password</label>
-                            <input type="password" class="form-control" id="confirmPassword" placeholder="Enter your password" required />
+                            <input type="password" class="form-control" id="confirmPassword" placeholder="Enter your password" />
                         </div>
                         <div class="mb-3">
                             <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter your email" />
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" />
                         </div>
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="mb-6">
                                     <label for="phone_start">Phone:</label>
                                     <div class="dropdown">
-                                        <select class="form-select" id="phone_start" name="phone" required>
+                                        <select class="form-select" class="form-control" id="phone_start" name="phone_start" required>
                                             <option selected disabled>Phone start</option>
                                             <option value="050">050</option>
                                             <option value="052">052</option>
@@ -75,13 +76,13 @@
                             <div class="col-md-9">
                                 <div class="mb-3">
                                     <label for="phoneNumber"></label>
-                                    <input type="number" class="form-control" id="phoneNumber" placeholder="Enter your phone number" />
+                                    <input type="number" class="form-control" id="phoneNumber" name="phone" placeholder="Enter your phone number" />
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3 flex-container">
                             <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                            <input type="date" class="form-control" id="dateOfBirth" placeholder="Enter your date of birth" required />
+                            <input type="date" class="form-control" name="birthday" id="dateOfBirth" placeholder="Enter your date of birth" required />
                         </div>
                         <div class="address-section">
                             <h3 class="form-label">Add your Address:</h3>
@@ -100,7 +101,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Register</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
                     </form>
                 </div>
             </div>

@@ -39,11 +39,15 @@ const routePages = () => {
     });
 
     $("#vendorsbtn").on('click', () => {
-        window.location.href = '/vendors';
+        window.location.href = '/maintain_vendors';
     });
 
     $("#maintainUsersBtn").on('click', () => {
         window.location.href = '/maintain_users';
+    });
+
+    $("#editAccount").on('click', () => {
+        window.location.href = '/edit_details';
     });
 
 }
@@ -54,18 +58,17 @@ const hide_show_elements = () => {
         $("#loginBtn").hide();
         $("#registerBtn").hide();
         $("#disconnectBtn").show();
-        if (model.getIsAdmin()) {
-            $("#maintainProductsBtn").show();
-            $("#maintainUsersBtn").show();
-        } else {
-            $("#maintainProductsBtn").hide();
-            $("#maintainUsersBtn").hide();
+        $('#editAccount').show();
+        $('#maintenance').hide();
+        if (model.getIsAdmin()) { // user is admin
+            $('#editAccount').hide();
+            $('#maintenance').show();
         }
-    } else {
-        $("#maintainProductsBtn").hide();
-        $("#maintainUsersBtn").hide();
+    } else { // user isn't logged in
+        $('#maintenance').hide();
         $("#disconnectBtn").hide();
         $("#loginBtn").show();
         $("#registerBtn").show();
+        $('#editAccount').hide();
     }
 }

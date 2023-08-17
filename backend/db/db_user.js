@@ -45,7 +45,6 @@ async function _addUser(username, password, fname, lname, email, phone, birthday
 
 async function _authenticateUser(username, password) {
     const query = await User.findOne({username: username, password: password});
-    console.log(query);
     return query;
 }
 

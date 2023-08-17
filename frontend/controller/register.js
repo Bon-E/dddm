@@ -100,16 +100,12 @@ const createUserData = () => {
 };
 
 const addNewUser = (userData) => {
-    $.post("/create_user", userData)
-        .done((savedUser) => {
-            // TODO: redirect to login page
-            alert("Successfully registered !");
-            window.location.href = "/login";
-        })
-        .fail((error) => {
-            // TODO: show error message in page, not in the console
-            console.error("Error registering user:", error);
-        });
+    $.post("/create_user", userData).done((savedUser) => { // TODO: redirect to login page
+        alert("Successfully registered !");
+        window.location.href = "/login";
+    }).fail((error) => { // TODO: show error message in page, not in the console
+        console.error("Error registering user:", error);
+    });
 };
 
 function comparePasswords() {
