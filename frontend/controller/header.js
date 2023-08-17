@@ -46,6 +46,10 @@ const routePages = () => {
         window.location.href = '/edit_details';
     });
 
+    $('#maintainOrdersBtn').on('click', () => {
+        window.location.href = '/maintainOrdersBtn';
+    });
+
 }
 
 const hide_show_elements = () => {

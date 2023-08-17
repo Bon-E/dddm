@@ -62,4 +62,8 @@ router.get("/edit_details", (req, res) => {
     res.sendFile(views_dir + "edit_self_details.html");
 });
 
+router.get('/maintainOrdersBtn', (req, res) => {
+    res.sendFile(views_dir + 'maintain_order.html');
+});
+
 module.exports = router;
