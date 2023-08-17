@@ -34,6 +34,13 @@ router.post("/create_product", (req, res) => {
         res.status(400).send("Couldn't add product");
     });
 });
+router.get("/getProductByName", (req,res) =>{
+   db_product.getProducts({"name":{$regex:'.*'+req.body.name+ '.*'} }).then((products)=>{
+   res.send(products)
+   }).catch((error)=>{
+    console.log(error)
+   })
+})
 
 router.get("/get_products", (req, res) => {
     db_product.getProducts().then((q) => {

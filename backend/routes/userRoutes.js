@@ -150,4 +150,5 @@ router.get('/get_self_details', (req, res) => {
     }
 });
 
+
 module.exports = router;

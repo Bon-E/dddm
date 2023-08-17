@@ -1,9 +1,40 @@
 $(document).ready(function () {
   initPage().then(() => {
-    routePages();
+      routePages();
   });
 
-  
+  $(document).on('input', '#search', function () {
+      const searchTerm = $(this).val().trim();
+      performSearch(searchTerm);
+  });
+
+  // Other existing code...
+
+  function performSearch(query) {
+      $.get('/get_products') // Assuming this is your route to fetch all products
+          .done((products) => {
+              const filteredProducts = filterProducts(products, query);
+              clearProductCards();
+              populateProductCards(filteredProducts);
+          })
+          .fail((error) => {
+              console.error('Error fetching product data:', error);
+          });
+  }
+
+  function filterProducts(products, query) {
+      return products.filter(product => {
+          return product.name.toLowerCase().includes(query.toLowerCase());
+          // You can adjust the property used for filtering (e.g., product.description)
+      });
+  }
+
+  function clearProductCards() {
+      $('#images').empty();
+  }
+});
+
+
   $(document).on('click', '.add-to-cart-btn', function() {
     let model = Model.getInstance();
     const found = model.getProducts().find((element) => element._id == $(this).attr('id'));
@@ -26,7 +57,7 @@ $(document).ready(function () {
   }).fail((error) => {
     console.error('Error fetching product data:', error);
   });
-});
+
 function findMyPrice(product) {
   let prices = product.pricing;
   let lastDate = prices[0];

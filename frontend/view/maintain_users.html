@@ -29,6 +29,11 @@
     <body>
         <div id="_header"></div>
         <!--Users Table-->
+
+        <form id="search-form" class="d-flex ms-auto" action="#">
+            <input id="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+        </form>
+
         <div class="container mt-4">.</div>
         <div class="container mt-4">
             <table class="table table-bordered">
@@ -46,6 +51,7 @@
                     <!-- User data will be inserted here dynamically -->
                 </tbody>
             </table>
+
             <!--Edit User Modal-->
             <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
