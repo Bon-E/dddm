@@ -42,8 +42,8 @@ router.get("/products_maint", (req, res) => {
     });
 });
 
-router.get("/vendors", (req, res) => {
-    res.sendFile(views_dir + "vendors.html");
+router.get("/maintain_vendors", (req, res) => {
+    res.sendFile(views_dir + "maintain_vendors.html");
 });
 
 router.get("/maintain_users", (req, res) => {

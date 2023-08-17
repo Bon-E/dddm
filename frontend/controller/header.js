@@ -35,7 +35,7 @@ const routePages = () => {
     });
 
     $("#vendorsbtn").on('click', () => {
-        window.location.href = '/vendors';
+        window.location.href = '/maintain_vendors';
     });
 
     $("#maintainUsersBtn").on('click', () => {
@@ -43,7 +43,7 @@ const routePages = () => {
     });
 
     $("#editAccount").on('click', () => {
-        window.location.href = 'edit_details';
+        window.location.href = '/edit_details';
     });
 
 }
