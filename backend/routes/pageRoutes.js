@@ -1,10 +1,10 @@
-const express = require('express');
-const path = require('path');
-const utils = require('../util');
+const express = require("express");
+const path = require("path");
+const utils = require("../util");
 
 const router = express.Router();
 
-const views_dir = path.join(__dirname, '../../frontend/view/');
+const views_dir = path.join(__dirname, "../../frontend/view/");
 
 router.use(express.json());
 
@@ -16,7 +16,7 @@ router.get("/register", (req, res) => {
     if (req.session.user == null || req.session.user == undefined) {
         res.sendFile(views_dir + "register.html");
     } else {
-        res.redirect('/');
+        res.redirect("/");
     }
 });
 
@@ -24,7 +24,7 @@ router.get("/login", (req, res) => {
     if (req.session.user == null || req.session.user == undefined) {
         res.sendFile(views_dir + "login.html");
     } else {
-        res.redirect('/');
+        res.redirect("/");
     }
 });
 
@@ -33,19 +33,17 @@ router.get("/header", (req, res) => {
 });
 
 router.get("/products_maint", (req, res) => {
-    utils.isAdmin(req.session.user).then(r => {
+    utils.isAdmin(req.session.user).then((r) => {
         if (r) {
-            console.log('ok !');
             res.sendFile(views_dir + "maintain_products.html");
         } else {
-            console.log('why though :(');
-            res.redirect('/');
+            res.redirect("/");
         }
     });
 });
 
-router.get("/vendors", (req, res) => {
-    res.sendFile(views_dir + "vendors.html");
+router.get("/maintain_vendors", (req, res) => {
+    res.sendFile(views_dir + "maintain_vendors.html");
 });
 
 router.get("/maintain_users", (req, res) => {
@@ -58,6 +56,10 @@ router.get("/products", (req, res) => {
 
 router.get("/cart", (req, res) => {
     res.sendFile(views_dir + "cart.html");
+});
+
+router.get("/edit_details", (req, res) => {
+    res.sendFile(views_dir + "edit_self_details.html");
 });
 
 module.exports = router;

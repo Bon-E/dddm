@@ -37,6 +37,7 @@ router.get('/authenticate', (req, res) => {
         if (authenticated !== null) {
             session = req.session;
             session.user = authenticated;
+            console.log('logged: ', authenticated);
         }
         res.send(authenticated !== null);
     });
@@ -62,8 +63,6 @@ router.get('/disconnect', (req, res) => {
 });
 
 router.put('/update_user', (req, res) => {
-    console.log('OK GOT IT!: ', req.body);
-
     let reqObj = {
         username: req.body.userName,
         password: req.body.password,
@@ -92,10 +91,46 @@ router.put('/update_user', (req, res) => {
     });
 });
 
+
+router.put('/update_self', (req, res) => {
+    let reqObj = {
+        password: req.body.password,
+        fname: req.body.fname,
+        lname: req.body.lname,
+        type: req.body.userType,
+        email: req.body.email,
+        phone: req.body.phone_start + '-' + req.body.phone,
+        birthday: new Date(req.body.birthday),
+        address: {
+            city: req.body.city,
+            street: req.body.street,
+            house_number: req.body.homenumber
+        }
+    }
+
+    let updateObj = {};
+    for (const key of Object.keys(reqObj)) {
+        if (reqObj[key] != null && reqObj[key] != undefined && reqObj[key] != '') {
+            updateObj[key] = reqObj[key];
+        }
+    }
+
+    console.log('updating: ', updateObj);
+
+    db_user.findAndUpdateById(req.session.user._id, {$set: updateObj}).then(q => {
+        db_user.getUsers({
+            _id: req.session.user._id
+        }, null, {limit: 1}).then(new_user => {
+            req.session.user = new_user[0];
+            res.status(200).send();
+        }).catch(err => {
+            res.status(400).send(err);
+        });
+    });
+});
+
 router.delete('/delete_user', (req, res) => {
-    console.log(req.body);
     db_user.findAndDeleteById(req.body.userId).then(d => {
-        console.log('deleting user: ', req.body.userId);
         res.status(200).send();
     });
 });
@@ -106,4 +141,13 @@ router.get('/get_user_types', (req, res) => {
         res.send(types);
     });
 });
+
+router.get('/get_self_details', (req, res) => {
+    if (utils.isLogged(req.session.user)) {
+        res.send(req.session.user);
+    } else {
+        res.status(500).send();
+    }
+});
+
 module.exports = router;

@@ -35,9 +35,6 @@ function populateTable() {
 
     var tableBody = $("#userTableBody");
 
-
-    console.log(model.getUsers());
-
     model.getUsers().forEach(function (user) {
         var row = $("<tr>");
 
@@ -50,12 +47,15 @@ function populateTable() {
         row.append($("<td>").text(user.phone));
 
         var actionsCell = $("<td>");
-        var editButton = $("<button>").addClass("btn btn-primary mr-2").text("Edit").click(function () {
+        var editButton = $("<button>").addClass("btn btn-primary mr-2").click(function () {
             var userId = $(this).closest("tr").data("user-id");
             handleEditButtonClick(userId); // opens edit modal with user's data
         });
 
-        var deleteButton = $("<button>").addClass("btn btn-danger").text("Delete").click(function () {
+        const pencilIcon = $('<i>').addClass('bi bi-pencil');
+        editButton.append(pencilIcon);
+
+        var deleteButton = $("<button>").addClass("btn btn-danger").click(function () {
             // Handle delete button click
             // You can implement delete functionality here
             var userId = $(this).closest("tr").data("user-id");
@@ -69,10 +69,13 @@ function populateTable() {
                     console.log('deleted');
                     refreshTable();
                 }
-            })
+            });
 
             alert("Delete button clicked for user with ID: " + userId);
         });
+        const trashIcon = $('<i>').addClass('bi bi-trash');
+        deleteButton.append(trashIcon);
+
 
         actionsCell.append(editButton, deleteButton);
         row.append(actionsCell);
@@ -86,7 +89,6 @@ function initModal() {
 
     $("#saveChangesBtn").click(function () {
         var formData = editForm.serialize();
-        console.log(formData);
         // You can send the formData using an AJAX request to the backend
         // alert("Sending request to update user with ID: " + editUserIdField.val());
         $.ajax({
@@ -94,7 +96,6 @@ function initModal() {
             type: 'PUT',
             data: formData,
             success: function (res) {
-                console.log('ok');
                 refreshTable();
             }
         });

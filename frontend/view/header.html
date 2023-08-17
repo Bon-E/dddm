@@ -4,9 +4,15 @@
             <a class="navbar-brand" href="/">Game Chumama</a>
             <button id="loginBtn" class="btn btn-primary">Login</button>
             <button id="registerBtn" class="btn btn-primary btn-spacing">Register</button>
-            <button id="vendorsbtn" class="btn btn-primary btn-spacing">Vendors</button>
-            <button id="maintainProductsBtn" type="button" class="btn btn-primary">Maintain Products</button>
-            <button id="maintainUsersBtn" type="button" class="btn btn-primary">Maintain Users</button>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" id="maintenance" type="button" data-bs-toggle="dropdown" aria-expanded="false">Maintenance</button>
+                <ul class="dropdown-menu">
+                    <button id="vendorsbtn" class="dropdown-item">Maintain Vendors</button>
+                    <button id="maintainProductsBtn" type="button" class="dropdown-item">Maintain Products</button>
+                    <button id="maintainUsersBtn" type="button" class="dropdown-item">Maintain Users</button>
+                </ul>
+            </div>
+            <button id="editAccount" class="btn btn-primary btn-spacing">Edit Account</button>
             <form class="d-flex ms-auto">
                 <input id="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                 <button class="btn btn-outline-primary" type="submit">Search</button>
