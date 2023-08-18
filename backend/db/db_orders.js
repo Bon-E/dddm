@@ -1,5 +1,5 @@
-const {ObjectId} = require("mongodb");
-const {Order} = require("./schemas");
+const { ObjectId } = require('mongodb');
+const { Order } = require('./schemas');
 
 async function _createOrder(user_id, total_price, items) {
     const order = new Order({
@@ -18,7 +18,13 @@ async function _getOrders(filter = {}, projection = {}, options = {}) {
     return orders;
 }
 
+async function _updateOrderStatus(id, statusId) {
+    const order = await Order.findByIdAndUpdate(id, { status_id: statusId });
+    return order;
+}
+
 module.exports = {
     getOrders: _getOrders,
-    createOrder: _createOrder
-}
+    createOrder: _createOrder,
+    updateOrderStatus: _updateOrderStatus
+};

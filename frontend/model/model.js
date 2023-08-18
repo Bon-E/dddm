@@ -12,6 +12,7 @@ const Model = (function () {
     let users = [];
     let userTypes = [];
     let orders = [];
+    let statuses = [];
 
     function init_sessionStorage() {
         data = {
@@ -114,6 +115,12 @@ const Model = (function () {
             setOrders: function (ords) {
                 orders = ords;
             },
+            getStatuses: function () {
+                return statuses;
+            },
+            setStatuses: function (s) {
+                statuses = s;
+            },
             saveData: function () {
                 save_sessionStorage();
             },
@@ -125,7 +132,7 @@ const Model = (function () {
 
     return {
         getInstance: function () {
-            if (! instance) {
+            if (!instance) {
                 instance = init();
             }
             return instance;
