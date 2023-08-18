@@ -3,7 +3,6 @@ body {
     margin: 5px;
     margin-top: 100px;
     padding: 0;
-    background-color: #f8f9fa;
 }
 
 #ourp {
@@ -15,30 +14,30 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 15px;
-  }
-  
-  .card {
+    gap: 20px;
+}
+
+
+.card {
     flex: 1 1 calc(25% - 10px);
-    margin: 15px 0; 
+    margin: 15px 0;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.3s ease-in-out;
-  }
-  
-  /* Add a pseudo-element to fill the empty space in the last row */
+}
+
+/* Add a pseudo-element to fill the empty space in the last row */
 .row::after {
     content: "";
     flex: auto;
 }
-  
-  /* Center the cards in the last row */
+
+/* Center the cards in the last row */
 .row:last-child {
     justify-content: center;
 }
-  
-  
+
 .card:hover {
     transform: scale(1.05);
 }
@@ -59,7 +58,7 @@ body {
     margin-bottom: 10px;
 }
 .btn-primary {
-    background-color: #007bff;
+    background-color: #8d9e6f;
     border: none;
     padding: 8px 15px;
     border-radius: 5px;
@@ -67,20 +66,20 @@ body {
     cursor: pointer;
 }
 .btn-primary:hover {
-    background-color: #0056b3;
+    background-color: #8d9e6f;
 }
 .btn-secondary {
-  background-color: #6c757d;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
+    background-color: #6c757d;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
 }
 
 .btn-secondary:hover {
-  background-color: #545b62;
+    background-color: #545b62;
 }
-section{
-    margin-top: 10px;
+section {
+    margin-top: 10px;
 }

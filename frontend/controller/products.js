@@ -8,7 +8,6 @@ $(document).ready(function () {
       performSearch(searchTerm);
   });
 
-  // Other existing code...
 
   function performSearch(query) {
       $.get('/get_products') // Assuming this is your route to fetch all products
@@ -25,7 +24,7 @@ $(document).ready(function () {
   function filterProducts(products, query) {
       return products.filter(product => {
           return product.name.toLowerCase().includes(query.toLowerCase());
-          // You can adjust the property used for filtering (e.g., product.description)
+         
       });
   }
 
@@ -79,7 +78,7 @@ function populateProductCards(products) {
           <div class="card-body">
             <h5 class="card-title">${product.name}</h5>
             <p class="card-text">${product.description}</p>
-            <p class="card-text">${product.price} USD</p>
+            <p class="card-text">${findMyPrice(product)} USD</p>
             <button type="button" class="btn btn-primary add-to-cart-btn" id="${(product._id)}">Add to cart</button>
           </div>
         </div>

@@ -149,6 +149,12 @@ router.get('/get_self_details', (req, res) => {
         res.status(500).send();
     }
 });
-
+ router.get("/getUserByFName",(req,res)=>{
+    db_user.getUsers({"fname":{$regex: '.*'+req.body.fname +'.*'}}).then((users)=>{
+        res.send(users)
+    }).catch((error)=>{
+        console.log(error);
+    })
+ });
 
 module.exports = router;
