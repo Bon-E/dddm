@@ -6,6 +6,7 @@ $(document).ready(function () {
   $(document).on('input', '#search', function () {
       const searchTerm = $(this).val().trim();
       performSearch(searchTerm);
+      
   });
 
 
@@ -31,6 +32,26 @@ $(document).ready(function () {
   function clearProductCards() {
       $('#images').empty();
   }
+  $('#btn-cheapest').click(function () {
+    const products = Model.getInstance().getProducts();
+    const sortedProducts = products.slice().sort((a, b) => findMyPrice(a) - findMyPrice(b));
+    clearProductCards();
+    populateProductCards(sortedProducts);
+   });
+
+   $('#btn-expensive').click(function () {
+    const products = Model.getInstance().getProducts();
+    const sortedProducts = products.slice().sort((a, b) => findMyPrice(b) - findMyPrice(a));
+    clearProductCards();
+    populateProductCards(sortedProducts);
+   });
+
+   $('#btn-newest').click(function () {
+    const products = Model.getInstance().getProducts();
+    const sortedProducts = products.slice().sort((a, b) => new Date(b.added_on) - new Date(a.added_on));
+    clearProductCards();
+    populateProductCards(sortedProducts);
+  });
 });
 
 

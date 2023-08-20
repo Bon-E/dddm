@@ -88,6 +88,7 @@
                         <!-- ---------------------------------------------------------------------- -->
 
                         <!-- Table for displaying products -->
+                     
                         <table class="table mt-5">
                             <thead>
                                 <tr>
@@ -102,14 +103,15 @@
                                 </tr>
                             </thead>
                             <tbody id="productTableBody">
-                                Table rows for products will be dynamically added here
                                 <theader>
                                     <div class="mb-3">
                                         <label for="Edit product" class="form-label" id="Editproduct">Edit product</label>
                                     </div>
-                                    <!-- <div class="mb-2">
-                                        <input type="text" id="searchBar" class="form-control" placeholder="Search for a product" />
-                                    </div> -->
+                                    <form id="search-form" class="d-flex ms-auto" action="#">
+                                        <input id="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                                        <button class="btn btn-outline-dark" type="submit">Search</button>
+                                    </form>
+            
                                 </theader>
                             </tbody>
                         </table>

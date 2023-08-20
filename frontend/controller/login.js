@@ -1,3 +1,4 @@
+
 $(document).ready(() => {
     initPage().then(() => {
         routePages();
@@ -9,6 +10,7 @@ function login(event) {
     let model = Model.getInstance();
     let username = $('#username').val();
     let password = $('#password').val();
+    
     if (check_input(username, password)) {
         $.ajax({
             url: '/authenticate',
@@ -27,6 +29,9 @@ function login(event) {
                         alert("Successfully logged in");
                         window.location.href = "/";
                     });
+                } else {
+                    // Authentication failed, show an alert
+                    showErrorAlert("Incorrect username or password.");
                 }
             },
             error: function (err) {
@@ -35,6 +40,11 @@ function login(event) {
         });
     }
 }
+
+function showErrorAlert(message) {
+    $('#errors').text(message).addClass('alert-danger').show();
+}
+
 
 function check_input(username, password) {
     return true;
