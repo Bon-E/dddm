@@ -23,8 +23,14 @@ async function _updateOrderStatus(id, statusId) {
     return order;
 }
 
+async function _getMyOrders(user_id) {
+    const orders = await _getOrders({ user_id: user_id });
+    return orders;
+}
+
 module.exports = {
     getOrders: _getOrders,
+    getMyOrders: _getMyOrders,
     createOrder: _createOrder,
     updateOrderStatus: _updateOrderStatus
 };
