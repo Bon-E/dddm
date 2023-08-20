@@ -17,7 +17,7 @@ async function main() {
         process.stdout.write('Done\n');
         await mongoose.connect(process.env.DB_CONNECTION);
     } catch (err) {
-        console.error('Couldn\'t connect to db\n', err);
+        console.error("Couldn't connect to db\n", err);
         return;
     }
     server();
@@ -29,19 +29,21 @@ function server() {
 
     const port = process.env.PORT || 8080;
     const routes_path = path.join(__dirname, '/backend/routes/');
-    app.use(bodyParser.urlencoded({extended: true}));
+    app.use(bodyParser.urlencoded({ extended: true }));
 
     // setup session management
     process.stdout.write('Setting up session management... ');
     const cookie_timeout = 1000 * 60 * 60 * 24;
-    app.use(sessions({
-        secret: process.env.SESSION_KEY,
-        saveUninitialized: true,
-        cookie: {
-            maxAge: cookie_timeout
-        },
-        resave: false
-    }));
+    app.use(
+        sessions({
+            secret: process.env.SESSION_KEY,
+            saveUninitialized: true,
+            cookie: {
+                maxAge: cookie_timeout
+            },
+            resave: false
+        })
+    );
     process.stdout.write('Done\n');
 
     // setup cookie parser
@@ -62,12 +64,14 @@ function server() {
     const utilRoutes = require(routes_path + 'utilRoutes');
     const vendorRoutes = require(routes_path + 'vendorRoutes');
     const orderRoutes = require(routes_path + 'orderRoutes');
+    const statusesRoutes = require(routes_path + 'statusesRoutes');
     app.use('/', pageRoutes);
     app.use('/', userRoutes);
     app.use('/', productRoutes);
     app.use('/', utilRoutes);
     app.use('/', vendorRoutes);
-    app.use('/',orderRoutes);
+    app.use('/', orderRoutes);
+    app.use('/', statusesRoutes);
     process.stdout.write('Done\n\n');
 
     console.log('App listens on port:', port);

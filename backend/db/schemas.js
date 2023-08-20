@@ -1,85 +1,109 @@
-const {ObjectId, Decimal128} = require("mongodb");
-const mongoose = require("mongoose");
-const {Schema} = mongoose;
+const { ObjectId, Decimal128 } = require('mongodb');
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
-const user_Schema = new Schema({
-    username: String,
-    password: String,
-    type: ObjectId,
-    fname: String,
-    lname: String,
-    email: String,
-    phone: String,
-    birthday: Date,
-    address: {
-        city: String,
-        street: String,
-        house_number: String
+const user_Schema = new Schema(
+    {
+        username: String,
+        password: String,
+        type: ObjectId,
+        fname: String,
+        lname: String,
+        email: String,
+        phone: String,
+        birthday: Date,
+        address: {
+            city: String,
+            street: String,
+            house_number: String
+        },
+        join_date: Date
     },
-    join_date: Date
-}, {versionKey: false});
+    { versionKey: false }
+);
 
-const user_types_Schema = new Schema({
-    type: String
-}, {versionKey: false});
+const user_types_Schema = new Schema(
+    {
+        type: String
+    },
+    { versionKey: false }
+);
 
-const vendors_Schema = new Schema({
-    name: String,
-    website: String
-}, {versionKey: false});
+const vendors_Schema = new Schema(
+    {
+        name: String,
+        website: String
+    },
+    { versionKey: false }
+);
 
-const categories_Schema = new Schema({
-    name: String
-}, {versionKey: false});
+const categories_Schema = new Schema(
+    {
+        name: String
+    },
+    { versionKey: false }
+);
 
-const statuses_Schema = new Schema({
-    status: String
-}, {versionKey: false});
+const statuses_Schema = new Schema(
+    {
+        status: String
+    },
+    { versionKey: false }
+);
 
-const platforms_Schema = new Schema({
-    name: String
-}, {versionKey: false});
+const platforms_Schema = new Schema(
+    {
+        name: String
+    },
+    { versionKey: false }
+);
 
-const orders_Schema = new Schema({
-    user_id: ObjectId,
-    date: Date,
-    total_price: Number,
-    status_id: ObjectId,
-    order_items: [
-        {
-            product_id: ObjectId,
-            quantity: Number,
-            price_for_order: Number
-        }
-    ]
-}, {versionKey: false});
+const orders_Schema = new Schema(
+    {
+        user_id: ObjectId,
+        date: Date,
+        total_price: Number,
+        status_id: ObjectId,
+        order_items: [
+            {
+                product_id: ObjectId,
+                quantity: Number,
+                price_for_order: Number
+            }
+        ]
+    },
+    { versionKey: false }
+);
 
-const products_Schema = new Schema({
-    name: String,
-    description: String,
-    category_id: ObjectId,
-    platform_id: ObjectId,
-    vendor_id: ObjectId,
-    stock: Number,
-    image: String,
-    pricing: [
-        {
-            _id: false,
-            price: Number,
-            changed_on: Date,
-            changed_by: ObjectId
-        }
-    ]
-}, {versionKey: false});
+const products_Schema = new Schema(
+    {
+        name: String,
+        description: String,
+        category_id: ObjectId,
+        platform_id: ObjectId,
+        vendor_id: ObjectId,
+        stock: Number,
+        image: String,
+        pricing: [
+            {
+                _id: false,
+                price: Number,
+                changed_on: Date,
+                changed_by: ObjectId
+            }
+        ]
+    },
+    { versionKey: false }
+);
 
-const Product = mongoose.model("Product", products_Schema, "products");
-const Platform = mongoose.model("Platform", platforms_Schema, "platforms");
-const Order = mongoose.model("Order", orders_Schema, "orders");
-const Status = mongoose.model("Status", statuses_Schema, "statuses");
-const Category = mongoose.model("Category", categories_Schema, "categories");
-const Vendor = mongoose.model("Vendor", vendors_Schema, "vendors");
-const UserType = mongoose.model("UserType", user_types_Schema, "user_types");
-const User = mongoose.model("User", user_Schema, "users");
+const Product = mongoose.model('Product', products_Schema, 'products');
+const Platform = mongoose.model('Platform', platforms_Schema, 'platforms');
+const Order = mongoose.model('Order', orders_Schema, 'orders');
+const Status = mongoose.model('Status', statuses_Schema, 'statuses');
+const Category = mongoose.model('Category', categories_Schema, 'categories');
+const Vendor = mongoose.model('Vendor', vendors_Schema, 'vendors');
+const UserType = mongoose.model('UserType', user_types_Schema, 'user_types');
+const User = mongoose.model('User', user_Schema, 'users');
 
 module.exports.User = User;
 module.exports.Product = Product;
