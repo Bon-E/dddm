@@ -62,4 +62,16 @@ router.get('/get_my_orders', (req, res) => {
         });
 });
 
+router.get('/get_sales_by_vendor', (req, res) => {
+    db_orders
+        .getSalesByVendor()
+        .then((sales) => {
+            res.send(sales);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(400).send();
+        });
+});
+
 module.exports = router;

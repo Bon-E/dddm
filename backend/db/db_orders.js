@@ -1,5 +1,5 @@
 const { ObjectId } = require('mongodb');
-const { Order } = require('./schemas');
+const { Order, Product, Vendor } = require('./schemas');
 
 async function _createOrder(user_id, total_price, items) {
     const order = new Order({
@@ -28,9 +28,65 @@ async function _getMyOrders(user_id) {
     return orders;
 }
 
+async function _getSalesByVendor() {
+    const sales = await Order.aggregate([
+        {
+            $unwind: '$order_items'
+        },
+        {
+            $lookup: {
+                from: Product.collection.name,
+                localField: 'order_items.product_id',
+                foreignField: '_id',
+                as: 'product'
+            }
+        },
+        {
+            $unwind: '$product'
+        },
+        {
+            $addFields: {
+                vendor_id: '$product.vendor_id'
+            }
+        },
+        {
+            $lookup: {
+                from: Vendor.collection.name,
+                localField: 'vendor_id',
+                foreignField: '_id',
+                as: 'vendor'
+            }
+        },
+        {
+            $unwind: '$vendor'
+        },
+        {
+            $addFields: {
+                vendor_name: '$vendor.name'
+            }
+        },
+        {
+            $group: {
+                _id: '$vendor_id',
+                name: { $first: '$vendor_name' },
+                count: { $sum: 1 }
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                name: 1,
+                count: 1
+            }
+        }
+    ]);
+    return sales;
+}
+
 module.exports = {
     getOrders: _getOrders,
     getMyOrders: _getMyOrders,
     createOrder: _createOrder,
-    updateOrderStatus: _updateOrderStatus
+    updateOrderStatus: _updateOrderStatus,
+    getSalesByVendor: _getSalesByVendor
 };
