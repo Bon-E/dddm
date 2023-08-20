@@ -74,9 +74,11 @@ const hide_show_elements = () => {
             $('#cart').hide();
             $('#editAccount').hide();
             $('#maintenance').show();
+            $('#reports').show();
         }
     } else {
         // user isn't logged in
+        $('#reports').hide();
         $('#maintenance').hide();
         $('#myOrders').hide();
         $('#cart').hide();
