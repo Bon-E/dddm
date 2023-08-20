@@ -141,7 +141,7 @@ function populateOrdersTable() {
             });
 
             var itemRow = $('<tr>');
-            itemRow.append($('<td>').text(product.name));
+            itemRow.append($('<td>').text(product ? product.name : ''));
             itemRow.append($('<td>').text(item.quantity));
             itemRow.append($('<td>').text(item.price_for_order));
             orderItemsBody.append(itemRow);
