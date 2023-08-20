@@ -4,21 +4,23 @@ const Model = (function () {
 
     let header = undefined;
     let cityArray = [];
-    let addressesArray = [,];
+    let addressesArray = [];
     let platforms = [];
     let categories = [];
     let vendors = [];
     let products = [];
     let users = [];
     let userTypes = [];
+    let orders = [];
+    let statuses = [];
 
     function init_sessionStorage() {
         data = {
             isLogged: false,
             isAdmin: false,
-            cart:[]
+            cart: []
         };
-        save_sessionStorage(); 
+        save_sessionStorage();
     }
 
     function load_sessionStorage() {
@@ -101,11 +103,23 @@ const Model = (function () {
             setUserTypes: function (u) {
                 userTypes = u;
             },
-            AddToCart: function (a){
+            AddToCart: function (a) {
                 data.cart.push(a);
             },
-            GetCart: function(){
+            GetCart: function () {
                 return data.cart;
+            },
+            getOrders: function () {
+                return orders;
+            },
+            setOrders: function (ords) {
+                orders = ords;
+            },
+            getStatuses: function () {
+                return statuses;
+            },
+            setStatuses: function (s) {
+                statuses = s;
             },
             saveData: function () {
                 save_sessionStorage();
