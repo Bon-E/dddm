@@ -50,4 +50,16 @@ router.put('/update_order_status', (req, res) => {
         });
 });
 
+router.get('/get_my_orders', (req, res) => {
+    db_orders
+        .getMyOrders(req.session.user._id)
+        .then((orders) => {
+            res.send(orders);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(400).send();
+        });
+});
+
 module.exports = router;

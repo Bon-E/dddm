@@ -53,6 +53,9 @@ const routePages = () => {
     $('#maintainOrdersBtn').on('click', () => {
         window.location.href = '/maintainOrdersBtn';
     });
+    $('#myOrders').on('click', () => {
+        window.location.href = '/myOrders';
+    });
 };
 
 const hide_show_elements = () => {
@@ -63,9 +66,11 @@ const hide_show_elements = () => {
         $('#disconnectBtn').show();
         $('#editAccount').show();
         $('#maintenance').hide();
+        $('#myOrders').show();
         $('#cart').show();
         if (model.getIsAdmin()) {
             // user is admin
+            $('#myOrders').hide();
             $('#cart').hide();
             $('#editAccount').hide();
             $('#maintenance').show();
@@ -73,6 +78,7 @@ const hide_show_elements = () => {
     } else {
         // user isn't logged in
         $('#maintenance').hide();
+        $('#myOrders').hide();
         $('#cart').hide();
         $('#disconnectBtn').hide();
         $('#loginBtn').show();
