@@ -7,30 +7,30 @@ const loadHeader = async () => {
     }
     $('#_header').html(model.getHeader());
     hide_show_elements();
-}
+};
 
 const routePages = () => {
-    $("#loginBtn").on('click', () => {
+    $('#loginBtn').on('click', () => {
         window.location.href = '/login';
     });
 
-    $("#homeBtn").on('click', () => {
+    $('#homeBtn').on('click', () => {
         window.location.href = '/';
     });
 
-    $("#cart").on('click', () => {
+    $('#cart').on('click', () => {
         window.location.href = '/cart';
     });
 
-    $("#registerBtn").on('click', () => {
+    $('#registerBtn').on('click', () => {
         window.location.href = '/register';
     });
 
-    $("#maintainProductsBtn").on('click', () => {
+    $('#maintainProductsBtn').on('click', () => {
         window.location.href = '/products_maint';
     });
 
-    $("#disconnectBtn").on('click', () => {
+    $('#disconnectBtn').on('click', () => {
         $.get('/disconnect').done((res) => {
             let model = Model.getInstance();
             model.initData();
@@ -38,37 +38,53 @@ const routePages = () => {
         });
     });
 
-    $("#vendorsbtn").on('click', () => {
+    $('#vendorsbtn').on('click', () => {
         window.location.href = '/maintain_vendors';
     });
 
-    $("#maintainUsersBtn").on('click', () => {
+    $('#maintainUsersBtn').on('click', () => {
         window.location.href = '/maintain_users';
     });
 
-    $("#editAccount").on('click', () => {
+    $('#editAccount').on('click', () => {
         window.location.href = '/edit_details';
     });
 
-}
+    $('#maintainOrdersBtn').on('click', () => {
+        window.location.href = '/maintainOrdersBtn';
+    });
+    $('#myOrders').on('click', () => {
+        window.location.href = '/myOrders';
+    });
+};
 
 const hide_show_elements = () => {
     let model = Model.getInstance();
     if (model.getIsLogged() == true) {
-        $("#loginBtn").hide();
-        $("#registerBtn").hide();
-        $("#disconnectBtn").show();
+        $('#loginBtn').hide();
+        $('#registerBtn').hide();
+        $('#disconnectBtn').show();
         $('#editAccount').show();
         $('#maintenance').hide();
-        if (model.getIsAdmin()) { // user is admin
+        $('#myOrders').show();
+        $('#cart').show();
+        if (model.getIsAdmin()) {
+            // user is admin
+            $('#myOrders').hide();
+            $('#cart').hide();
             $('#editAccount').hide();
             $('#maintenance').show();
+            $('#reports').show();
         }
-    } else { // user isn't logged in
+    } else {
+        // user isn't logged in
+        $('#reports').hide();
         $('#maintenance').hide();
-        $("#disconnectBtn").hide();
-        $("#loginBtn").show();
-        $("#registerBtn").show();
+        $('#myOrders').hide();
+        $('#cart').hide();
+        $('#disconnectBtn').hide();
+        $('#loginBtn').show();
+        $('#registerBtn').show();
         $('#editAccount').hide();
     }
-}
+};
