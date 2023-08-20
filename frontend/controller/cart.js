@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     initPage().then(() => {
         routePages();

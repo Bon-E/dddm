@@ -1,11 +1,13 @@
 <header id="header" class="fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-light" style="background-color: #f0f0f0">
         <div class="container">
-            <a class="navbar-brand" href="/">Game Chumama</a>
-            <button id="loginBtn" class="btn btn-primary">Login</button>
-            <button id="registerBtn" class="btn btn-primary btn-spacing">Register</button>
+            <div>
+                <a class="navbar-brand" style="color: #575757; font-weight: bolder" href="/">Game Chumama</a>
+                <button id="loginBtn" class="btn btn-primary">Login</button>
+                <button id="registerBtn" class="btn btn-primary btn-spacing">Register</button>
+            </div>
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" id="maintenance" type="button" data-bs-toggle="dropdown" aria-expanded="false">Maintenance</button>
+                <button class="nav-link dropdown-toggle" style="color: #8ea974; font-weight: bolder" id="maintenance" type="button" data-bs-toggle="dropdown" aria-expanded="false">Maintenance</button>
                 <ul class="dropdown-menu">
                     <button id="vendorsbtn" class="dropdown-item">Maintain Vendors</button>
                     <button id="maintainProductsBtn" type="button" class="dropdown-item">Maintain Products</button>
@@ -13,6 +15,14 @@
                     <button id="maintainOrdersBtn" type="button" class="dropdown-item">Maintain Orders</button>
                 </ul>
             </div>
+
+            <div>
+                <button id="editAccount" class="btn btn-primary btn-spacing">Edit Account</button>
+                <button id="cart" class="btn" style="color: #8ea974; font-weight: bolder">Cart</button>
+                <button id="disconnectBtn" type="button" class="btn" style="color: #8ea974; font-weight: bolder">Disconnect</button>
+                <button id="myOrders" class="btn btn-primary btn-spacing">My Orders</button>
+            </div>
+
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" id="reports" type="button" data-bs-toggle="dropdown" aria-expanded="false">Reports</button>
                 <ul class="dropdown-menu">
@@ -20,16 +30,11 @@
                     <button id="sales_by_platform" type="button" class="dropdown-item">Sales by Platforms</button>
                 </ul>
             </div>
-            <button id="myOrders" class="btn btn-primary btn-spacing">My Orders</button>
-            <button id="editAccount" class="btn btn-primary btn-spacing">Edit Account</button>
-            <button id="cart" class="btn btn-primary btn-spacing">Cart</button>
-            <button id="homeBtn" class="btn btn-primary btn-spacing">Home</button>
 
             <form class="d-flex ms-auto">
                 <input id="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                 <button class="btn btn-outline-primary" type="submit">Search</button>
             </form>
-            <button id="disconnectBtn" type="button" class="btn btn-dark">Disconnect</button>
         </div>
     </nav>
 </header>

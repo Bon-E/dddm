@@ -2,12 +2,12 @@
     margin-left: 10px;
 }
 body {
-  background-color: rgb(230, 230, 221);
-  font-family: Arial, sans-serif;
-  margin-top: 100px;
-  padding: 0;
-  background-color: #f4f4f4;
+    background-color: #ffffff;
+    font-family: "Exo 2", sans-serif;
+    margin-top: 100px;
+    padding: 0;
 }
+
 header {
     position: fixed;
     top: 0;
@@ -56,25 +56,26 @@ input[type="email"] {
 #register {
     margin-top: 30px;
 }
-#products{
-  margin-top: 20px;
+#products {
+    margin-top: 20px;
 }
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: "Exo 2", sans-serif;
 }
 
 .content {
-  padding: 20px;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #f6f6f6;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 footer {
-  background-color: #35424a;
-  color: white;
-  text-align: center;
-  padding: 10px 0;
+    background-color: #35424a;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
 }

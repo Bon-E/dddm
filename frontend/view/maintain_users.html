@@ -25,12 +25,32 @@
 
         <script src="../controller/maintain_users.js"></script>
     </head>
+    <style>
+        #search-form {
+            display: flex;
+            justify-content: center;
+            margin: 30px;
+        }
 
+        #search {
+            background-color: #f6f6f6;
+            border: 2px solid #7d7d7d;
+            border-radius: 10px;
+            padding: 8px;
+            font-size: 16px;
+            width: 600px;
+        }
+    </style>
     <body>
         <div id="_header"></div>
+        <!--Users Table-->
         <div class="container mt-4">.</div>
         <!--Users Table-->
         <div class="container mt-4">
+            <form id="search-form" class="d-flex ms-auto" action="#">
+                <input id="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-outline-dark" type="submit">Search</button>
+            </form>
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -46,6 +66,7 @@
                     <!-- User data will be inserted here dynamically -->
                 </tbody>
             </table>
+
             <!--Edit User Modal-->
             <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                 <div class="modal-dialog">

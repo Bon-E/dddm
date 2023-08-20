@@ -1,29 +1,49 @@
 $(document).ready(function () {
-    initPage().then(() => {
-        routePages();
+    console.log("Document is ready.");
 
-        $.get("/get_products").done((products) => {
-            console.log(products);
-            let model = Model.getInstance();
-            model.setProducts(products);
-            populateProductTable();
-        });
+    initPage().then(() => {
+        console.log("Page initialization is done.");
+        routePages();
 
         populatePlatformsSelection();
         populateCategoriesSelection();
         populateVendorsSelection();
-
         initModal();
+
+        let originalProducts = [];
+
+        $.get("/get_products").done((products) => {
+            console.log("Fetched products:", products); 
+            originalProducts = products;
+            let model = Model.getInstance();
+            model.setProducts(products);
+            populateProductTable(products);
+        });
+    
+        $("#search-form").on("submit", function (event) {
+            event.preventDefault();
+        
+            const searchQuery = $("#search").val().toLowerCase();
+            console.log("Search query:", searchQuery); 
+            const filteredProducts = originalProducts.filter(product =>
+                product.name.toLowerCase().includes(searchQuery) ||
+                product.description.toLowerCase().includes(searchQuery)
+            );
+            console.log("Filtered products:", filteredProducts); 
+        
+            populateProductTable(filteredProducts);
+        
+            return false;
+        });
     });
 });
+
+
 
 function create_button_handle(event) {
     event.preventDefault();
     if (check_input()) {
-        // ...
-        console.log($("#form1")[0]);
         let form = new FormData($("#form1")[0]);
-        console.log(form);
         $.ajax({
             method: "POST",
             url: "/create_product",
@@ -33,6 +53,11 @@ function create_button_handle(event) {
         })
             .done((res) => {
                 console.log(res);
+                $.get("/get_products").done((products) => {
+                    let model = Model.getInstance();
+                    model.setProducts(products);
+                    populateProductTable(products);
+                });
             })
             .fail((res) => {
                 console.log(res);
@@ -53,7 +78,71 @@ function populatePlatformsSelection() {
         $("#editPlatform").append(option2);
     });
 }
+function populateProductTable(productsToShow) {
+    console.log("Products to show:", productsToShow); 
+    let model = Model.getInstance();
+    const vendors = model.getVendors();
+    const platforms = model.getPlatforms();
+    const categories = model.getCategories();
+    $("#productTableBody").empty();
+    const products = productsToShow || model.getProducts();
 
+    for (const product of products) {
+        const row = $("<tr>");
+
+        row.attr("data-product-id", product._id);
+
+        let vendor = vendors.find((ven) => ven._id == product.vendor_id);
+        let platform = platforms.find((plat) => plat._id == product.platform_id);
+        let category = categories.find((cat) => cat._id == product.category_id);
+
+        row.append($("<td>").text(product.name));
+        row.append($("<td>").text(product.description));
+        row.append($("<td>").text(findMyPrice(product)));
+        row.append($("<td>").text(product.stock));
+        row.append($("<td>").text(category ? category.name : null));
+        row.append($("<td>").text(platform ? platform.name : null));
+        row.append($("<td>").text(vendor ? vendor.name : null));
+
+        const editButton = $("<button>")
+            .addClass("btn btn-primary mr-2")
+            .click(function () {
+                var productId = $(this).closest("tr").data("product-id");
+                handleEditButtonClick(productId);
+            });
+
+        const pencilIcon = $("<i>").addClass("bi bi-pencil");
+        editButton.append(pencilIcon);
+
+        var deleteButton = $("<button>")
+            .addClass("btn btn-danger")
+            .click(function () {
+                var productId = $(this).closest("tr").data("product-id");
+                $.ajax({
+                    url: "/delete_product",
+                    type: "DELETE",
+                    data: { productId: productId }
+                })
+                    .then(() => {
+                        $.get("/get_products").done((products) => {
+                            let model = Model.getInstance();
+                            model.setProducts(products);
+                            populateProductTable(products);
+                        });
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                    });
+            });
+
+        const trashIcon = $("<i>").addClass("bi bi-trash");
+        deleteButton.append(trashIcon);
+
+        row.append($("<td>").append(editButton, deleteButton));
+
+        $("#productTableBody").append(row);
+    }
+}
 function populateCategoriesSelection() {
     let model = Model.getInstance();
     $.each(model.getCategories(), (index, item) => {

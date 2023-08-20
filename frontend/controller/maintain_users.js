@@ -5,7 +5,87 @@ $(document).ready(() => {
         populateUserTypesSelection();
         populateTable();
     });
+
+    $("#search-form").submit(function (event) {
+        event.preventDefault();
+        const query = $("#search").val();
+        performUserSearch(query);
+    });
 });
+    function performUserSearch(query) {
+        $.get('/get_users')
+            .done((users) => {
+                const filteredUsers = filterUsers(users, query);
+                populateTableWithFilteredUsers(filteredUsers);
+            })
+            .fail((error) => {
+                console.error('Error fetching user data:', error);
+            });
+    }
+
+    function filterUsers(users, query) {
+        return users.filter(user => {
+            return user.username.toLowerCase().includes(query.toLowerCase()) ||
+                   user.fname.toLowerCase().includes(query.toLowerCase()) ||
+                   user.lname.toLowerCase().includes(query.toLowerCase()) ||
+                   user.email.toLowerCase().includes(query.toLowerCase()) ||
+                   user.phone.toLowerCase().includes(query.toLowerCase());
+        });
+    }
+
+    function populateTableWithFilteredUsers(users) {
+        let model = Model.getInstance();
+        var tableBody = $("#userTableBody");
+
+        tableBody.empty();
+
+        users.forEach(function (user) {
+            var row = $("<tr>");
+
+            row.attr("data-user-id", user._id);
+
+            row.append($("<td>").text(user.username));
+            row.append($("<td>").text(user.fname));
+            row.append($("<td>").text(user.lname));
+            row.append($("<td>").text(user.email));
+            row.append($("<td>").text(user.phone));
+
+            var actionsCell = $("<td>");
+            var editButton = $("<button>").addClass("btn btn-primary mr-2").click(function () {
+                var userId = $(this).closest("tr").data("user-id");
+                handleEditButtonClick(userId); // opens edit modal with user's data
+            });
+
+            const pencilIcon = $('<i>').addClass('bi bi-pencil');
+            editButton.append(pencilIcon);
+
+            var deleteButton = $("<button>").addClass("btn btn-danger").click(function () {
+                var userId = $(this).closest("tr").data("user-id");
+                $.ajax({
+                    url: '/delete_user',
+                    type: 'DELETE',
+                    data: {
+                        userId: userId
+                    },
+                    success: function (res) {
+                        console.log('deleted');
+                        refreshTable();
+                    }
+                });
+
+                alert("Delete button clicked for user with ID: " + userId);
+            });
+            const trashIcon = $('<i>').addClass('bi bi-trash');
+            deleteButton.append(trashIcon);
+
+            actionsCell.append(editButton, deleteButton);
+            row.append(actionsCell);
+
+            tableBody.append(row);
+        });
+    }
+
+
 
 async function refreshTable() {
     $("#userTableBody").empty();
@@ -49,15 +129,13 @@ function populateTable() {
         var actionsCell = $("<td>");
         var editButton = $("<button>").addClass("btn btn-primary mr-2").click(function () {
             var userId = $(this).closest("tr").data("user-id");
-            handleEditButtonClick(userId); // opens edit modal with user's data
+            handleEditButtonClick(userId); 
         });
 
         const pencilIcon = $('<i>').addClass('bi bi-pencil');
         editButton.append(pencilIcon);
 
         var deleteButton = $("<button>").addClass("btn btn-danger").click(function () {
-            // Handle delete button click
-            // You can implement delete functionality here
             var userId = $(this).closest("tr").data("user-id");
             $.ajax({
                 url: '/delete_user',

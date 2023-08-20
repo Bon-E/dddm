@@ -1,10 +1,18 @@
 .btn-primary {
-	--bs-btn-bg: #e165fd !important;
-	--bs-btn-border-color: #e165fd !important;
-	--bs-btn-hover-bg: #e165fd !important;
-	--bs-btn-hover-border-color: #e165fd !important;
-	--bs-btn-active-bg: #e165fd !important;
-	--bs-btn-active-border-color: #e165fd !important;
-	--bs-btn-disabled-bg: #e165fd !important;
-	--bs-btn-disabled-border-color: #e165fd !important;
+    background-color: #f6f6f6 !important;
+    border-color: #95c76c !important;
+    color: #95c76c !important;
+    font-weight: bolder;
+}
+
+.btn-primary:hover {
+    background-color: #95c76c !important;
+    border-color: #95c76c !important;
+    color: #f6f6f6 !important;
+}
+
+.btn-primary:disabled {
+    background-color: #95c76c !important;
+    border-color: #f6f6f6 !important;
+    color: #f6f6f6 !important;
 }
