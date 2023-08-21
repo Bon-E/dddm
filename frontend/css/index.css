@@ -3,11 +3,10 @@
 }
 body {
     background-color: #ffffff;
-    font-family: "Exo 2", sans-serif;
+    font-family: 'Exo 2', sans-serif;
     margin-top: 100px;
     padding: 0;
 }
-
 header {
     position: fixed;
     top: 0;
@@ -18,31 +17,28 @@ header {
 #login {
     margin-top: 40px;
 }
-input[type="text"],
-input[type="email"] {
+input[type='text'],
+input[type='email'] {
     padding: 5px;
     border: 1px solid #ccc;
 }
 .address-section {
     margin-bottom: 20px;
 }
-
 .address-section h1 {
     margin-bottom: 10px;
 }
-
 .form-group {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
-
 .form-group label {
     flex: 0 0 100px; /* Adjust the width as needed */
     margin-right: 10px;
 }
 .form-select-arrow::after {
-    content: "";
+    content: '';
     position: absolute;
     right: 12px;
     top: 50%;
@@ -63,16 +59,14 @@ input[type="email"] {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    font-family: "Exo 2", sans-serif;
+    font-family: 'Exo 2', sans-serif;
 }
-
 .content {
     padding: 20px;
     background-color: #f6f6f6;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-
 footer {
     background-color: #35424a;
     color: white;
