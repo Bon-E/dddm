@@ -74,4 +74,8 @@ router.get('/vendorSalesReport', (req, res) => {
     res.sendFile(views_dir + 'sales_by_vendor.html');
 });
 
+router.get('/lastWeekSalesReport', (req, res) => {
+    res.sendFile(views_dir + 'last_week_sales.html');
+});
+
 module.exports = router;
