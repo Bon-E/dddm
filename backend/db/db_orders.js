@@ -83,10 +83,45 @@ async function _getSalesByVendor() {
     return sales;
 }
 
+async function _getLastWeekSales() {
+    const today = new Date();
+    const lastWeek = new Date(today);
+    lastWeek.setDate(today.getDate() - 7);
+
+    const sales = await Order.aggregate([
+        {
+            $match: {
+                date: { $gte: lastWeek }
+            }
+        },
+        {
+            $addFields: {
+                date: {
+                    $dateToString: {
+                        format: '%d-%m-%Y',
+                        date: '$date'
+                    }
+                }
+            }
+        },
+        {
+            $group: {
+                _id: '$date',
+                count: { $sum: 1 }
+            }
+        },
+        {
+            $sort: { _id: 1 }
+        }
+    ]);
+    return sales;
+}
+
 module.exports = {
     getOrders: _getOrders,
     getMyOrders: _getMyOrders,
     createOrder: _createOrder,
     updateOrderStatus: _updateOrderStatus,
-    getSalesByVendor: _getSalesByVendor
+    getSalesByVendor: _getSalesByVendor,
+    getLastWeekSales: _getLastWeekSales
 };
