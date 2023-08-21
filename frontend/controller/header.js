@@ -53,8 +53,13 @@ const routePages = () => {
     $('#maintainOrdersBtn').on('click', () => {
         window.location.href = '/maintainOrdersBtn';
     });
+
     $('#myOrders').on('click', () => {
         window.location.href = '/myOrders';
+    });
+
+    $('#sales_by_vendor').on('click', () => {
+        window.location.href = '/vendorSalesReport';
     });
 };
 
@@ -63,6 +68,7 @@ const hide_show_elements = () => {
     if (model.getIsLogged() == true) {
         $('#loginBtn').hide();
         $('#registerBtn').hide();
+        $('#reports').hide();
         $('#disconnectBtn').show();
         $('#editAccount').show();
         $('#maintenance').hide();

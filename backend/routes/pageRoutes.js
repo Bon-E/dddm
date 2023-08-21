@@ -70,4 +70,8 @@ router.get('/myOrders', (req, res) => {
     res.sendFile(views_dir + 'my_orders.html');
 });
 
+router.get('/vendorSalesReport', (req, res) => {
+    res.sendFile(views_dir + 'sales_by_vendor.html');
+});
+
 module.exports = router;
