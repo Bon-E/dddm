@@ -74,4 +74,16 @@ router.get('/get_sales_by_vendor', (req, res) => {
         });
 });
 
+router.get('/get_last_week_sales', (req, res) => {
+    db_orders
+        .getLastWeekSales()
+        .then((sales) => {
+            res.send(sales);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(400).send();
+        });
+});
+
 module.exports = router;
