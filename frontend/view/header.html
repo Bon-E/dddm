@@ -1,28 +1,35 @@
 <header id="header" class="fixed-top">
-    <nav class="navbar navbar-light" style="background-color: #f0f0f0">
-        <div class="container">
+    <nav class="navbar navbar-light" style="background-color: #f6f6f6">
+        <div class="container d-flex justify-content-between align-items-center">
             <div>
-                <a class="navbar-brand" style="color: #575757; font-weight: bolder" href="/">Game Chumama</a>
+                <a class="navbar-brand" style="color: #dbf059; font-weight: bolder" href="/">Game Chumama</a>
+            </div>
+            <div class="d-flex">
+                <div class="dropdown me-3">
+                    <button class="nav-link dropdown-toggle" style="color: #797979; font-weight: bolder" id="maintenance" type="button" data-bs-toggle="dropdown" aria-expanded="false">Maintenance</button>
+                    <ul class="dropdown-menu">
+                        <button id="vendorsbtn" class="dropdown-item">Maintain Vendors</button>
+                        <button id="maintainProductsBtn" type="button" class="dropdown-item">Maintain Products</button>
+                        <button id="maintainUsersBtn" type="button" class="dropdown-item">Maintain Users</button>
+                        <button id="maintainOrdersBtn" type="button" class="dropdown-item">Maintain Orders</button>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <button class="nav-link dropdown-toggle" style="color: #797979; font-weight: bolder" id="reports" type="button" data-bs-toggle="dropdown" aria-expanded="false">Reports</button>
+                    <ul class="dropdown-menu">
+                        <button id="sales_by_vendor" class="dropdown-item">Sales by Vendor</button>
+                        <button id="sales_by_platform" type="button" class="dropdown-item">Sales by Platforms</button>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <button id="editAccount" class="btn" style="color: #2f31f5; font-weight: bolder">Edit Account</button>
+                <button id="cart" class="btn" style="color: #2f31f5; font-weight: bolder">Cart</button>
                 <button id="loginBtn" class="btn btn-primary">Login</button>
                 <button id="registerBtn" class="btn btn-primary btn-spacing">Register</button>
-            </div>
-            <div class="dropdown">
-                <button class="nav-link dropdown-toggle" style="color: #8ea974; font-weight: bolder" id="maintenance" type="button" data-bs-toggle="dropdown" aria-expanded="false">Maintenance</button>
-                <ul class="dropdown-menu">
-                    <button id="vendorsbtn" class="dropdown-item">Maintain Vendors</button>
-                    <button id="maintainProductsBtn" type="button" class="dropdown-item">Maintain Products</button>
-                    <button id="maintainUsersBtn" type="button" class="dropdown-item">Maintain Users</button>
-                    <button id="maintainOrdersBtn" type="button" class="dropdown-item">Maintain Orders</button>
-                </ul>
-            </div>
-
-            <div>
-                <button id="editAccount" class="btn btn-primary btn-spacing">Edit Account</button>
-                <button id="cart" class="btn" style="color: #8ea974; font-weight: bolder">Cart</button>
-                <button id="disconnectBtn" type="button" class="btn" style="color: #8ea974; font-weight: bolder">Disconnect</button>
+                <button id="disconnectBtn" type="button" class="btn" style="color: #2f31f5; font-weight: bolder">Disconnect</button>
                 <button id="myOrders" class="btn btn-primary btn-spacing">My Orders</button>
             </div>
-
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" id="reports" type="button" data-bs-toggle="dropdown" aria-expanded="false">Reports</button>
                 <ul class="dropdown-menu">

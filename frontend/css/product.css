@@ -1,28 +1,39 @@
 #productName {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 header {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .product-template {
-  display: inline-block;
-  align-items: center;
-  margin-bottom: 10px;
+    display: inline-block;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 #Editproduct {
-  margin-top: 110px;
-  font-weight: 750;
-  font-size: x-large;
+    margin-top: 110px;
+    font-weight: 750;
+    font-size: x-large;
 }
 
 #addNewproduct {
-  margin-top: 160px;
-  font-weight: 800;
-  font-size: xx-large;
+    margin-top: 160px;
+    font-weight: 800;
+    font-size: xx-large;
 }
 
 #productTableBody {
-  outline-style: solid;
+    outline-style: solid;
+}
+.card-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    transition: max-width 0.5s;
+}
+
+.card:hover .card-text {
+    max-width: none;
 }
