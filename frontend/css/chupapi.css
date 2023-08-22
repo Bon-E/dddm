@@ -1,19 +1,19 @@
-.btn-primar {
+.btn-primary {
     font-weight: bolder;
-    background-color: #dbf059 !important;
-    border-color: #dbf059 !important;
+    background-color: #3e78ba !important;
+    border-color: #3e78ba !important;
     color: #fff !important;
 }
 
-.btn-primar:hover {
+.btn-primary:hover {
     font-weight: bolder;
-    background-color: #d4ea3f !important;
-    border-color: #d4ea3f !important;
+    background-color: #326094 !important;
+    border-color: #3e78ba !important;
     color: #ffff !important;
 }
 
-.btn-primar:disabled {
-    background-color: #dbf059 !important;
+.btn-primary:disabled {
+    background-color: #3e78ba !important;
     border-color: #f6f6f6 !important;
     color: #f6f6f6 !important;
 }
@@ -21,5 +21,5 @@
     font-weight: bolder;
     background-color: #f8f8f8 !important;
     border-color: #f8f8f8 !important;
-    color: #dbf059 !important;
+    color: #3e78ba !important;
 }
