@@ -61,6 +61,10 @@ const routePages = () => {
     $('#sales_by_vendor').on('click', () => {
         window.location.href = '/vendorSalesReport';
     });
+
+    $('#last_week_sales').on('click', () => {
+        window.location.href = '/lastWeekSalesReport';
+    });
 };
 
 const hide_show_elements = () => {
@@ -81,6 +85,7 @@ const hide_show_elements = () => {
             $('#editAccount').hide();
             $('#maintenance').show();
             $('#reports').show();
+            console.log('help mee');
         }
     } else {
         // user isn't logged in
