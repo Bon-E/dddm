@@ -85,6 +85,7 @@ const hide_show_elements = () => {
             $('#editAccount').hide();
             $('#maintenance').show();
             $('#reports').show();
+            console.log('help mee');
         }
     } else {
         // user isn't logged in
