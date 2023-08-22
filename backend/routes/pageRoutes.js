@@ -43,11 +43,23 @@ router.get('/products_maint', (req, res) => {
 });
 
 router.get('/maintain_vendors', (req, res) => {
-    res.sendFile(views_dir + 'maintain_vendors.html');
+    utils.isAdmin(req.session.user).then((r) => {
+        if (r) {
+            res.sendFile(views_dir + 'maintain_vendors.html');
+        } else {
+            res.redirect('/');
+        }
+    });
 });
 
 router.get('/maintain_users', (req, res) => {
-    res.sendFile(views_dir + 'maintain_users.html');
+    utils.isAdmin(req.session.user).then((r) => {
+        if (r) {
+            res.sendFile(views_dir + 'maintain_users.html');
+        } else {
+            res.redirect('/');
+        }
+    });
 });
 
 router.get('/products', (req, res) => {
@@ -55,27 +67,57 @@ router.get('/products', (req, res) => {
 });
 
 router.get('/cart', (req, res) => {
-    res.sendFile(views_dir + 'cart.html');
+    if (utils.isLogged(req.session.user)) {
+        res.sendFile(views_dir + 'cart.html');
+    } else {
+        res.redirect('/');
+    }
 });
 
 router.get('/edit_details', (req, res) => {
-    res.sendFile(views_dir + 'edit_self_details.html');
+    if (utils.isLogged(req.session.user)) {
+        res.sendFile(views_dir + 'edit_self_details.html');
+    } else {
+        res.redirect('/');
+    }
 });
 
 router.get('/maintainOrdersBtn', (req, res) => {
-    res.sendFile(views_dir + 'maintain_order.html');
+    utils.isAdmin(req.session.user).then((r) => {
+        if (r) {
+            res.sendFile(views_dir + 'maintain_order.html');
+        } else {
+            res.redirect('/');
+        }
+    });
 });
 
 router.get('/myOrders', (req, res) => {
-    res.sendFile(views_dir + 'my_orders.html');
+    if (utils.isLogged(req.session.user)) {
+        res.sendFile(views_dir + 'my_orders.html');
+    } else {
+        res.redirect('/');
+    }
 });
 
 router.get('/vendorSalesReport', (req, res) => {
-    res.sendFile(views_dir + 'sales_by_vendor.html');
+    utils.isAdmin(req.session.user).then((r) => {
+        if (r) {
+            res.sendFile(views_dir + 'sales_by_vendor.html');
+        } else {
+            res.redirect('/');
+        }
+    });
 });
 
 router.get('/lastWeekSalesReport', (req, res) => {
-    res.sendFile(views_dir + 'last_week_sales.html');
+    utils.isAdmin(req.session.user).then((r) => {
+        if (r) {
+            res.sendFile(views_dir + 'last_week_sales.html');
+        } else {
+            res.redirect('/');
+        }
+    });
 });
 
 module.exports = router;
