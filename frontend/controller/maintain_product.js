@@ -49,6 +49,8 @@ function create_button_handle(event) {
                     let model = Model.getInstance();
                     model.setProducts(products);
                     populateProductTable(products);
+                    alert('Product created successfully');
+                    $('#form1')[0].reset();
                 });
             })
             .fail((res) => {
