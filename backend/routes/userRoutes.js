@@ -29,7 +29,6 @@ router.get('/authenticate', (req, res) => {
         if (authenticated !== null) {
             session = req.session;
             session.user = authenticated;
-            console.log('logged: ', authenticated);
         }
         res.send(authenticated !== null);
     });
@@ -109,8 +108,6 @@ router.put('/update_self', (req, res) => {
         }
     }
 
-    console.log('updating: ', updateObj);
-
     db_user.findAndUpdateById(req.session.user._id, { $set: updateObj }).then((q) => {
         db_user
             .getUsers(
@@ -174,7 +171,7 @@ router.get('/getUserByFName', (req, res) => {
             res.send(users);
         })
         .catch((error) => {
-            console.log(error);
+            console.error(error);
         });
 });
 

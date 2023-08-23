@@ -8,16 +8,12 @@ $(document).ready(() => {
 async function loadChart() {
     var sales = await $.get('/get_sales_by_vendor');
 
-    console.log(sales);
-
     sales = sales.map((sale) => {
         return {
             label: sale.name,
             value: sale.count
         };
     });
-
-    console.log('after :', sales);
 
     // Set up the pie chart dimensions
     var width = 400;

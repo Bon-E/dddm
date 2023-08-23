@@ -36,7 +36,7 @@ router.get('/getProductByName', (req, res) => {
             res.send(products);
         })
         .catch((error) => {
-            console.log(error);
+            console.error(error);
         });
 });
 

@@ -8,8 +8,6 @@ $(document).ready(() => {
 async function loadGraph() {
     const data = await $.get('/get_last_week_sales');
 
-    console.log(data);
-
     const margin = { top: 20, right: 30, bottom: 40, left: 40 };
     const width = 600 - margin.left - margin.right;
     const height = 400 - margin.top - margin.bottom;

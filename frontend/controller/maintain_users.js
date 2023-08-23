@@ -69,7 +69,6 @@ function populateTableWithFilteredUsers(users) {
                         userId: userId
                     },
                     success: function (res) {
-                        console.log('deleted');
                         refreshTable();
                     },
                     error: function (error) {

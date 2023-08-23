@@ -118,7 +118,6 @@ async function _getLastWeekSales() {
 }
 
 async function _getOrdersByProductId(productId) {
-    console.log('productId deleting: ', productId);
     const orders = await Order.aggregate([
         {
             $match: {

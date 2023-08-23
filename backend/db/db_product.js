@@ -18,11 +18,11 @@ async function _addProduct(name, description, category_id, platform_id, vendor_i
                 }
             ]
         });
-        // console.log(newProduct);
+
         const savedProduct = await newProduct.save();
         return savedProduct;
     } catch (error) {
-        console.log("Couldn't add product: ", error);
+        console.error("Couldn't add product: ", error);
         throw error;
     }
 }

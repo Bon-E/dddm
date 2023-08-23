@@ -5,7 +5,6 @@ const db_product = require('../db/db_product');
 const router = express.Router();
 
 router.post('/create_order', (req, res) => {
-    console.log('req body   ', req.body);
     let orderItems = [];
     let totalPrice = 0;
     req.body.cartData.forEach((element) => {

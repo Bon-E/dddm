@@ -52,7 +52,7 @@ function create_button_handle(event) {
                 });
             })
             .fail((res) => {
-                console.log(res);
+                console.error(res);
             });
     }
 }

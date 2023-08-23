@@ -9,38 +9,33 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.post("/create_vendor", async (req,res) => {
-    const {name,website} = req.body;
+router.post('/create_vendor', async (req, res) => {
+    const { name, website } = req.body;
     try {
-      const savedVendor = await db_vendor.addVendor(name,website);
-      console.log('Vendor registered succsefully:', savedVendor);
-      res.send(savedVendor);
+        const savedVendor = await db_vendor.addVendor(name, website);
+        res.send(savedVendor);
     } catch (error) {
-      console.error('Error registering vendor:', error);
-      res.status(500).send('Error registering vendor');
+        console.error('Error registering vendor:', error);
+        res.status(500).send('Error registering vendor');
     }
-  });
+});
 
-  router.delete("/delete_vendor", async (req, res) => {
-    const {vendorID} = req.body;
-    console.log(vendorID,req.body);
-  
+router.delete('/delete_vendor', async (req, res) => {
+    const { vendorID } = req.body;
+
     try {
         await db_vendor.deleteVendor(vendorID);
-        console.log('Vendor deleted successfully');
-        res.sendStatus(200); 
+        res.sendStatus(200);
     } catch (error) {
         console.error('Error deleting vendor:', error);
-        res.sendStatus(500); 
+        res.sendStatus(500);
     }
-  });
+});
 
-  router.post("/edit_vendor", async (req, res) => {
-    console.log(req.body);
-    const {name,website,vendorID} = req.body;
+router.post('/edit_vendor', async (req, res) => {
+    const { name, website, vendorID } = req.body;
     try {
-        const editedVendor = await db_vendor.editVendor(name,website,vendorID);
-        console.log('Vendor edited successfully:', editedVendor);
+        const editedVendor = await db_vendor.editVendor(name, website, vendorID);
         res.send(editedVendor);
     } catch (error) {
         console.error('Error editing vendor:', error);
@@ -48,11 +43,10 @@ router.post("/create_vendor", async (req,res) => {
     }
 });
 
-router.get('/get_vendors',(req, res) => {
-   
-        db_vendor.getAllVendors().then(function (vendors){
-            res.send(vendors);
-        });
+router.get('/get_vendors', (req, res) => {
+    db_vendor.getAllVendors().then(function (vendors) {
+        res.send(vendors);
+    });
 });
 
-  module.exports = router;
+module.exports = router;
