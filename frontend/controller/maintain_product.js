@@ -1,8 +1,5 @@
 $(document).ready(function () {
-    console.log("Document is ready.");
-
     initPage().then(() => {
-        console.log("Page initialization is done.");
         routePages();
 
         populatePlatformsSelection();
@@ -12,52 +9,43 @@ $(document).ready(function () {
 
         let originalProducts = [];
 
-        $.get("/get_products").done((products) => {
-            console.log("Fetched products:", products); 
+        $.get('/get_products').done((products) => {
             originalProducts = products;
             let model = Model.getInstance();
             model.setProducts(products);
             populateProductTable(products);
         });
-    
-        $("#addNewproduct").on("click", function () {
+
+        $('#addNewproduct').on('click', function () {
             location.reload();
-        });        
-        $("#search-form").on("submit", function (event) {
+        });
+        $('#search-form').on('submit', function (event) {
             event.preventDefault();
-    
-            const searchQuery = $("#search").val().toLowerCase();
-            console.log("Search query:", searchQuery);
-    
-            const filteredProducts = originalProducts.filter(product =>
-                product.name.toLowerCase().includes(searchQuery) ||
-                product.description.toLowerCase().includes(searchQuery)
-            );
-            console.log("Filtered products:", filteredProducts);
-    
+
+            const searchQuery = $('#search').val().toLowerCase();
+
+            const filteredProducts = originalProducts.filter((product) => product.name.toLowerCase().includes(searchQuery) || product.description.toLowerCase().includes(searchQuery));
+
             populateProductTable(filteredProducts);
-    
+
             return false;
         });
     });
 });
 
-
-
 function create_button_handle(event) {
     event.preventDefault();
     if (check_input()) {
-        let form = new FormData($("#form1")[0]);
+        let form = new FormData($('#form1')[0]);
         $.ajax({
-            method: "POST",
-            url: "/create_product",
+            method: 'POST',
+            url: '/create_product',
             data: form,
             processData: false,
             contentType: false
         })
             .done((res) => {
-                console.log(res);
-                $.get("/get_products").done((products) => {
+                $.get('/get_products').done((products) => {
                     let model = Model.getInstance();
                     model.setProducts(products);
                     populateProductTable(products);
@@ -76,59 +64,58 @@ function check_input() {
 function populatePlatformsSelection() {
     let model = Model.getInstance();
     $.each(model.getPlatforms(), (index, item) => {
-        let option1 = $("<option>", { value: item._id, text: item.name });
-        let option2 = $("<option>", { value: item._id, text: item.name });
-        $("#Platform").append(option1);
-        $("#editPlatform").append(option2);
+        let option1 = $('<option>', { value: item._id, text: item.name });
+        let option2 = $('<option>', { value: item._id, text: item.name });
+        $('#Platform').append(option1);
+        $('#editPlatform').append(option2);
     });
 }
 function populateProductTable(productsToShow) {
-    console.log("Products to show:", productsToShow); 
     let model = Model.getInstance();
     const vendors = model.getVendors();
     const platforms = model.getPlatforms();
     const categories = model.getCategories();
-    $("#productTableBody").empty();
+    $('#productTableBody').empty();
     const products = productsToShow || model.getProducts();
 
     for (const product of products) {
-        const row = $("<tr>");
+        const row = $('<tr>');
 
-        row.attr("data-product-id", product._id);
+        row.attr('data-product-id', product._id);
 
         let vendor = vendors.find((ven) => ven._id == product.vendor_id);
         let platform = platforms.find((plat) => plat._id == product.platform_id);
         let category = categories.find((cat) => cat._id == product.category_id);
 
-        row.append($("<td>").text(product.name));
-        row.append($("<td>").text(product.description));
-        row.append($("<td>").text(findMyPrice(product)));
-        row.append($("<td>").text(product.stock));
-        row.append($("<td>").text(category ? category.name : null));
-        row.append($("<td>").text(platform ? platform.name : null));
-        row.append($("<td>").text(vendor ? vendor.name : null));
+        row.append($('<td>').text(product.name));
+        row.append($('<td>').text(product.description));
+        row.append($('<td>').text(findMyPrice(product)));
+        row.append($('<td>').text(product.stock));
+        row.append($('<td>').text(category ? category.name : null));
+        row.append($('<td>').text(platform ? platform.name : null));
+        row.append($('<td>').text(vendor ? vendor.name : null));
 
-        const editButton = $("<button>")
-            .addClass("btn btn-primary mr-2")
+        const editButton = $('<button>')
+            .addClass('btn btn-primary mr-2')
             .click(function () {
-                var productId = $(this).closest("tr").data("product-id");
+                var productId = $(this).closest('tr').data('product-id');
                 handleEditButtonClick(productId);
             });
 
-        const pencilIcon = $("<i>").addClass("bi bi-pencil");
+        const pencilIcon = $('<i>').addClass('bi bi-pencil');
         editButton.append(pencilIcon);
 
-        var deleteButton = $("<button>")
-            .addClass("btn btn-danger")
+        var deleteButton = $('<button>')
+            .addClass('btn btn-danger')
             .click(function () {
-                var productId = $(this).closest("tr").data("product-id");
+                var productId = $(this).closest('tr').data('product-id');
                 $.ajax({
-                    url: "/delete_product",
-                    type: "DELETE",
+                    url: '/delete_product',
+                    type: 'DELETE',
                     data: { productId: productId }
                 })
                     .then(() => {
-                        $.get("/get_products").done((products) => {
+                        $.get('/get_products').done((products) => {
                             let model = Model.getInstance();
                             model.setProducts(products);
                             populateProductTable(products);
@@ -139,35 +126,33 @@ function populateProductTable(productsToShow) {
                     });
             });
 
-        const trashIcon = $("<i>").addClass("bi bi-trash");
+        const trashIcon = $('<i>').addClass('bi bi-trash');
         deleteButton.append(trashIcon);
 
-        row.append($("<td>").append(editButton, deleteButton));
+        row.append($('<td>').append(editButton, deleteButton));
 
-        $("#productTableBody").append(row);
+        $('#productTableBody').append(row);
     }
 }
 function populateCategoriesSelection() {
     let model = Model.getInstance();
     $.each(model.getCategories(), (index, item) => {
-        let option1 = $("<option>", { value: item._id, text: item.name });
-        let option2 = $("<option>", { value: item._id, text: item.name });
-        $("#Category").append(option1);
-        $("#editCategory").append(option2);
+        let option1 = $('<option>', { value: item._id, text: item.name });
+        let option2 = $('<option>', { value: item._id, text: item.name });
+        $('#Category').append(option1);
+        $('#editCategory').append(option2);
     });
 }
 
 function populateVendorsSelection() {
     let model = Model.getInstance();
     $.each(model.getVendors(), (index, item) => {
-        let option1 = $("<option>", { value: item._id, text: item.name });
-        let option2 = $("<option>", { value: item._id, text: item.name });
-        $("#Vendor").append(option1);
-        $("#editVendor").append(option2);
+        let option1 = $('<option>', { value: item._id, text: item.name });
+        let option2 = $('<option>', { value: item._id, text: item.name });
+        $('#Vendor').append(option1);
+        $('#editVendor').append(option2);
     });
 }
-
-
 
 function handleEditButtonClick(productId) {
     let model = Model.getInstance();
@@ -176,18 +161,18 @@ function handleEditButtonClick(productId) {
         return product._id === productId;
     });
 
-    $("#productId").val(product._id);
-    $("#editProductName").val(product.name);
-    $("#editDescription").val(product.description);
-    $("#editStock").val(product.stock);
-    $("#editCategory").val(product.category_id);
-    $("#editVendor").val(product.vendor_id);
-    $("#editPlatform").val(product.platform_id);
-    $("#editPrice").val(findMyPrice(product));
+    $('#productId').val(product._id);
+    $('#editProductName').val(product.name);
+    $('#editDescription').val(product.description);
+    $('#editStock').val(product.stock);
+    $('#editCategory').val(product.category_id);
+    $('#editVendor').val(product.vendor_id);
+    $('#editPlatform').val(product.platform_id);
+    $('#editPrice').val(findMyPrice(product));
 
-    $("#productImg").attr("src", product.image);
+    $('#productImg').attr('src', product.image);
 
-    $("#editModal").modal("show");
+    $('#editModal').modal('show');
 }
 
 function findMyPrice(product) {
@@ -202,30 +187,33 @@ function findMyPrice(product) {
 }
 
 function initModal() {
-    $("#saveChangesBtn").click(function () {
-        var form = new FormData($("#editProductForm")[0]);
-        console.log(form);
+    $('#saveChangesBtn').click(function () {
+        var form = new FormData($('#editProductForm')[0]);
         $.ajax({
-            url: "/update_product",
-            type: "PUT",
+            url: '/update_product',
+            type: 'PUT',
             data: form,
             processData: false,
             contentType: false
         })
             .done((res) => {
-                console.log(res);
+                $.get('/get_products').done((products) => {
+                    let model = Model.getInstance();
+                    model.setProducts(products);
+                    populateProductTable(products);
+                });
             })
             .fail((res) => {
                 console.error(res);
             });
-        $("#editModal").modal("hide");
+        $('#editModal').modal('hide');
     });
 
-    $("#closeModalBtn1").click(() => {
-        $("#editModal").modal("hide");
+    $('#closeModalBtn1').click(() => {
+        $('#editModal').modal('hide');
     });
 
-    $("#closeModalBtn2").click(() => {
-        $("#editModal").modal("hide");
+    $('#closeModalBtn2').click(() => {
+        $('#editModal').modal('hide');
     });
 }
