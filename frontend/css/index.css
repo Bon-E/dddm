@@ -73,3 +73,101 @@ footer {
     text-align: center;
     padding: 10px 0;
 }
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.branch-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.branch {
+    width: calc(50% - 20px); /* Adjust the width and spacing as needed */
+    padding: 15px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.branch:hover {
+    background-color: #f0f0f0;
+}
+
+.branch img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.branch h3 {
+    margin-top: 0;
+}
+
+.map-container {
+    width: 100%;
+    height: 200px;
+    margin-top: 10px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.popup {
+    margin-top: 50px;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    max-width: 400px; /* Adjust the maximum width as needed */
+}
+
+.popup h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.popup label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.popup input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.popup button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 900;
+}

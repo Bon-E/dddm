@@ -48,7 +48,25 @@
           </thead>
          <tbody id="cartTableBody"></tbody>
         </table>
+
      </div>
    </main>
+
+   <div id="popup" class="popup">
+    <span class="close" id="closePopup">&times;</span>
+    <h2>Card Info</h2>
+    <form id="creditCardForm">
+      
+      <input type="number" maxlength="16" placeholder="YYYY-YYYY-YYYY-YYYY" class="card-number" required>
+     <div>
+      <input type="date" placeholder="MM / YY" class="expiration-date" required>
+      <input type="number" maxlength="3" placeholder="CCV" class="ccv" required>
+     </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  
+  <div class="overlay"></div>
 </body>
 </html>

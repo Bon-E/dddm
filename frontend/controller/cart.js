@@ -1,32 +1,39 @@
-
 $(document).ready(function () {
     initPage().then(() => {
         routePages();
         printCart();
     });
 
-    $(document).on("click", ".delete-button", function () {
-        const cartId = $(this).closest("tr").data("cart-id");
+    $(document).on('click', '.delete-button', function () {
+        const cartId = $(this).closest('tr').data('cart-id');
         deleteCartItem(cartId);
         printCart();
     });
 
-    $(document).on("click", "#buyNowButton", function () {
+    $(document).on('click', '#buyNowButton', function () {
         let model = Model.getInstance();
         const cartData = model.GetCart();
-        console.log("modellll   ",model.GetCart());
+
+        $('#popup').css('display', 'block');
+        $('.overlay').css('display', 'block');
+
+        console.log('modellll   ', model.GetCart());
         $.ajax({
-            method: "POST",
-            url: "/create_order",
-            data: {cartData}
+            method: 'POST',
+            url: '/create_order',
+            data: { cartData }
         })
             .done(() => {
-                console.log("chupapi");
+                console.log('chupapi');
             })
             .fail(() => {
-                console.log("fail");
+                console.log('fail');
             });
-        alert("Buy Now button clicked!");
+    });
+
+    $('#closePopup').click(function () {
+        $('#popup').css('display', 'none');
+        $('.overlay').css('display', 'none');
     });
 });
 function updateCartItemPrice(productId, newQuantity) {
@@ -40,7 +47,7 @@ function updateCartItemPrice(productId, newQuantity) {
         calculateTotalPrice(cartItems);
         model.saveData();
     }
-    console.log("help", model.GetCart());
+    console.log('help', model.GetCart());
 }
 function deleteCartItem(cartId) {
     let model = Model.getInstance();
@@ -62,22 +69,22 @@ function calculateTotalPrice(cartItems) {
 function printCart() {
     let model = Model.getInstance();
     let cartItems = model.GetCart();
-    let tableBody = $("#cartTableBody");
+    let tableBody = $('#cartTableBody');
 
     tableBody.empty();
 
     cartItems.forEach(function (product) {
-        var row = $("<tr>").attr("data-cart-id", product.id);
+        var row = $('<tr>').attr('data-cart-id', product.id);
 
-        row.append($("<td>").text(product.name));
-        row.append($("<td>").text(product.price));
+        row.append($('<td>').text(product.name));
+        row.append($('<td>').text(product.price));
 
-        var quantityCell = $("<td>");
-        var quantityInput = $("<input>")
-            .addClass("cart-quantity-input")
-            .attr("type", "number")
-            .attr("value", product.quantity)
-            .attr("min", "1")
+        var quantityCell = $('<td>');
+        var quantityInput = $('<input>')
+            .addClass('cart-quantity-input')
+            .attr('type', 'number')
+            .attr('value', product.quantity)
+            .attr('min', '1')
             .val(product.quantity)
             .change(function () {
                 const newQuantity = $(this).val();
@@ -88,8 +95,8 @@ function printCart() {
         quantityCell.append(quantityInput);
         row.append(quantityCell);
 
-        var deleteCell = $("<td>");
-        var deleteButton = $("<button>").addClass("btn btn-danger delete-button").text("Delete");
+        var deleteCell = $('<td>');
+        var deleteButton = $('<button>').addClass('btn btn-danger delete-button').text('Delete');
 
         deleteCell.append(deleteButton);
         row.append(deleteCell);
@@ -97,14 +104,14 @@ function printCart() {
         tableBody.append(row);
     });
 
-    var buyNowRow = $("<tr>");
-    var buyNowCell = $("<td>").attr("colspan", "4").addClass("text-right");
+    var buyNowRow = $('<tr>');
+    var buyNowCell = $('<td>').attr('colspan', '4').addClass('text-right');
     var totalSum = calculateTotalPrice(cartItems);
-    var totalSumElement = $("<p>").text("Total: " + totalSum.toFixed(2) + " USD");
-    totalSumElement.attr("id", "total_price");
+    var totalSumElement = $('<p>').text('Total: ' + totalSum.toFixed(2) + ' USD');
+    totalSumElement.attr('id', 'total_price');
 
     buyNowCell.append(totalSumElement);
-    var buyNowButton = $("<button>").addClass("btn btn-primary").attr("id", "buyNowButton").text("Buy Now");
+    var buyNowButton = $('<button>').addClass('btn btn-primary').attr('id', 'buyNowButton').text('Buy Now');
 
     buyNowCell.append(buyNowButton);
     buyNowRow.append(buyNowCell);
