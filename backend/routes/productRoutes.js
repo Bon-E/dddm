@@ -86,7 +86,6 @@ router.delete('/delete_product', (req, res) => {
     db_order
         .getOrdersByProductId(req.body.productId)
         .then((orders) => {
-            console.log('orders: ', orders);
             if (orders && orders.length > 0) {
                 res.status(400).send('Cannot delete product, found orders cointaining it');
             } else {

@@ -3,64 +3,65 @@ $(document).ready(() => {
         routePages();
         initModal();
         populateUserTypesSelection();
-        populateTable();
+        let model = Model.getInstance();
+        populateTableWithFilteredUsers(model.getUsers());
     });
 
-    $("#search-form").submit(function (event) {
+    $('#search-form').submit(function (event) {
         event.preventDefault();
-        const query = $("#search").val();
+        const query = $('#search').val();
         performUserSearch(query);
     });
 });
-    function performUserSearch(query) {
-        $.get('/get_users')
-            .done((users) => {
-                const filteredUsers = filterUsers(users, query);
-                populateTableWithFilteredUsers(filteredUsers);
-            })
-            .fail((error) => {
-                console.error('Error fetching user data:', error);
-            });
-    }
-
-    function filterUsers(users, query) {
-        return users.filter(user => {
-            return user.username.toLowerCase().includes(query.toLowerCase()) ||
-                   user.fname.toLowerCase().includes(query.toLowerCase()) ||
-                   user.lname.toLowerCase().includes(query.toLowerCase()) ||
-                   user.email.toLowerCase().includes(query.toLowerCase()) ||
-                   user.phone.toLowerCase().includes(query.toLowerCase());
+function performUserSearch(query) {
+    $.get('/get_users')
+        .done((users) => {
+            const filteredUsers = filterUsers(users, query);
+            populateTableWithFilteredUsers(filteredUsers);
+        })
+        .fail((error) => {
+            console.error('Error fetching user data:', error);
         });
-    }
+}
 
-    function populateTableWithFilteredUsers(users) {
-        let model = Model.getInstance();
-        var tableBody = $("#userTableBody");
+function filterUsers(users, query) {
+    return users.filter((user) => {
+        return user.username.toLowerCase().includes(query.toLowerCase()) || user.fname.toLowerCase().includes(query.toLowerCase()) || user.lname.toLowerCase().includes(query.toLowerCase()) || user.email.toLowerCase().includes(query.toLowerCase()) || user.phone.toLowerCase().includes(query.toLowerCase());
+    });
+}
 
-        tableBody.empty();
+function populateTableWithFilteredUsers(users) {
+    let model = Model.getInstance();
+    var tableBody = $('#userTableBody');
 
-        users.forEach(function (user) {
-            var row = $("<tr>");
+    tableBody.empty();
 
-            row.attr("data-user-id", user._id);
+    users.forEach(function (user) {
+        var row = $('<tr>');
 
-            row.append($("<td>").text(user.username));
-            row.append($("<td>").text(user.fname));
-            row.append($("<td>").text(user.lname));
-            row.append($("<td>").text(user.email));
-            row.append($("<td>").text(user.phone));
+        row.attr('data-user-id', user._id);
 
-            var actionsCell = $("<td>");
-            var editButton = $("<button>").addClass("btn btn-primary mr-2").click(function () {
-                var userId = $(this).closest("tr").data("user-id");
+        row.append($('<td>').text(user.username));
+        row.append($('<td>').text(user.fname));
+        row.append($('<td>').text(user.lname));
+        row.append($('<td>').text(user.email));
+        row.append($('<td>').text(user.phone));
+
+        var actionsCell = $('<td>');
+        var editButton = $('<button>')
+            .addClass('btn btn-primary mr-2')
+            .click(function () {
+                var userId = $(this).closest('tr').data('user-id');
                 handleEditButtonClick(userId); // opens edit modal with user's data
             });
 
-            const pencilIcon = $('<i>').addClass('bi bi-pencil');
-            editButton.append(pencilIcon);
+        const pencilIcon = $('<i>').addClass('bi bi-pencil');
+        editButton.append(pencilIcon);
 
-            var deleteButton = $("<button>").addClass("btn btn-danger").click(function () {
-                var userId = $(this).closest("tr").data("user-id");
+        var deleteButton = $('<button>')
+            .addClass('btn btn-danger')
+            .click(function () {
+                var userId = $(this).closest('tr').data('user-id');
                 $.ajax({
                     url: '/delete_user',
                     type: 'DELETE',
@@ -70,27 +71,27 @@ $(document).ready(() => {
                     success: function (res) {
                         console.log('deleted');
                         refreshTable();
+                    },
+                    error: function (error) {
+                        alert(error.responseText ? error.responseText : 'Error, cannot delete user');
                     }
                 });
-
-                alert("Delete button clicked for user with ID: " + userId);
             });
-            const trashIcon = $('<i>').addClass('bi bi-trash');
-            deleteButton.append(trashIcon);
+        const trashIcon = $('<i>').addClass('bi bi-trash');
+        deleteButton.append(trashIcon);
 
-            actionsCell.append(editButton, deleteButton);
-            row.append(actionsCell);
+        actionsCell.append(editButton, deleteButton);
+        row.append(actionsCell);
 
-            tableBody.append(row);
-        });
-    }
-
-
+        tableBody.append(row);
+    });
+}
 
 async function refreshTable() {
-    $("#userTableBody").empty();
+    $('#userTableBody').empty();
     await getUsers();
-    populateTable();
+    let model = Model.getInstance();
+    populateTableWithFilteredUsers(model.getUsers());
 }
 
 async function getUsers() {
@@ -110,62 +111,10 @@ function populateUserTypesSelection() {
     });
 }
 
-function populateTable() {
-    let model = Model.getInstance();
-
-    var tableBody = $("#userTableBody");
-
-    model.getUsers().forEach(function (user) {
-        var row = $("<tr>");
-
-        row.attr("data-user-id", user._id);
-
-        row.append($("<td>").text(user.username));
-        row.append($("<td>").text(user.fname));
-        row.append($("<td>").text(user.lname));
-        row.append($("<td>").text(user.email));
-        row.append($("<td>").text(user.phone));
-
-        var actionsCell = $("<td>");
-        var editButton = $("<button>").addClass("btn btn-primary mr-2").click(function () {
-            var userId = $(this).closest("tr").data("user-id");
-            handleEditButtonClick(userId); 
-        });
-
-        const pencilIcon = $('<i>').addClass('bi bi-pencil');
-        editButton.append(pencilIcon);
-
-        var deleteButton = $("<button>").addClass("btn btn-danger").click(function () {
-            var userId = $(this).closest("tr").data("user-id");
-            $.ajax({
-                url: '/delete_user',
-                type: 'DELETE',
-                data: {
-                    userId: userId
-                },
-                success: function (res) {
-                    console.log('deleted');
-                    refreshTable();
-                }
-            });
-
-            alert("Delete button clicked for user with ID: " + userId);
-        });
-        const trashIcon = $('<i>').addClass('bi bi-trash');
-        deleteButton.append(trashIcon);
-
-
-        actionsCell.append(editButton, deleteButton);
-        row.append(actionsCell);
-
-        tableBody.append(row);
-    });
-}
-
 function initModal() {
-    var editForm = $("#editUserForm");
+    var editForm = $('#editUserForm');
 
-    $("#saveChangesBtn").click(function () {
+    $('#saveChangesBtn').click(function () {
         var formData = editForm.serialize();
         // You can send the formData using an AJAX request to the backend
         // alert("Sending request to update user with ID: " + editUserIdField.val());
@@ -177,49 +126,46 @@ function initModal() {
                 refreshTable();
             }
         });
-        $("#editModal").modal("hide");
+        $('#editModal').modal('hide');
     });
 
-    $("#closeModalBtn1").click(() => {
-        $("#editModal").modal("hide");
+    $('#closeModalBtn1').click(() => {
+        $('#editModal').modal('hide');
     });
 
-    $("#closeModalBtn2").click(() => {
-        $("#editModal").modal("hide");
+    $('#closeModalBtn2').click(() => {
+        $('#editModal').modal('hide');
     });
-
 }
 
-
 function handleEditButtonClick(userId) {
-
     let model = Model.getInstance();
 
     var user = model.getUsers().find(function (user) {
         return user._id === userId;
     });
 
-    $("#editUserId").val(user._id);
-    $("#editUserName").val(user.username);
-    $("#editFirstName").val(user.fname);
-    $("#editLastName").val(user.lname);
-    $("#editEmail").val(user.email);
-    $("#editPhone").val(user.phone);
+    $('#editUserId').val(user._id);
+    $('#editUserName').val(user.username);
+    $('#editFirstName').val(user.fname);
+    $('#editLastName').val(user.lname);
+    $('#editEmail').val(user.email);
+    $('#editPhone').val(user.phone);
 
-    $("#editPassword").val("");
-    $("#editBirthday").val("");
+    $('#editPassword').val('');
+    $('#editBirthday').val('');
 
     if (user.birthday) {
         var dateTime = new Date(user.birthday);
-        var formattedDate = dateTime.toISOString().split("T")[0]; // Extract date portion
-        $("#editBirthday").val(formattedDate);
+        var formattedDate = dateTime.toISOString().split('T')[0]; // Extract date portion
+        $('#editBirthday').val(formattedDate);
     }
 
-    $("#editCity").val(user.address.city);
-    $("#editStreet").val(user.address.street);
-    $("#editHouseNumber").val(user.address.house_number);
+    $('#editCity').val(user.address.city);
+    $('#editStreet').val(user.address.street);
+    $('#editHouseNumber').val(user.address.house_number);
 
-    $("#userType").val(user.type);
+    $('#userType').val(user.type);
 
-    $("#editModal").modal("show");
+    $('#editModal').modal('show');
 }
