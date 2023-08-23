@@ -17,7 +17,10 @@
         <script src="./../controller/utils.js"></script>
         <script src="./../controller/header.js"></script>
         <script src="./../controller/index.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3xsqtuuzminYxX_s9sqzILXU2Wv5OrRo"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3xsqtuuzminYxX_s9sqzILXU2Wv5OrRo&callback=initMap"></script>
     </head>
+
     <body>
         <div id="_header"></div>
         <main>
@@ -30,5 +33,48 @@
                 </div>
             </div>
         </main>
+
+        <h1>Game Chumama</h1>
+        <div class="branch-container">
+            <div class="branch">
+                <div class="branch-details">
+                    <h3>סניף ירושלים</h3>
+                    <p>Location: Address 1</p>
+                    <p>Phone: 0523528571</p>
+                    <p>Hours: Monday-Friday 9am-6pm</p>
+                </div>
+                <div class="map-container" id="map1"></div>
+            </div>
+
+            <div class="branch">
+                <div class="branch-details">
+                    <h3>סניף תל אביב-יפו</h3>
+                    <p>Location: Address 2</p>
+                    <p>Phone: 0523528572</p>
+                    <p>Hours: Monday-Friday 8am-7pm</p>
+                </div>
+                <div class="map-container" id="map2"></div>
+            </div>
+
+            <div class="branch">
+                <div class="branch-details">
+                    <h3>סניף אשדוד</h3>
+                    <p>Location: Address 3</p>
+                    <p>Phone: 0523528574</p>
+                    <p>Hours: Monday-Friday 7am-8pm</p>
+                </div>
+                <div class="map-container" id="map3"></div>
+            </div>
+
+            <div class="branch">
+                <div class="branch-details">
+                    <h3>סניף(לחם חביתה) נתניה</h3>
+                    <p>Location: Address 4</p>
+                    <p>Phone: 0523528576</p>
+                    <p>Hours: Monday-Friday 8am-5pm</p>
+                </div>
+                <div class="map-container" id="map4"></div>
+            </div>
+        </div>
     </body>
 </html>
