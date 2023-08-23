@@ -17,17 +17,14 @@ $(document).ready(function () {
         $('#popup').css('display', 'block');
         $('.overlay').css('display', 'block');
 
-        console.log('modellll   ', model.GetCart());
         $.ajax({
             method: 'POST',
             url: '/create_order',
             data: { cartData }
         })
-            .done(() => {
-                console.log('chupapi');
-            })
+            .done(() => {})
             .fail(() => {
-                console.log('fail');
+                alert('failed to create order');
             });
     });
 
@@ -47,7 +44,6 @@ function updateCartItemPrice(productId, newQuantity) {
         calculateTotalPrice(cartItems);
         model.saveData();
     }
-    console.log('help', model.GetCart());
 }
 function deleteCartItem(cartId) {
     let model = Model.getInstance();

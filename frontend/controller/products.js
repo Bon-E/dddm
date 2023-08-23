@@ -54,7 +54,7 @@ $(document).ready(function () {
 $(document).on('click', '.add-to-cart-btn', function () {
     let model = Model.getInstance();
     const found = model.getProducts().find((element) => element._id == $(this).attr('id'));
-    console.log('adin is the best', found);
+
     const Product = {
         id: $(this).attr('id'),
         quantity: 1,
@@ -63,7 +63,6 @@ $(document).on('click', '.add-to-cart-btn', function () {
     };
     addToCart(Product);
     alert('Product added to cart!');
-    //updateCartCount();
 });
 
 $.get('/get_products')
@@ -114,6 +113,5 @@ function populateProductCards(products) {
 function addToCart(product) {
     let model = Model.getInstance();
     model.AddToCart(product);
-    console.log(model.GetCart());
     model.saveData();
 }
