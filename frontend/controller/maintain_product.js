@@ -122,7 +122,7 @@ function populateProductTable(productsToShow) {
                         });
                     })
                     .catch((err) => {
-                        console.error(err);
+                        alert(err.responseText ? err.responseText : 'Error, cannot delete product');
                     });
             });
 
