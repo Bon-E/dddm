@@ -117,11 +117,24 @@ async function _getLastWeekSales() {
     return sales;
 }
 
+async function _getOrdersByProductId(productId) {
+    console.log('productId deleting: ', productId);
+    const orders = await Order.aggregate([
+        {
+            $match: {
+                'order_items.product_id': new ObjectId(productId)
+            }
+        }
+    ]);
+    return orders;
+}
+
 module.exports = {
     getOrders: _getOrders,
     getMyOrders: _getMyOrders,
     createOrder: _createOrder,
     updateOrderStatus: _updateOrderStatus,
     getSalesByVendor: _getSalesByVendor,
-    getLastWeekSales: _getLastWeekSales
+    getLastWeekSales: _getLastWeekSales,
+    getOrdersByProductId: _getOrdersByProductId
 };
