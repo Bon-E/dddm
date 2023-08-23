@@ -1,6 +1,7 @@
 const express = require('express');
 const db_orders = require('../db/db_orders');
 const { ObjectId } = require('mongodb');
+const db_product = require('../db/db_product');
 const router = express.Router();
 
 router.post('/create_order', (req, res) => {
@@ -18,6 +19,9 @@ router.post('/create_order', (req, res) => {
     db_orders
         .createOrder(req.session.user._id, totalPrice, orderItems)
         .then(() => {
+            for (const item of orderItems) {
+                db_product.updateProductStock(item.product_id, item.quantity);
+            }
             res.status(200).send();
         })
         .catch((error) => {
