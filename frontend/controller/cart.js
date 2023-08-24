@@ -11,29 +11,35 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '#buyNowButton', function () {
-        let model = Model.getInstance();
-        const cartData = model.GetCart();
-
         $('#popup').css('display', 'block');
         $('.overlay').css('display', 'block');
+    });
 
-        console.log('modellll   ', model.GetCart());
+    $('#closePopup').click(function () {
+        $('#popup').css('display', 'none');
+        $('.overlay').css('display', 'none');
+    });
+
+    $('#submitPopup').click(function (event) {
+        // Remove the product from the cart
+        event.preventDefault();
+        let model = Model.getInstance();
+        const cartData = model.GetCart();
         $.ajax({
             method: 'POST',
             url: '/create_order',
             data: { cartData }
         })
             .done(() => {
-                console.log('chupapi');
+                model.SetCart([]);
+                model.saveData();
+                printCart();
+                $('#popup').css('display', 'none');
+                $('.overlay').css('display', 'none');
             })
             .fail(() => {
                 console.log('fail');
             });
-    });
-
-    $('#closePopup').click(function () {
-        $('#popup').css('display', 'none');
-        $('.overlay').css('display', 'none');
     });
 });
 function updateCartItemPrice(productId, newQuantity) {
@@ -131,4 +137,16 @@ function addToCart(product) {
 
     model.saveData();
     printCart();
+}
+function deleteCartItem(cartId) {
+    let model = Model.getInstance();
+    let cartItems = model.GetCart();
+
+    // Find the index of the item with the given cartId
+    let cartIndex = cartItems.findIndex((item) => item.id === cartId);
+
+    if (cartIndex !== -1) {
+        cartItems.splice(cartIndex, 1); // Remove the item from the cart
+        model.saveData(); // Save the updated cart data
+    }
 }
