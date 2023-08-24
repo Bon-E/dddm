@@ -106,6 +106,9 @@ const Model = (function () {
             AddToCart: function (a) {
                 data.cart.push(a);
             },
+            SetCart: function (a) {
+                data.cart = a;
+            },
             GetCart: function () {
                 return data.cart;
             },

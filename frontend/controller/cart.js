@@ -11,26 +11,35 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '#buyNowButton', function () {
-        let model = Model.getInstance();
-        const cartData = model.GetCart();
-
         $('#popup').css('display', 'block');
         $('.overlay').css('display', 'block');
-
-        $.ajax({
-            method: 'POST',
-            url: '/create_order',
-            data: { cartData }
-        })
-            .done(() => {})
-            .fail(() => {
-                alert('failed to create order');
-            });
     });
 
     $('#closePopup').click(function () {
         $('#popup').css('display', 'none');
         $('.overlay').css('display', 'none');
+    });
+
+    $('#submitPopup').click(function (event) {
+        // Remove the product from the cart
+        event.preventDefault();
+        let model = Model.getInstance();
+        const cartData = model.GetCart();
+        $.ajax({
+            method: 'POST',
+            url: '/create_order',
+            data: { cartData }
+        })
+            .done(() => {
+                model.SetCart([]);
+                model.saveData();
+                printCart();
+                $('#popup').css('display', 'none');
+                $('.overlay').css('display', 'none');
+            })
+            .fail(() => {
+                alert('failed to create order');
+            });
     });
 });
 function updateCartItemPrice(productId, newQuantity) {
@@ -127,4 +136,16 @@ function addToCart(product) {
 
     model.saveData();
     printCart();
+}
+function deleteCartItem(cartId) {
+    let model = Model.getInstance();
+    let cartItems = model.GetCart();
+
+    // Find the index of the item with the given cartId
+    let cartIndex = cartItems.findIndex((item) => item.id === cartId);
+
+    if (cartIndex !== -1) {
+        cartItems.splice(cartIndex, 1); // Remove the item from the cart
+        model.saveData(); // Save the updated cart data
+    }
 }
