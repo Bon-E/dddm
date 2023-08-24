@@ -101,7 +101,11 @@ function populateProductCards(products) {
                       <p class="card-text">${findMyPrice(product)} USD</p>`;
 
         if (model.getIsLogged() && !model.getIsAdmin()) {
-            card += `<button type="button" class="btn btn-primary add-to-cart-btn" id="${product._id}">Add to cart</button>`;
+            console.log(product.stock);
+            //enabled
+            if (product.stock > 0) card += `<button type="button" class="btn btn-primary add-to-cart-btn" id="${product._id}">Add to cart</button>`;
+            //disabled
+            else card += `<button type="button" class="btn btn-secondary add-to-cart-btn" id="${product._id}" disabled>Out of stock</button>`;
         }
         card += `               
                   </div>
