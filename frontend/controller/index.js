@@ -5,6 +5,9 @@ $(document).ready(() => {
     $('#products').on('click', () => {
         window.location.href = '/products';
     });
+    $('#reg').on('click', () => {
+        window.location.href = '/register';
+    });
 });
 
 function initMap() {
