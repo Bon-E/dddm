@@ -4,7 +4,7 @@ $(document).ready(function () {
 
         $.get('/get_vendors').done(function (vendors) {
             vendors.forEach((vendor) => {
-                var newRow = $('<tr>');
+                let newRow = $('<tr>');
                 newRow.append("<td class='name'>" + vendor.name + '</td>');
                 newRow.append("<td class='site'><a href='" + vendor.website + "' target='_blank'>" + vendor.website + '</a></td>');
                 let buttonsHtml = `
@@ -15,11 +15,12 @@ $(document).ready(function () {
                 `;
                 newRow.append(buttonsHtml);
                 $('#vendorTable').append(newRow);
+
             });
 
             $('#addButton').on('click', async function () {
-                var name = $('#vendorName').val();
-                var site = $('#vendorSite').val();
+                let name = $('#vendorName').val();
+                let site = $('#vendorSite').val();
 
                 const vendorData = {
                     name: name,
@@ -28,7 +29,7 @@ $(document).ready(function () {
 
                 const vendor = await addNewVendor(vendorData);
 
-                var newRow = $('<tr>');
+                let newRow = $('<tr>');
                 newRow.append("<td class='name'>" + name + '</td>');
                 newRow.append("<td class='site'><a href='" + site + "' target='_blank'>" + site + '</a></td>');
                 let buttonsHtml = `
@@ -46,11 +47,11 @@ $(document).ready(function () {
             });
 
             $('#vendorTable').on('click', '.deleteButton', function () {
-                var row = $(this).closest('tr');
-                var name = row.find('.name').text();
-                var site = row.find('.site').text();
+                let row = $(this).closest('tr');
+                let name = row.find('.name').text();
+                let site = row.find('.site').text();
 
-                var confirmation = confirm('Are you sure you want to delete this vendor?');
+                let confirmation = confirm('Are you sure you want to delete this vendor?');
 
                 if (confirmation) {
                     row.remove();
@@ -60,40 +61,51 @@ $(document).ready(function () {
             });
 
             $('#vendorTable').on('click', '.editButton', function () {
-                var row = $(this).closest('tr');
-                var name = row.find('.name').text();
-                var site = row.find('.site').text();
-                var modal = new bootstrap.Modal(document.getElementById('editModal'));
-                var vendorID = $(this).data('vendorid');
+                let row = $(this).closest('tr');
+                console.log(row);
+                let name = row.find('.name').text();
+                let site = row.find('.site').text();
+                let vendorID = $(this).data('vendorid');
+                let modal = new bootstrap.Modal(document.getElementById('editModal'));
+                
 
                 $('#editName').val(name);
                 $('#editSite').val(site);
 
+                console.log(vendorID);
+
                 modal.show();
-
-                $('#modalSaveButton').on('click', function () {
-                    var newName = $('#editName').val();
-                    var newSite = $('#editSite').val();
-
+                function onClickCallBack() {
+                    let editedRow = row;
+                    console.log(editedRow);
+                    let newName = $('#editName').val();
+                    let newSite = $('#editSite').val();
+                
                     if (newName && newSite) {
-                        row.find('.name').text(newName);
-                        row.find('.site').html(`<a href="${newSite}" target="_blank">${newSite}</a>`);
-
-                        var vendorData = {
+                        editedRow.find('.name').text(newName);
+                        editedRow.find('.site').html(`<a href="${newSite}" target="_blank">${newSite}</a>`);
+                
+                        let vendorData = {
                             name: newName,
                             website: newSite,
                             vendorID: vendorID
                         };
-
+                        console.log(vendorData);
+                
                         updateVendor(vendorData);
                     }
+                    $('#modalSaveButton').unbind('click');
 
                     modal.hide();
-                });
+                }
+
+                $('#modalSaveButton').on('click', onClickCallBack);
+                
             });
+            
 
             const addNewVendor = async (vendorData) => {
-                var vendor;
+                let vendor;
                 await $.post('/create_vendor', vendorData)
                     .done((savedVendor) => {
                         vendor = savedVendor;
@@ -120,7 +132,7 @@ $(document).ready(function () {
             const updateVendor = (vendorData) => {
                 $.post('/edit_vendor', vendorData)
                     .done((editedVendor) => {
-                        //console.log('Vendor edited succsefully', editedVendor);
+                        console.log('Vendor edited succsefully', editedVendor);
                     })
                     .fail((error) => {
                         console.error('Error editing vendor', error);
