@@ -73,7 +73,7 @@ $(document).ready(function () {
 
                 $('#modalSaveButton').on('click', function () {
                     var newName = $('#editName').val();
-                    var newSite = $('#editSite').val();
+                    row.find('.site').html(`<a href="${newSite}" target="_blank">${newSite}</a>`);
 
                     if (newName && newSite) {
                         row.find('.name').text(newName);
