@@ -73,11 +73,11 @@ $(document).ready(function () {
 
                 $('#modalSaveButton').on('click', function () {
                     var newName = $('#editName').val();
-                    row.find('.site').html(`<a href="${newSite}" target="_blank">${newSite}</a>`);
+                    var newSite = $('#editSite').val();
 
                     if (newName && newSite) {
                         row.find('.name').text(newName);
-                        row.find('.site').text(newSite);
+                        row.find('.site').html(`<a href="${newSite}" target="_blank">${newSite}</a>`);
 
                         var vendorData = {
                             name: newName,
