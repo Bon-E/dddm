@@ -176,7 +176,7 @@ function filterBySelections(products) {
             ok = product.vendor_id != vendor ? false : ok;
         }
         if (platform != null) {
-            ok = product.platfom_id != platform ? false : ok;
+            ok = product.platform_id != platform ? false : ok;
         }
         return ok;
     });
