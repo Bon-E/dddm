@@ -65,6 +65,9 @@ const routePages = () => {
     $('#last_week_sales').on('click', () => {
         window.location.href = '/lastWeekSalesReport';
     });
+    $('#productsheader').on('click', () => {
+        window.location.href = '/products';
+    });
 };
 
 const hide_show_elements = () => {
