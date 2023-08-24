@@ -1,4 +1,4 @@
-const { Product } = require("./schemas");
+const { Product } = require('./schemas');
 
 async function _addProduct(name, description, category_id, platform_id, vendor_id, stock, image, price, changed_by) {
     try {
@@ -18,11 +18,11 @@ async function _addProduct(name, description, category_id, platform_id, vendor_i
                 }
             ]
         });
-        // console.log(newProduct);
+
         const savedProduct = await newProduct.save();
         return savedProduct;
     } catch (error) {
-        console.log("Couldn't add product: ", error);
+        console.error("Couldn't add product: ", error);
         throw error;
     }
 }
@@ -42,9 +42,18 @@ async function _findAndDeleteById(id) {
     return query;
 }
 
+async function _updateProductStock(productId, quantity) {
+    const product = await Product.findById(productId);
+    if (product) {
+        product.stock -= quantity;
+        await product.save();
+    }
+}
+
 module.exports = {
     getProduct: _getProduct,
     getProducts: _getProducts,
     addProduct: _addProduct,
-    findAndDeleteById: _findAndDeleteById
+    findAndDeleteById: _findAndDeleteById,
+    updateProductStock: _updateProductStock
 };

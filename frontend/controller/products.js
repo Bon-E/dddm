@@ -1,19 +1,34 @@
 $(document).ready(function () {
     initPage().then(() => {
         routePages();
+
+        populatePlatformsSelection();
+        populateCategoriesSelection();
+        populateVendorsSelection();
     });
 
     $(document).on('input', '#search', function () {
-        const searchTerm = $(this).val().trim();
-        performSearch(searchTerm);
+        performSearch();
     });
 
-    function performSearch(query) {
-        $.get('/get_products') // Assuming this is your route to fetch all products
+    $('select').on('change', () => {
+        performSearch();
+    });
+
+    $('#clear').on('click', () => {
+        $('.mySelect').prop('selectedIndex', 0);
+        $('#search').val('');
+        performSearch();
+    });
+
+    function performSearch() {
+        var query = $('#search').val().trim();
+        $.get('/get_products')
             .done((products) => {
-                const filteredProducts = filterProducts(products, query);
+                var filteredProducts = filterProducts(products, query);
+                var filteredProducts2 = filterBySelections(filteredProducts);
                 clearProductCards();
-                populateProductCards(filteredProducts);
+                populateProductCards(filteredProducts2);
             })
             .fail((error) => {
                 console.error('Error fetching product data:', error);
@@ -23,6 +38,36 @@ $(document).ready(function () {
     function filterProducts(products, query) {
         return products.filter((product) => {
             return product.name.toLowerCase().includes(query.toLowerCase());
+        });
+    }
+
+    function populateCategoriesSelection() {
+        let model = Model.getInstance();
+        $.each(model.getCategories(), (index, item) => {
+            let option1 = $('<option>', { value: item._id, text: item.name });
+            let option2 = $('<option>', { value: item._id, text: item.name });
+            $('#category').append(option1);
+            $('#editCategory').append(option2);
+        });
+    }
+
+    function populateVendorsSelection() {
+        let model = Model.getInstance();
+        $.each(model.getVendors(), (index, item) => {
+            let option1 = $('<option>', { value: item._id, text: item.name });
+            let option2 = $('<option>', { value: item._id, text: item.name });
+            $('#vendor').append(option1);
+            $('#editVendor').append(option2);
+        });
+    }
+
+    function populatePlatformsSelection() {
+        let model = Model.getInstance();
+        $.each(model.getPlatforms(), (index, item) => {
+            let option1 = $('<option>', { value: item._id, text: item.name });
+            let option2 = $('<option>', { value: item._id, text: item.name });
+            $('#platform').append(option1);
+            $('#editPlatform').append(option2);
         });
     }
 
@@ -54,7 +99,7 @@ $(document).ready(function () {
 $(document).on('click', '.add-to-cart-btn', function () {
     let model = Model.getInstance();
     const found = model.getProducts().find((element) => element._id == $(this).attr('id'));
-    console.log('adin is the best', found);
+
     const Product = {
         id: $(this).attr('id'),
         quantity: 1,
@@ -63,7 +108,6 @@ $(document).on('click', '.add-to-cart-btn', function () {
     };
     addToCart(Product);
     alert('Product added to cart!');
-    //updateCartCount();
 });
 
 $.get('/get_products')
@@ -114,6 +158,25 @@ function populateProductCards(products) {
 function addToCart(product) {
     let model = Model.getInstance();
     model.AddToCart(product);
-    console.log(model.GetCart());
     model.saveData();
+}
+
+function filterBySelections(products) {
+    const category = $('#category').val();
+    const vendor = $('#vendor').val();
+    const platform = $('#platform').val();
+
+    return products.filter((product) => {
+        var ok = true;
+        if (category != null) {
+            ok = product.category_id != category ? false : ok;
+        }
+        if (vendor != null) {
+            ok = product.vendor_id != vendor ? false : ok;
+        }
+        if (platform != null) {
+            ok = product.platfom_id != platform ? false : ok;
+        }
+        return ok;
+    });
 }
