@@ -62,7 +62,6 @@ $(document).ready(function () {
 
             $('#vendorTable').on('click', '.editButton', function () {
                 let row = $(this).closest('tr');
-                console.log(row);
                 let name = row.find('.name').text();
                 let site = row.find('.site').text();
                 let vendorID = $(this).data('vendorid');
@@ -72,12 +71,10 @@ $(document).ready(function () {
                 $('#editName').val(name);
                 $('#editSite').val(site);
 
-                console.log(vendorID);
 
                 modal.show();
                 function onClickCallBack() {
                     let editedRow = row;
-                    console.log(editedRow);
                     let newName = $('#editName').val();
                     let newSite = $('#editSite').val();
                 
@@ -122,7 +119,7 @@ $(document).ready(function () {
                     type: 'DELETE',
                     data: vendorID,
                     success: function (response) {
-                        //console.log('Vendor deleted successfully:', response);
+                        console.log('Vendor deleted successfully:', response);
                     },
                     error: function (error) {
                         console.error('Error deleting vendor:', error);
