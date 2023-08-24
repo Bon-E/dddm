@@ -3,6 +3,27 @@ $(document).ready(function () {
         routePages();
         printCart();
     });
+    $('#creditcard').on('input', function () {
+        if ($(this).val().length > 16) {
+            $(this).val($(this).val().slice(0, 16));
+        }
+    });
+    $('#CVV').on('input', function () {
+        if ($(this).val().length >3) {
+            $(this).val($(this).val().slice(0, 3));
+        }
+    });
+    $(document).on('input', '.cart-quantity-input', function () {
+        const inputValue = $(this).val();
+        const newQuantity = parseInt(inputValue) || 0;
+
+        if (newQuantity >= 0) {
+            $(this).val(newQuantity); 
+            $(this).data('temp-quantity', newQuantity); 
+        } else {
+            $(this).val($(this).data('temp-quantity') || 0);
+        }
+    });
 
     $(document).on('click', '.delete-button', function () {
         const cartId = $(this).closest('tr').data('cart-id');
@@ -21,7 +42,7 @@ $(document).ready(function () {
     });
 
     $('#submitPopup').click(function (event) {
-        // Remove the product from the cart
+      
         event.preventDefault();
         let model = Model.getInstance();
         const cartData = model.GetCart();
@@ -38,10 +59,12 @@ $(document).ready(function () {
                 $('.overlay').css('display', 'none');
             })
             .fail(() => {
-                alert('failed to create order');
+                alert('failed to create order'); 
             });
     });
 });
+
+
 function updateCartItemPrice(productId, newQuantity) {
     let model = Model.getInstance();
     let cartItems = model.GetCart();
