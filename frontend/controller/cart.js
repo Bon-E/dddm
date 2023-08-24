@@ -38,7 +38,7 @@ $(document).ready(function () {
                 $('.overlay').css('display', 'none');
             })
             .fail(() => {
-                console.log('fail');
+                alert('failed to create order');
             });
     });
 });
@@ -53,7 +53,6 @@ function updateCartItemPrice(productId, newQuantity) {
         calculateTotalPrice(cartItems);
         model.saveData();
     }
-    console.log('help', model.GetCart());
 }
 function deleteCartItem(cartId) {
     let model = Model.getInstance();

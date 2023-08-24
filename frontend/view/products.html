@@ -35,8 +35,20 @@
                 <div>
                     <form id="search-form" class="d-flex ms-auto" action="#">
                         <input id="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                        <button id="clear" class="btn-btn">Clear</button>
                     </form>
                     <div id="imageContainer">
+                        <div id="filter-sections" class="d-flex justify-content-end mb-3">
+                            <select class="form-select mySelect" id="category" name="category" required>
+                                <option selected disabled>Select a category</option>
+                            </select>
+                            <select class="form-select mySelect" id="vendor" name="vendor" required>
+                                <option selected disabled>Select a vendor</option>
+                            </select>
+                            <select class="form-select mySelect" id="platform" name="platform" required>
+                                <option selected disabled>Select a platform</option>
+                            </select>
+                        </div>
                         <div id="filter-buttons" class="d-flex justify-content-end mb-3">
                             <button id="btn-cheapest" class="btn-btn">Price: low to high</button>
                             <button id="btn-expensive" class="btn-btn">Price: high to low</button>

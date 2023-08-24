@@ -1,8 +1,8 @@
 const express = require('express');
 const db_product = require('../db/db_product');
+const db_order = require('../db/db_orders');
 const { ObjectId } = require('mongodb');
 const utils = require('../util');
-const util = require('../util');
 
 const router = express.Router();
 
@@ -10,8 +10,6 @@ router.post('/create_product', (req, res) => {
     session = req.session;
 
     const { name, description, price, stock, category, vendor, platform } = req.body;
-
-    console.log('create product: ', req.files);
 
     // Save image
     const { image } = req.files;
@@ -31,13 +29,16 @@ router.post('/create_product', (req, res) => {
             res.status(400).send("Couldn't add product");
         });
 });
-router.get("/getProductByName", (req,res) =>{
-   db_product.getProducts({"name":{$regex:'.*'+req.body.name+ '.*'} }).then((products)=>{
-   res.send(products)
-   }).catch((error)=>{
-    console.log(error)
-   })
-})
+router.get('/getProductByName', (req, res) => {
+    db_product
+        .getProducts({ name: { $regex: '.*' + req.body.name + '.*' } })
+        .then((products) => {
+            res.send(products);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+});
 
 router.get('/get_products', (req, res) => {
     db_product.getProducts().then((q) => {
@@ -46,16 +47,12 @@ router.get('/get_products', (req, res) => {
 });
 
 router.put('/update_product', (req, res) => {
-    console.log('\n----------- update product -----------\n');
-    console.log('body: \n', req.body);
-    console.log('img: \n', req.files);
-
     var image;
 
     if (req.files) {
         const { editImage } = req.files;
         image = editImage;
-        console.log('help meeee', image);
+
         image.mv(__dirname + '/../upload/' + image.name);
     }
 
@@ -86,10 +83,21 @@ router.put('/update_product', (req, res) => {
 });
 
 router.delete('/delete_product', (req, res) => {
-    db_product
-        .findAndDeleteById(req.body.productId)
-        .then(() => {
-            res.status(200).send();
+    db_order
+        .getOrdersByProductId(req.body.productId)
+        .then((orders) => {
+            if (orders && orders.length > 0) {
+                res.status(400).send('Cannot delete product, found orders cointaining it');
+            } else {
+                db_product
+                    .findAndDeleteById(req.body.productId)
+                    .then(() => {
+                        res.status(200).send();
+                    })
+                    .catch((err) => {
+                        res.status(400).send(err);
+                    });
+            }
         })
         .catch((err) => {
             res.status(400).send(err);
