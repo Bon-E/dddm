@@ -15,12 +15,10 @@ async function loadChart() {
         };
     });
 
-    // Set up the pie chart dimensions
-    var width = 400;
-    var height = 400;
+    var width = 600;
+    var height = 600;
     var radius = Math.min(width, height) / 2;
 
-    // Create an SVG element within the container
     var svg = d3
         .select('#pieChart')
         .append('svg')
@@ -29,25 +27,20 @@ async function loadChart() {
         .append('g')
         .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
-    // Generate the pie layout
     var pie = d3.pie().value(function (d) {
         return d.value;
     });
 
-    // Generate arc shapes based on the pie layout
     var arc = d3.arc().innerRadius(0).outerRadius(radius);
 
-    // Create the pie chart segments
     var arcs = svg.selectAll('arc').data(pie(sales)).enter().append('g');
 
-    // Append path elements for each segment
     arcs.append('path')
         .attr('d', arc)
         .attr('fill', function (d, i) {
-            return ['#FF6384', '#36A2EB', '#FFCE56'][i];
+            return getRandomColor();
         });
 
-    // Append text labels
     arcs.append('text')
         .attr('transform', function (d) {
             return 'translate(' + arc.centroid(d) + ')';
@@ -57,4 +50,13 @@ async function loadChart() {
         .text(function (d) {
             return d.data.label + '\n' + d.data.value;
         });
+}
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
 }
