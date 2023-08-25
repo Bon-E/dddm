@@ -44,7 +44,7 @@ const handle_register = (event) => {
             type: 'PUT',
             data: formData,
             success: function (res) {
-                alert('successfullessness');
+                alert('successfully updated');
             }
         });
     } else {

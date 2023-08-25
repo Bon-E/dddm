@@ -67,7 +67,7 @@ router.get('/products', (req, res) => {
 });
 
 router.get('/cart', (req, res) => {
-    if (utils.isLogged(req.session.user)) {
+    if (req.session.user != null && req.session.user != undefined) {
         res.sendFile(views_dir + 'cart.html');
     } else {
         res.redirect('/');
@@ -75,7 +75,7 @@ router.get('/cart', (req, res) => {
 });
 
 router.get('/edit_details', (req, res) => {
-    if (utils.isLogged(req.session.user)) {
+    if (req.session.user != null && req.session.user != undefined) {
         res.sendFile(views_dir + 'edit_self_details.html');
     } else {
         res.redirect('/');
@@ -93,7 +93,7 @@ router.get('/maintainOrdersBtn', (req, res) => {
 });
 
 router.get('/myOrders', (req, res) => {
-    if (utils.isLogged(req.session.user)) {
+    if (req.session.user != null && req.session.user != undefined) {
         res.sendFile(views_dir + 'my_orders.html');
     } else {
         res.redirect('/');
