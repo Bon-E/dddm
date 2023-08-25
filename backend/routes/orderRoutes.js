@@ -22,6 +22,7 @@ router.post('/create_order', (req, res) => {
             ok = false;
             res.status(400).send('Cannot create order, low stock');
         });
+        if (!ok) break;
     }
     if (ok) {
         db_orders
