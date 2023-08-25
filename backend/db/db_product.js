@@ -50,10 +50,25 @@ async function _updateProductStock(productId, quantity) {
     }
 }
 
+async function _updateProductStockMass(items) {
+    let ok = true;
+
+    for (const item of items) {
+        try {
+            await _updateProductStock(item.product_id, item.quantity);
+        } catch {
+            ok = false;
+            break;
+        }
+    }
+    return ok;
+}
+
 module.exports = {
     getProduct: _getProduct,
     getProducts: _getProducts,
     addProduct: _addProduct,
     findAndDeleteById: _findAndDeleteById,
-    updateProductStock: _updateProductStock
+    updateProductStock: _updateProductStock,
+    updateProductStockMass: _updateProductStockMass
 };
