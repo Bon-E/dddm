@@ -16,24 +16,23 @@ router.post('/create_order', (req, res) => {
             price_for_order: parseFloat(element.price)
         });
     });
-
+    var ok = true;
     for (const item of orderItems) {
-        db_product
-            .updateProductStock(item.product_id, item.quantity)
-            .then(() => {
-                db_orders
-                    .createOrder(req.session.user._id, totalPrice, orderItems)
-                    .then(() => {
-                        res.status(200).send();
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                        res.status(400).send();
-                    });
-            })
-            .catch(() => {
-                res.status(400).send('Cannot create order, low stock');
-            });
+        db_product.updateProductStock(item.product_id, item.quantity).catch(() => {
+            ok = false;
+            res.status(400).send('Cannot create order, low stock');
+        });
+        if (ok) {
+            db_orders
+                .createOrder(req.session.user._id, totalPrice, orderItems)
+                .then(() => {
+                    res.status(200).send();
+                })
+                .catch((error) => {
+                    console.error(error);
+                    res.status(400).send();
+                });
+        }
     }
 });
 
