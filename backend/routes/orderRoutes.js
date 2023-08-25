@@ -22,17 +22,17 @@ router.post('/create_order', (req, res) => {
             ok = false;
             res.status(400).send('Cannot create order, low stock');
         });
-        if (ok) {
-            db_orders
-                .createOrder(req.session.user._id, totalPrice, orderItems)
-                .then(() => {
-                    res.status(200).send();
-                })
-                .catch((error) => {
-                    console.error(error);
-                    res.status(400).send();
-                });
-        }
+    }
+    if (ok) {
+        db_orders
+            .createOrder(req.session.user._id, totalPrice, orderItems)
+            .then(() => {
+                res.status(200).send();
+            })
+            .catch((error) => {
+                console.error(error);
+                res.status(400).send();
+            });
     }
 });
 
