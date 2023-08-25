@@ -37,3 +37,6 @@ header {
 .card:hover .card-text {
     max-width: none;
 }
+#searchButton{
+    margin-top: 10px;
+}
