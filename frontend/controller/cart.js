@@ -9,7 +9,7 @@ $(document).ready(function () {
         }
     });
     $('#CVV').on('input', function () {
-        if ($(this).val().length >3) {
+        if ($(this).val().length > 3) {
             $(this).val($(this).val().slice(0, 3));
         }
     });
@@ -18,8 +18,8 @@ $(document).ready(function () {
         const newQuantity = parseInt(inputValue) || 0;
 
         if (newQuantity >= 0) {
-            $(this).val(newQuantity); 
-            $(this).data('temp-quantity', newQuantity); 
+            $(this).val(newQuantity);
+            $(this).data('temp-quantity', newQuantity);
         } else {
             $(this).val($(this).data('temp-quantity') || 0);
         }
@@ -42,7 +42,6 @@ $(document).ready(function () {
     });
 
     $('#submitPopup').click(function (event) {
-      
         event.preventDefault();
         let model = Model.getInstance();
         const cartData = model.GetCart();
@@ -58,12 +57,11 @@ $(document).ready(function () {
                 $('#popup').css('display', 'none');
                 $('.overlay').css('display', 'none');
             })
-            .fail(() => {
-                alert('failed to create order'); 
+            .fail((error) => {
+                alert(error.responseText ? error.responseText : "Couldn'nt create order");
             });
     });
 });
-
 
 function updateCartItemPrice(productId, newQuantity) {
     let model = Model.getInstance();

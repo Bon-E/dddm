@@ -7,6 +7,7 @@ const router = express.Router();
 router.post('/create_order', (req, res) => {
     let orderItems = [];
     let totalPrice = 0;
+
     req.body.cartData.forEach((element) => {
         totalPrice = totalPrice + parseInt(element.quantity) * parseFloat(element.price);
         orderItems.push({
@@ -15,18 +16,25 @@ router.post('/create_order', (req, res) => {
             price_for_order: parseFloat(element.price)
         });
     });
-    db_orders
-        .createOrder(req.session.user._id, totalPrice, orderItems)
-        .then(() => {
-            for (const item of orderItems) {
-                db_product.updateProductStock(item.product_id, item.quantity);
-            }
-            res.status(200).send();
-        })
-        .catch((error) => {
-            console.error(error);
-            res.status(400).send();
-        });
+
+    for (const item of orderItems) {
+        db_product
+            .updateProductStock(item.product_id, item.quantity)
+            .then(() => {
+                db_orders
+                    .createOrder(req.session.user._id, totalPrice, orderItems)
+                    .then(() => {
+                        res.status(200).send();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        res.status(400).send();
+                    });
+            })
+            .catch(() => {
+                res.status(400).send('Cannot create order, low stock');
+            });
+    }
 });
 
 router.get('/get_orders', (req, res) => {
